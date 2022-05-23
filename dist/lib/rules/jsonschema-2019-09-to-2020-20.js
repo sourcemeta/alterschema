@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.itemsToPrefixItems = void 0;
+exports.RULES = exports.itemsToPrefixItems = void 0;
 var jsonschema_1 = require("../jsonschema");
 var assert_1 = require("assert");
 exports.itemsToPrefixItems = {
@@ -17,3 +17,4 @@ exports.itemsToPrefixItems = {
         return Object.assign(value, { prefixItems: items });
     }
 };
+exports.RULES = [exports.itemsToPrefixItems];

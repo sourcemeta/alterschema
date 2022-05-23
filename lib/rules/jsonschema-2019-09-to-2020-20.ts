@@ -28,3 +28,5 @@ export const itemsToPrefixItems: Rule = {
     return Object.assign(value, { prefixItems: items })
   }
 }
+
+export const RULES: Rule[] = [ itemsToPrefixItems ]
