@@ -9,10 +9,13 @@ import {
 } from '../lib/transformer'
 
 tap.test('transform a value given no rules', (test) => {
-  const result = transformSchema({
-    foo: 'bar'
-  }, [])
+  const root = {
+    x: {
+      foo: 'bar'
+    }
+  }
 
+  const result = transformSchema(root.x, root, [])
   test.strictSame(result, {
     foo: 'bar'
   })
@@ -21,11 +24,15 @@ tap.test('transform a value given no rules', (test) => {
 })
 
 tap.test('transform a value given one rule', (test) => {
-  const result = transformSchema({
-    foo: 'bar'
-  }, [
+  const root = {
+    x: {
+      foo: 'bar'
+    }
+  }
+
+  const result = transformSchema(root.x, root, [
     {
-      condition: (value) => {
+      condition: (value, _root) => {
         return typeof value === 'object' &&
           !Array.isArray(value) &&
           value !== null &&
@@ -48,12 +55,16 @@ tap.test('transform a value given one rule', (test) => {
 })
 
 tap.test('guard against condition modifications', (test) => {
-  const result = transformSchema({
-    foo: 'bar',
-    bar: 'baz'
-  }, [
+  const root = {
+    x: {
+      foo: 'bar',
+      bar: 'baz'
+    }
+  }
+
+  const result = transformSchema(root.x, root, [
     {
-      condition: (value) => {
+      condition: (value, _root) => {
         if (typeof value === 'object' &&
           !Array.isArray(value) &&
           value !== null &&
