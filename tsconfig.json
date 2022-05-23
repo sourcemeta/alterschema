@@ -1,0 +1,33 @@
+{
+  "compilerOptions": {
+    "removeComments": true,
+    "strict": true,
+    "strictBindCallApply": true,
+    "strictFunctionTypes": true,
+    "strictPropertyInitialization": true,
+    "strictNullChecks": true,
+    "noImplicitAny": true,
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true,
+    "resolveJsonModule": true,
+    "forceConsistentCasingInFileNames": true,
+    "esModuleInterop": true,
+    "alwaysStrict": true,
+    "downlevelIteration": true,
+    "moduleResolution": "node",
+    "allowJs": false,
+    "lib": [ "es2019" ],
+    "target": "es5",
+    "sourceMap": false,
+    "declaration": false,
+    "declarationMap": false,
+    "outDir": "./dist"
+  },
+  "include": [
+    "./lib/**/*.ts",
+    "./test/**/*.ts"
+  ]
+}
