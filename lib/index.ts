@@ -26,7 +26,7 @@ export const walkers = {
 
 export const alterSchema = (value: JSONValue, ruleset: Rule[], walker: Walker = WalkerJSONSchema2019_19): JSONValue => {
   walker(value, (input: JSONValue, _type: SchemaType): void => {
-    transformSchema(input, ruleset)
+    transformSchema(input, value, ruleset)
   })
 
   return value
