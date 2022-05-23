@@ -1,0 +1,43 @@
+{
+  "name": "alterschema",
+  "version": "0.0.1",
+  "description": "Convert between schema specifications",
+  "main": "lib/index.js",
+  "scripts": {
+    "tsc": "tsc",
+    "lint": "eslint lib test cli",
+    "test": "tap --reporter=classic --no-coverage --no-timeout 'test/**/*.spec.js'"
+  },
+  "keywords": [
+    "json",
+    "json-schema",
+    "jsonschema",
+    "openapi",
+    "convert",
+    "transform",
+    "version"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jviotti/alterschema.git"
+  },
+  "author": "Juan Cruz Viotti <jv@jviotti.com>",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/jviotti/alterschema/issues"
+  },
+  "devDependencies": {
+    "@types/node": "^15.6.1",
+    "@types/tap": "^14.10.2",
+    "@typescript-eslint/eslint-plugin": "^4.25.0",
+    "@typescript-eslint/parser": "^4.25.0",
+    "eslint": "^7.27.0",
+    "eslint-config-standard": "^16.0.3",
+    "eslint-plugin-import": "^2.23.3",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^5.1.0",
+    "eslint-plugin-standard": "^5.0.0",
+    "tap": "^14.11.0",
+    "typescript": "^4.2.4"
+  }
+}
