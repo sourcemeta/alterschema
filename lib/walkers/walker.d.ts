@@ -6,5 +6,9 @@ import {
   SchemaType
 } from '../schema'
 
-export type WalkerVisitor = (value: JSONValue, type: SchemaType) => void
-export type Walker = (value: JSONValue, callback: WalkerVisitor) => void
+export interface WalkerElement {
+  readonly type: SchemaType;
+  readonly path: string[];
+}
+
+export type Walker = (value: JSONValue) => WalkerElement[]
