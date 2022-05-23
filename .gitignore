@@ -111,3 +111,4 @@ _site
 # Other
 .tmp
 .DS_Store
+dist
