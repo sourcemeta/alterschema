@@ -15,7 +15,7 @@ tap.test('transform a value given no rules', (test) => {
     }
   }
 
-  const result = transformSchema(root.x, root, [])
+  const result = transformSchema(root, [ 'x' ], [])
   test.is(result.count, 0)
   test.strictSame(result.output, {
     foo: 'bar'
@@ -31,7 +31,7 @@ tap.test('transform a value given one matching rule', (test) => {
     }
   }
 
-  const result = transformSchema(root.x, root, [
+  const result = transformSchema(root, [ 'x' ], [
     {
       condition: (value, _root) => {
         return typeof value === 'object' &&
@@ -64,7 +64,7 @@ tap.test('guard against condition modifications', (test) => {
     }
   }
 
-  const result = transformSchema(root.x, root, [
+  const result = transformSchema(root, [ 'x' ], [
     {
       condition: (value, _root) => {
         if (typeof value === 'object' &&

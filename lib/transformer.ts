@@ -3,7 +3,13 @@ import {
 } from './rules/rule'
 
 import {
-  JSONValue
+  get,
+  set
+} from 'lodash'
+
+import {
+  JSONValue,
+  JSONObject
 } from './json'
 
 import {
@@ -19,7 +25,11 @@ export interface TransformResult {
   readonly output: JSONValue;
 }
 
-export const transformSchema = (value: JSONValue, root: JSONValue, ruleset: Rule[]): TransformResult => {
+export const transformSchema = (
+  root: JSONObject | JSONValue[],
+  path: string[],
+  ruleset: Rule[]
+): TransformResult => {
   const result = ruleset.reduce((accumulator, rule) => {
     // Guard against rules accidentally modifying the input document
     // Its easier than it sounds to make such mistake and JavaScript
@@ -38,7 +48,7 @@ export const transformSchema = (value: JSONValue, root: JSONValue, ruleset: Rule
     }
   }, {
     count: 0,
-    value
+    value: get(root, path)
   })
 
   // If at least one rule still matches the result,
@@ -48,7 +58,8 @@ export const transformSchema = (value: JSONValue, root: JSONValue, ruleset: Rule
   if (ruleset.some((rule) => {
     return rule.condition(cloneDeep(result), cloneDeep(root))
   })) {
-    const subresult: TransformResult = transformSchema(result, root, ruleset)
+    const newRoot = set(cloneDeep(root), path, result)
+    const subresult: TransformResult = transformSchema(newRoot, path, ruleset)
     return {
       count: result.count + subresult.count,
       output: subresult.output
