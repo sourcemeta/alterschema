@@ -31,6 +31,8 @@ export const transformSchema = (value: JSONValue, ruleset: Rule[]): JSONValue =>
 
   // If at least one rule still matches the result,
   // then we recurse, until no rule matches again.
+  // Conflicting rules that result in infinite
+  // cycles clearly result in stack overflows.
   if (ruleset.some((rule) => {
     return rule.condition(result)
   })) {
