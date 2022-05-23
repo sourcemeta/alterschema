@@ -16,14 +16,15 @@ tap.test('transform a value given no rules', (test) => {
   }
 
   const result = transformSchema(root.x, root, [])
-  test.strictSame(result, {
+  test.is(result.count, 0)
+  test.strictSame(result.output, {
     foo: 'bar'
   })
 
   test.end()
 })
 
-tap.test('transform a value given one rule', (test) => {
+tap.test('transform a value given one matching rule', (test) => {
   const root = {
     x: {
       foo: 'bar'
@@ -47,7 +48,8 @@ tap.test('transform a value given one rule', (test) => {
     }
   ])
 
-  test.strictSame(result, {
+  test.is(result.count, 1)
+  test.strictSame(result.output, {
     foo: 'baz'
   })
 
@@ -85,7 +87,8 @@ tap.test('guard against condition modifications', (test) => {
     }
   ])
 
-  test.strictSame(result, {
+  test.is(result.count, 1)
+  test.strictSame(result.output, {
     foo: 'baz',
     bar: 'baz'
   })
