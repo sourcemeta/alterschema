@@ -14,6 +14,8 @@ import {
   Rule
 } from './rule'
 
+// See https://json-schema.org/draft/2020-12/release-notes.html
+
 export const itemsToPrefixItems: Rule = {
   condition: (value: JSONValue): boolean => {
     return typeof value === 'object' && !Array.isArray(value) && value !== null &&
