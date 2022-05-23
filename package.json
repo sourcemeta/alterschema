@@ -6,7 +6,7 @@
   "scripts": {
     "tsc": "tsc",
     "lint": "eslint lib test cli",
-    "test": "tap --reporter=classic --no-coverage --no-timeout 'test/**/*.spec.js'"
+    "test": "tap --reporter=classic --no-coverage --no-timeout 'test/**/*.spec.ts'"
   },
   "keywords": [
     "json",
