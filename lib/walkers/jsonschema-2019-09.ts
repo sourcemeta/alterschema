@@ -15,17 +15,14 @@ import {
   usesVocabulary
 } from '../jsonschema'
 
-const visit = (path: string[]): WalkerElement => {
-  return {
-    type: 'jsonschema-2019-09',
-    path
-  }
-}
-
 const walk: Walker = (root: JSONValue, path: string[]): WalkerElement[] => {
   const result: WalkerElement[] = []
   // The top-level is always a schema
-  result.push(visit(path))
+  result.push({
+    type: 'jsonschema-2019-09',
+    path
+  })
+
   const value = path.length === 0 ? root : get(root, path)
 
   if (usesVocabulary(root, value, 'https://json-schema.org/draft/2019-09/vocab/core')) {
