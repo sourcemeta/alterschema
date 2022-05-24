@@ -50,6 +50,16 @@ export const handleArray = (walker: Walker, root: JSONValue, path: string[], voc
   })
 }
 
+export const handleValueOrArray = (walker: Walker, root: JSONValue, path: string[], vocabulary: string, keyword: string): WalkerElement[] => {
+  return genericHandle(root, path, vocabulary, keyword, (value): WalkerElement[] => {
+    if (Array.isArray(value)) {
+      return handleArray(walker, root, path, vocabulary, keyword)
+    } else {
+      return handleValue(walker, root, path, vocabulary, keyword)
+    }
+  })
+}
+
 export const handleObject = (walker: Walker, root: JSONValue, path: string[], vocabulary: string, keyword: string): WalkerElement[] => {
   return genericHandle(root, path, vocabulary, keyword, (value): WalkerElement[] => {
     assert(typeof value === 'object' && !Array.isArray(value) && value !== null)

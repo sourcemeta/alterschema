@@ -3,22 +3,15 @@ import {
 } from '../json'
 
 import {
-  get
-} from 'lodash'
-
-import {
   WalkerElement,
   Walker
 } from './walker'
 
 import {
-  usesVocabulary
-} from '../jsonschema'
-
-import {
   handleValue,
   handleObject,
-  handleArray
+  handleArray,
+  handleValueOrArray
 } from './utils'
 
 const walk: Walker = (root: JSONValue, path: string[]): WalkerElement[] => {
@@ -39,18 +32,7 @@ const walk: Walker = (root: JSONValue, path: string[]): WalkerElement[] => {
   result.push(...handleValue(walk, root, path, 'https://json-schema.org/draft/2019-09/vocab/applicator', 'then'))
   result.push(...handleValue(walk, root, path, 'https://json-schema.org/draft/2019-09/vocab/applicator', 'else'))
   result.push(...handleObject(walk, root, path, 'https://json-schema.org/draft/2019-09/vocab/applicator', 'dependentSchemas'))
-
-  const value = path.length === 0 ? root : get(root, path)
-  if (usesVocabulary(root, value, 'https://json-schema.org/draft/2019-09/vocab/applicator')) {
-    if ('items' in value) {
-      if (Array.isArray(value.items)) {
-        result.push(...handleArray(walk, root, path, 'https://json-schema.org/draft/2019-09/vocab/applicator', 'items'))
-      } else {
-        result.push(...handleValue(walk, root, path, 'https://json-schema.org/draft/2019-09/vocab/applicator', 'items'))
-      }
-    }
-  }
-
+  result.push(...handleValueOrArray(walk, root, path, 'https://json-schema.org/draft/2019-09/vocab/applicator', 'items'))
   result.push(...handleValue(walk, root, path, 'https://json-schema.org/draft/2019-09/vocab/applicator', 'additionalItems'))
   result.push(...handleValue(walk, root, path, 'https://json-schema.org/draft/2019-09/vocab/applicator', 'unevaluatedItems'))
   result.push(...handleValue(walk, root, path, 'https://json-schema.org/draft/2019-09/vocab/applicator', 'contains'))
