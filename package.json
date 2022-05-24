@@ -4,11 +4,9 @@
   "description": "Convert between schema specifications",
   "main": "lib/index.js",
   "scripts": {
-    "tsc": "tsc",
-    "lint": "eslint lib test cli",
-    "test": "tap --reporter=classic --no-coverage --no-timeout 'test/**/*.spec.ts'"
+    "test": "tap --reporter=classic --no-coverage --no-timeout 'test/**/*.spec.js'"
   },
-  "keywords": [
+  "ktywords": [
     "json",
     "json-schema",
     "jsonschema",
