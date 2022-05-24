@@ -28,85 +28,78 @@ const handle = (walker: Walker, root: JSONValue, path: string[], vocabulary: str
   return []
 }
 
+const handleArray = (walker: Walker, root: JSONValue, path: string[], vocabulary: string, keyword: string): WalkerElement[] => {
+  const value = path.length === 0 ? root : get(root, path)
+  if (typeof value !== 'object' || Array.isArray(value) || value === null) {
+    return []
+  }
+
+  if (usesVocabulary(root, value, vocabulary) && keyword in value) {
+    const result = []
+    for (const [ index, _item ] of value[keyword].entries()) {
+      result.push(...walker(root, path.concat([ keyword, index ])))
+    }
+    return result
+  }
+
+  return []
+}
+
+const handleObject = (walker: Walker, root: JSONValue, path: string[], vocabulary: string, keyword: string): WalkerElement[] => {
+  const value = path.length === 0 ? root : get(root, path)
+  if (typeof value !== 'object' || Array.isArray(value) || value === null) {
+    return []
+  }
+
+  if (usesVocabulary(root, value, vocabulary) && keyword in value) {
+    const result = []
+    for (const key of Object.keys(value[keyword])) {
+      result.push(...walker(root, path.concat([ keyword, key ])))
+    }
+    return result
+  }
+
+  return []
+}
+
 const walk: Walker = (root: JSONValue, path: string[]): WalkerElement[] => {
-  const result: WalkerElement[] = []
   // The top-level is always a schema
-  result.push({
-    type: 'jsonschema-2019-09',
-    path
-  })
+  const result: WalkerElement[] = [
+    {
+      type: 'jsonschema-2019-09',
+      path
+    }
+  ]
+
+  result.push(...handleObject(walk, root, path, 'https://json-schema.org/draft/2019-09/vocab/core', '$defs'))
+  result.push(...handleArray(walk, root, path, 'https://json-schema.org/draft/2019-09/vocab/applicator', 'allOf'))
+  result.push(...handleArray(walk, root, path, 'https://json-schema.org/draft/2019-09/vocab/applicator', 'anyOf'))
+  result.push(...handleArray(walk, root, path, 'https://json-schema.org/draft/2019-09/vocab/applicator', 'oneOf'))
+  result.push(...handle(walk, root, path, 'https://json-schema.org/draft/2019-09/vocab/applicator', 'not'))
+  result.push(...handle(walk, root, path, 'https://json-schema.org/draft/2019-09/vocab/applicator', 'if'))
+  result.push(...handle(walk, root, path, 'https://json-schema.org/draft/2019-09/vocab/applicator', 'then'))
+  result.push(...handle(walk, root, path, 'https://json-schema.org/draft/2019-09/vocab/applicator', 'else'))
+  result.push(...handleObject(walk, root, path, 'https://json-schema.org/draft/2019-09/vocab/applicator', 'dependentSchemas'))
 
   const value = path.length === 0 ? root : get(root, path)
-
-  if (usesVocabulary(root, value, 'https://json-schema.org/draft/2019-09/vocab/core')) {
-    if ('$defs' in value) {
-      for (const key of Object.keys(value.$defs)) {
-        result.push(...walk(root, path.concat([ '$defs', key ])))
-      }
-    }
-  }
-
   if (usesVocabulary(root, value, 'https://json-schema.org/draft/2019-09/vocab/applicator')) {
-    if ('allOf' in value) {
-      for (const [ index, _item ] of value.allOf.entries()) {
-        result.push(...walk(root, path.concat([ 'allOf', index ])))
-      }
-    }
-
-    if ('anyOf' in value) {
-      for (const [ index, _item ] of value.allOf.entries()) {
-        result.push(...walk(root, path.concat([ 'anyOf', index ])))
-      }
-    }
-
-    if ('oneOf' in value) {
-      for (const [ index, _item ] of value.allOf.entries()) {
-        result.push(...walk(root, path.concat([ 'oneOf', index ])))
-      }
-    }
-
-    result.push(...handle(walk, root, path, 'https://json-schema.org/draft/2019-09/vocab/applicator', 'not'))
-    result.push(...handle(walk, root, path, 'https://json-schema.org/draft/2019-09/vocab/applicator', 'if'))
-    result.push(...handle(walk, root, path, 'https://json-schema.org/draft/2019-09/vocab/applicator', 'then'))
-    result.push(...handle(walk, root, path, 'https://json-schema.org/draft/2019-09/vocab/applicator', 'else'))
-
-    if ('dependentSchemas' in value) {
-      for (const key of Object.keys(value.dependentSchemas)) {
-        result.push(...walk(root, path.concat([ 'dependentSchemas', key ])))
-      }
-    }
-
     if ('items' in value) {
       if (Array.isArray(value.items)) {
-        for (const [ index, _item ] of value.items.entries()) {
-          result.push(...walk(root, path.concat([ 'items', index ])))
-        }
+        result.push(...handleArray(walk, root, path, 'https://json-schema.org/draft/2019-09/vocab/applicator', 'items'))
       } else {
-        result.push(...walk(root, path.concat([ 'items' ])))
+        result.push(...handle(walk, root, path, 'https://json-schema.org/draft/2019-09/vocab/applicator', 'items'))
       }
     }
-
-    result.push(...handle(walk, root, path, 'https://json-schema.org/draft/2019-09/vocab/applicator', 'additionalItems'))
-    result.push(...handle(walk, root, path, 'https://json-schema.org/draft/2019-09/vocab/applicator', 'unevaluatedItems'))
-    result.push(...handle(walk, root, path, 'https://json-schema.org/draft/2019-09/vocab/applicator', 'contains'))
-
-    if ('properties' in value) {
-      for (const key of Object.keys(value.properties)) {
-        result.push(...walk(root, path.concat([ 'properties', key ])))
-      }
-    }
-
-    if ('patternProperties' in value) {
-      for (const key of Object.keys(value.patternProperties)) {
-        result.push(...walk(root, path.concat([ 'patternProperties', key ])))
-      }
-    }
-
-    result.push(...handle(walk, root, path, 'https://json-schema.org/draft/2019-09/vocab/applicator', 'additionalProperties'))
-    result.push(...handle(walk, root, path, 'https://json-schema.org/draft/2019-09/vocab/applicator', 'unevaluatedProperties'))
-    result.push(...handle(walk, root, path, 'https://json-schema.org/draft/2019-09/vocab/applicator', 'propertyNames'))
   }
 
+  result.push(...handle(walk, root, path, 'https://json-schema.org/draft/2019-09/vocab/applicator', 'additionalItems'))
+  result.push(...handle(walk, root, path, 'https://json-schema.org/draft/2019-09/vocab/applicator', 'unevaluatedItems'))
+  result.push(...handle(walk, root, path, 'https://json-schema.org/draft/2019-09/vocab/applicator', 'contains'))
+  result.push(...handleObject(walk, root, path, 'https://json-schema.org/draft/2019-09/vocab/applicator', 'properties'))
+  result.push(...handleObject(walk, root, path, 'https://json-schema.org/draft/2019-09/vocab/applicator', 'patternProperties'))
+  result.push(...handle(walk, root, path, 'https://json-schema.org/draft/2019-09/vocab/applicator', 'additionalProperties'))
+  result.push(...handle(walk, root, path, 'https://json-schema.org/draft/2019-09/vocab/applicator', 'unevaluatedProperties'))
+  result.push(...handle(walk, root, path, 'https://json-schema.org/draft/2019-09/vocab/applicator', 'propertyNames'))
   result.push(...handle(walk, root, path, 'https://json-schema.org/draft/2019-09/vocab/content', 'contentSchema'))
   return result
 }
