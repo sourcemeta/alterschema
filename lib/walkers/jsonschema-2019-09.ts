@@ -34,6 +34,46 @@ const walk: Walker = (root: JSONValue, path: string[]): WalkerElement[] => {
   }
 
   if (usesVocabulary(root, value, 'https://json-schema.org/draft/2019-09/vocab/applicator')) {
+    if ('allOf' in value) {
+      for (const [ index, _item ] of value.allOf.entries()) {
+        result.push(...walk(root, path.concat([ 'allOf', index ])))
+      }
+    }
+
+    if ('anyOf' in value) {
+      for (const [ index, _item ] of value.allOf.entries()) {
+        result.push(...walk(root, path.concat([ 'anyOf', index ])))
+      }
+    }
+
+    if ('oneOf' in value) {
+      for (const [ index, _item ] of value.allOf.entries()) {
+        result.push(...walk(root, path.concat([ 'oneOf', index ])))
+      }
+    }
+
+    if ('not' in value) {
+      result.push(...walk(root, path.concat([ 'not' ])))
+    }
+
+    if ('if' in value) {
+      result.push(...walk(root, path.concat([ 'if' ])))
+    }
+
+    if ('then' in value) {
+      result.push(...walk(root, path.concat([ 'then' ])))
+    }
+
+    if ('else' in value) {
+      result.push(...walk(root, path.concat([ 'else' ])))
+    }
+
+    if ('dependentSchemas' in value) {
+      for (const key of Object.keys(value.dependentSchemas)) {
+        result.push(...walk(root, path.concat([ 'dependentSchemas', key ])))
+      }
+    }
+
     if ('items' in value) {
       if (Array.isArray(value.items)) {
         for (const [ index, _item ] of value.items.entries()) {
@@ -44,14 +84,40 @@ const walk: Walker = (root: JSONValue, path: string[]): WalkerElement[] => {
       }
     }
 
+    if ('additionalItems' in value) {
+      result.push(...walk(root, path.concat([ 'additionalItems' ])))
+    }
+
+    if ('unevaluatedItems' in value) {
+      result.push(...walk(root, path.concat([ 'unevaluatedItems' ])))
+    }
+
+    if ('contains' in value) {
+      result.push(...walk(root, path.concat([ 'contains' ])))
+    }
+
     if ('properties' in value) {
       for (const key of Object.keys(value.properties)) {
         result.push(...walk(root, path.concat([ 'properties', key ])))
       }
     }
 
+    if ('patternProperties' in value) {
+      for (const key of Object.keys(value.patternProperties)) {
+        result.push(...walk(root, path.concat([ 'patternProperties', key ])))
+      }
+    }
+
     if ('additionalProperties' in value) {
       result.push(...walk(root, path.concat([ 'additionalProperties' ])))
+    }
+
+    if ('unevaluatedProperties' in value) {
+      result.push(...walk(root, path.concat([ 'unevaluatedProperties' ])))
+    }
+
+    if ('propertyNames' in value) {
+      result.push(...walk(root, path.concat([ 'propertyNames' ])))
     }
   }
 
