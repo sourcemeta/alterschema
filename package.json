@@ -4,7 +4,7 @@
   "description": "Convert between schema specifications",
   "main": "lib/index.js",
   "scripts": {
-    "test": "tap --reporter=classic --no-coverage --no-timeout 'test/**/*.spec.js'"
+    "test": "tap --reporter=list --no-coverage --no-timeout 'test/**/*.spec.js'"
   },
   "ktywords": [
     "json",
