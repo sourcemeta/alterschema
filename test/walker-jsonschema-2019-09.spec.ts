@@ -81,6 +81,26 @@ tap.test('draft-handrews-json-schema-validation-02 (8.6) example 3', (test) => {
     {
       type: 'jsonschema-2019-09',
       path: []
+    },
+    {
+      type: 'jsonschema-2019-09',
+      path: [ 'contentSchema' ]
+    },
+    {
+      type: 'jsonschema-2019-09',
+      path: [ 'contentSchema', 'items', 0 ]
+    },
+    {
+      type: 'jsonschema-2019-09',
+      path: [ 'contentSchema', 'items', 1 ]
+    },
+    {
+      type: 'jsonschema-2019-09',
+      path: [ 'contentSchema', 'items', 1, 'properties', 'iss' ]
+    },
+    {
+      type: 'jsonschema-2019-09',
+      path: [ 'contentSchema', 'items', 1, 'properties', 'exp' ]
     }
   ])
 

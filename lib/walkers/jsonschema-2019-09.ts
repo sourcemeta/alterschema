@@ -38,11 +38,29 @@ const walk: Walker = (root: JSONValue, path: string[]): WalkerElement[] => {
 
   if (usesVocabulary(root, value, 'https://json-schema.org/draft/2019-09/vocab/applicator')) {
     if ('items' in value) {
-      result.push(...walk(root, path.concat([ 'items' ])))
+      if (Array.isArray(value.items)) {
+        for (const [ index, _item ] of value.items.entries()) {
+          result.push(...walk(root, path.concat([ 'items', index ])))
+        }
+      } else {
+        result.push(...walk(root, path.concat([ 'items' ])))
+      }
+    }
+
+    if ('properties' in value) {
+      for (const key of Object.keys(value.properties)) {
+        result.push(...walk(root, path.concat([ 'properties', key ])))
+      }
     }
 
     if ('additionalProperties' in value) {
       result.push(...walk(root, path.concat([ 'additionalProperties' ])))
+    }
+  }
+
+  if (usesVocabulary(root, value, 'https://json-schema.org/draft/2019-09/vocab/content')) {
+    if ('contentSchema' in value) {
+      result.push(...walk(root, path.concat([ 'contentSchema' ])))
     }
   }
 
