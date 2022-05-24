@@ -1,6 +1,32 @@
 import tap from 'tap'
 import walker from '../lib/walkers/jsonschema-2019-09'
 
+tap.test('boolean true', (test) => {
+  const result = walker(true, [])
+
+  test.strictSame(result, [
+    {
+      type: 'jsonschema-2019-09',
+      path: []
+    }
+  ])
+
+  test.end()
+})
+
+tap.test('boolean false', (test) => {
+  const result = walker(false, [])
+
+  test.strictSame(result, [
+    {
+      type: 'jsonschema-2019-09',
+      path: []
+    }
+  ])
+
+  test.end()
+})
+
 tap.test('draft-handrews-json-schema-validation-02 (8.2.4.6)', (test) => {
   const result = walker({
     $id: 'https://example.net/root.json',
