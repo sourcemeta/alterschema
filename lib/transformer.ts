@@ -25,54 +25,36 @@ export interface TransformResult {
 }
 
 export const transformSchema = (root: JSONValue, path: string[], ruleset: Rule[]): TransformResult => {
-  const result = ruleset.reduce((accumulator, rule) => {
+  const value = get(root, path)
+  for (const rule of ruleset) {
     // Guard against rules accidentally modifying the input document
     // Its easier than it sounds to make such mistake and JavaScript
     // does not provide true "const" semantics.
 
-    if (!rule.condition(cloneDeep(accumulator.value), cloneDeep(root))) {
-      return accumulator
-    }
+    if (rule.condition(cloneDeep(value), cloneDeep(root))) {
+      const output = rule.transform(cloneDeep(value))
+      assert(!rule.condition(cloneDeep(output), cloneDeep(root)),
+        'Rule condition must not match after transform')
 
-    const output = rule.transform(cloneDeep(accumulator.value))
-    assert(!rule.condition(cloneDeep(output), cloneDeep(root)),
-      'Rule condition must not match after transform')
-    return {
-      count: accumulator.count + 1,
-      value: output
-    }
-  }, {
-    count: 0,
-    value: get(root, path)
-  })
-
-  // If at least one rule still matches the result,
-  // then we recurse, until no rule matches again.
-  // Conflicting rules that result in infinite
-  // cycles clearly result in stack overflows.
-  if (ruleset.some((rule) => {
-    return rule.condition(cloneDeep(result), cloneDeep(root))
-  })) {
-    if (path.length === 0) {
-      const subresult: TransformResult = transformSchema(result.value, path, ruleset)
-      return {
-        count: result.count + subresult.count,
-        output: subresult.output
+      if (path.length === 0) {
+        const subprocess = transformSchema(output, path, ruleset)
+        return {
+          count: 1 + subprocess.count,
+          output: subprocess.output
+        }
+      } else {
+        assert((typeof root === 'object' && !Array.isArray(root) && root !== null) || Array.isArray(root))
+        const subprocess = transformSchema(set(cloneDeep(root), path, output), path, ruleset)
+        return {
+          count: 1 + subprocess.count,
+          output: subprocess.output
+        }
       }
-    }
-
-    assert((typeof root === 'object' && !Array.isArray(root) && root !== null) ||
-      Array.isArray(root))
-    const newRoot = set(cloneDeep(root), path, result.value)
-    const subresult: TransformResult = transformSchema(newRoot, path, ruleset)
-    return {
-      count: result.count + subresult.count,
-      output: subresult.output
     }
   }
 
   return {
-    count: result.count,
-    output: result.value
+    count: 0,
+    output: value
   }
 }
