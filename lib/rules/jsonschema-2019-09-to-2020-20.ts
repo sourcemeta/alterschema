@@ -19,8 +19,7 @@ import {
 export const itemsToPrefixItems: Rule = {
   condition: (value: JSONValue, root: JSONValue): boolean => {
     return typeof value === 'object' && !Array.isArray(value) && value !== null &&
-      (usesVocabulary(value, '2019-09', 'https://json-schema.org/draft/2019-09/vocab/validation') ||
-      usesVocabulary(root, '2019-09', 'https://json-schema.org/draft/2019-09/vocab/validation')) &&
+      usesVocabulary(root, value, 'https://json-schema.org/draft/2019-09/vocab/validation') &&
       'items' in value &&
       Array.isArray(value.items)
   },

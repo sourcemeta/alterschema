@@ -11,4 +11,4 @@ export interface WalkerElement {
   readonly path: string[];
 }
 
-export type Walker = (value: JSONValue) => WalkerElement[]
+export type Walker = (value: JSONValue, path: string[]) => WalkerElement[]
