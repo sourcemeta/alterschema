@@ -1,5 +1,5 @@
 const tap = require('tap')
-const transformSchema = require('../lib/transformer')
+const transformer = require('../lib/transformer')
 
 tap.test('transform a value given no rules', (test) => {
   const root = {
@@ -8,7 +8,7 @@ tap.test('transform a value given no rules', (test) => {
     }
   }
 
-  const result = transformSchema(root, [ 'x' ], [])
+  const result = transformer(root, [ 'x' ], [])
   test.is(result.count, 0)
   test.strictSame(result.output, {
     foo: 'bar'
@@ -24,13 +24,10 @@ tap.test('transform a value given one matching rule', (test) => {
     }
   }
 
-  const result = transformSchema(root, [ 'x' ], [
+  const result = transformer(root, [ 'x' ], [
     {
       condition: (value, _root) => {
-        return typeof value === 'object' &&
-          !Array.isArray(value) &&
-          value !== null &&
-          value.foo === 'bar'
+        return value.foo === 'bar'
       },
       transform: (value) => {
         return Object.assign(value, {
@@ -56,13 +53,10 @@ tap.test('guard against condition modifications', (test) => {
     }
   }
 
-  const result = transformSchema(root, [ 'x' ], [
+  const result = transformer(root, [ 'x' ], [
     {
       condition: (value, _root) => {
-        if (typeof value === 'object' &&
-          !Array.isArray(value) &&
-          value !== null &&
-          value.foo === 'bar') {
+        if (value.foo === 'bar') {
           // This should take no effect!
           Reflect.deleteProperty(value, 'bar')
           return true
