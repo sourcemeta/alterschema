@@ -1,12 +1,5 @@
-import tap from 'tap'
-
-import {
-  strict as assert
-} from 'assert'
-
-import {
-  transformSchema
-} from '../lib/transformer'
+const tap = require('tap')
+const transformSchema = require('../lib/transformer')
 
 tap.test('transform a value given no rules', (test) => {
   const root = {
@@ -40,7 +33,6 @@ tap.test('transform a value given one matching rule', (test) => {
           value.foo === 'bar'
       },
       transform: (value) => {
-        assert(typeof value === 'object' && !Array.isArray(value) && value !== null)
         return Object.assign(value, {
           foo: 'baz'
         })
@@ -79,7 +71,6 @@ tap.test('guard against condition modifications', (test) => {
         return false
       },
       transform: (value) => {
-        assert(typeof value === 'object' && !Array.isArray(value) && value !== null)
         return Object.assign(value, {
           foo: 'baz'
         })

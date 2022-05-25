@@ -1,34 +1,17 @@
-import {
-  JSONValue
-} from '../json'
-
-import {
-  usesVocabulary
-} from '../jsonschema'
-
-import {
-  strict as assert
-} from 'assert'
-
-import {
-  Rule
-} from './rule'
+const jsonschema = require('../jsonschema')
 
 // See https://json-schema.org/draft/2020-12/release-notes.html
 
-export const itemsToPrefixItems: Rule = {
-  condition: (value: JSONValue, root: JSONValue): boolean => {
-    return typeof value === 'object' && !Array.isArray(value) && value !== null &&
-      usesVocabulary(root, value, 'https://json-schema.org/draft/2019-09/vocab/validation') &&
-      'items' in value &&
+exports.itemsToPrefixItems = {
+  condition: (value, root) => {
+    return jsonschema.usesVocabulary(root, value, 'https://json-schema.org/draft/2019-09/vocab/validation') &&
       Array.isArray(value.items)
   },
-  transform: (value: JSONValue): JSONValue => {
-    assert(typeof value === 'object' && !Array.isArray(value) && value !== null)
+  transform: (value) => {
     const items = value.items
     Reflect.deleteProperty(value, 'items')
     return Object.assign(value, { prefixItems: items })
   }
 }
 
-export const RULES: Rule[] = [ itemsToPrefixItems ]
+exports.RULES = [ 'itemsToPrefixItems' ]
