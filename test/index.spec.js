@@ -8,7 +8,7 @@ for (const suite of [
   {
     from: '2019-09',
     to: '2020-12',
-    tests: require('./jsonschema-2019-19-to-2020-12.json')
+    tests: require('./rules/jsonschema-2019-19-to-2020-12.json')
   }
 ]) {
   for (const testCase of suite.tests) {
