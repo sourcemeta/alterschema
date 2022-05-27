@@ -1,5 +1,3 @@
-// See https://json-schema.org/draft/2020-12/release-notes.html
-
 exports.WALKER = 'jsonschema-2019-09'
 exports.RULES = [
   {
@@ -7,6 +5,7 @@ exports.RULES = [
     condition: {
       $schema: 'https://json-schema.org/draft/2020-12/schema',
       $id: 'https://github.com/jviotti/alterschema/rules/jsonschema-2019-19-to-2020-12/items-to-prefix-items',
+      $comment: 'https://json-schema.org/draft/2020-12/release-notes.html',
       type: 'object',
       required: [ 'items' ],
       properties: {
