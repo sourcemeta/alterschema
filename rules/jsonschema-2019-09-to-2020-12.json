@@ -5,7 +5,7 @@
       "vocabulary": "https://json-schema.org/draft/2019-09/vocab/validation",
       "condition": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "https://github.com/jviotti/alterschema/rules/jsonschema-2019-19-to-2020-12/items-to-prefix-items",
+        "$id": "https://github.com/jviotti/alterschema/rules/jsonschema-2019-09-to-2020-12/items-to-prefix-items",
         "$comment": "https://json-schema.org/draft/2020-12/release-notes.html",
         "type": "object",
         "required": [ "items" ],

@@ -31,3 +31,14 @@ for (const walkerName of fs.readdirSync(path.resolve(__dirname, 'walkers')).map(
     })
   }
 }
+
+for (const name of fs.readdirSync(path.resolve(__dirname, '..', 'rules'))) {
+  for (const rule of require(`../rules/${name}`).rules) {
+    tap.test(`$id: (${name}) ${rule.condition.$id}`, (test) => {
+      const basename = path.basename(name, path.extname(name))
+      const prefix = `https://github.com/jviotti/alterschema/rules/${basename}/`
+      test.ok(rule.condition.$id.startsWith(prefix), `Must start with ${prefix}`)
+      test.end()
+    })
+  }
+}
