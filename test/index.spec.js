@@ -2,21 +2,19 @@ const tap = require('tap')
 const fs = require('fs')
 const path = require('path')
 const walker = require('../lib/walker')
+const builtin = require('../lib/builtin')
 const alterschema = require('..')
 
-for (const suite of [
-  {
-    from: '2019-09',
-    to: '2020-12',
-    tests: require('./rules/jsonschema-2019-19-to-2020-12.json')
-  }
-]) {
-  for (const testCase of suite.tests) {
-    tap.test(`${suite.from} => ${suite.to}: ${testCase.name}`, async (test) => {
-      const result = await alterschema(testCase.schema, suite.from, suite.to)
-      test.strictSame(result, testCase.expected)
-      test.end()
-    })
+for (const from of Object.keys(builtin.jsonschema)) {
+  for (const to of Object.keys(builtin.jsonschema[from])) {
+    const tests = require(`./rules/jsonschema-${from}-to-${to}.json`)
+    for (const testCase of tests) {
+      tap.test(`${from} => ${to}: ${testCase.name}`, async (test) => {
+        const result = await alterschema(testCase.schema, from, to)
+        test.strictSame(result, testCase.expected)
+        test.end()
+      })
+    }
   }
 }
 
