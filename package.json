@@ -31,6 +31,7 @@
     "tap": "^14.11.0"
   },
   "dependencies": {
+    "@hyperjump/json-schema": "^0.18.5",
     "json-e": "^4.4.3",
     "lodash": "^4.17.21"
   }

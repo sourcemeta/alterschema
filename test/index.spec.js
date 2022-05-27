@@ -12,8 +12,8 @@ for (const suite of [
   }
 ]) {
   for (const testCase of suite.tests) {
-    tap.test(`${suite.from} => ${suite.to}: ${testCase.name}`, (test) => {
-      const result = alterschema(testCase.schema, suite.from, suite.to)
+    tap.test(`${suite.from} => ${suite.to}: ${testCase.name}`, async (test) => {
+      const result = await alterschema(testCase.schema, suite.from, suite.to)
       test.strictSame(result, testCase.expected)
       test.end()
     })
