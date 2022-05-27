@@ -3,6 +3,9 @@
   "version": "0.0.1",
   "description": "Convert between schema specifications",
   "main": "lib/index.js",
+  "bin": {
+    "alterschema": "bin/cli.js"
+  },
   "scripts": {
     "test": "tap --reporter=list --no-coverage --no-timeout 'test/**/*.spec.js'"
   },
