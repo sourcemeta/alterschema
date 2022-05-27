@@ -1,6 +1,3 @@
-const _ = require('lodash')
-const jsonschema = require('../lib/jsonschema')
-
 // See https://json-schema.org/draft/2020-12/release-notes.html
 
 exports.WALKER = 'jsonschema-2019-09'
