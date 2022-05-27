@@ -1,4 +1,4 @@
-const jsonschema = require('../jsonschema')
+const jsonschema = require('../lib/jsonschema')
 
 // See https://json-schema.org/draft/2020-12/release-notes.html
 
