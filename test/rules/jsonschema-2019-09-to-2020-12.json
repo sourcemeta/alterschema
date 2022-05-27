@@ -13,15 +13,32 @@
   {
     "name": "items array to prefixItems",
     "schema": {
-      "type": "array",
       "items": [
-        { "type": "string" }
+        { "$ref": "#/$defs/foo" },
+        { "$ref": "#/$defs/bar" }
       ]
     },
     "expected": {
-      "type": "array",
       "prefixItems": [
-        { "type": "string" }
+        { "$ref": "#/$defs/foo" },
+        { "$ref": "#/$defs/bar" }
+      ]
+    }
+  },
+  {
+    "name": "items array with falsy additionalItems",
+    "schema": {
+      "additionalItems": false,
+      "items": [
+        { "$ref": "#/$defs/foo" },
+        { "$ref": "#/$defs/bar" }
+      ]
+    },
+    "expected": {
+      "items": false,
+      "prefixItems": [
+        { "$ref": "#/$defs/foo" },
+        { "$ref": "#/$defs/bar" }
       ]
     }
   }
