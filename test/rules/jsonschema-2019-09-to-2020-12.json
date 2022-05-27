@@ -41,5 +41,22 @@
         { "$ref": "#/$defs/bar" }
       ]
     }
+  },
+  {
+    "name": "items array with non-falsy additionalItems",
+    "schema": {
+      "additionalItems": { "$ref": "#/$defs/baz" },
+      "items": [
+        { "$ref": "#/$defs/foo" },
+        { "$ref": "#/$defs/bar" }
+      ]
+    },
+    "expected": {
+      "items": { "$ref": "#/$defs/baz" },
+      "prefixItems": [
+        { "$ref": "#/$defs/foo" },
+        { "$ref": "#/$defs/bar" }
+      ]
+    }
   }
 ]
