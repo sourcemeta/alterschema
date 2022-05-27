@@ -7,7 +7,7 @@
     "alterschema": "bin/cli.js"
   },
   "scripts": {
-    "test": "tap --reporter=list --no-coverage --no-timeout 'test/**/*.spec.js'"
+    "test": "standard 'test/*.js' 'bin/*.js' 'lib/*.js' && tap --reporter=list --no-coverage --no-timeout 'test/**/*.spec.js'"
   },
   "ktywords": [
     "json",
@@ -28,6 +28,7 @@
     "url": "https://github.com/jviotti/alterschema/issues"
   },
   "devDependencies": {
+    "standard": "^17.0.0",
     "tap": "^14.11.0"
   },
   "dependencies": {
