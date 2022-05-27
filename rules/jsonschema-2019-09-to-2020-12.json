@@ -2,6 +2,26 @@
   "walker": "jsonschema-2019-09",
   "rules": [
     {
+      "vocabulary": "https://json-schema.org/draft/2019-09/vocab/core",
+      "condition": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "$id": "https://github.com/jviotti/alterschema/rules/jsonschema-2019-09-to-2020-12/upgrade-official-metaschema",
+        "type": "object",
+        "required": [ "$schema" ],
+        "properties": {
+          "$schema": {
+            "const": "https://json-schema.org/draft/2019-09/schema"
+          }
+        }
+      },
+      "transform": {
+        "$merge": [
+          { "$eval": "schema" },
+          { "$$schema": "https://json-schema.org/draft/2020-12/schema" }
+        ]
+      }
+    },
+    {
       "vocabulary": "https://json-schema.org/draft/2019-09/vocab/validation",
       "condition": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",

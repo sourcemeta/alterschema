@@ -1,5 +1,16 @@
 [
   {
+    "name": "2019-09 official $schema to 2020-12",
+    "schema": {
+      "$schema": "https://json-schema.org/draft/2019-09/schema",
+      "type": "object"
+    },
+    "expected": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "type": "object"
+    }
+  },
+  {
     "name": "items array to prefixItems",
     "schema": {
       "type": "array",
