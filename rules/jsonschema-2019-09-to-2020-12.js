@@ -3,10 +3,17 @@
 exports.WALKER = 'jsonschema-2019-09'
 exports.RULES = [
   {
-    name: 'items to prefix items',
     vocabulary: 'https://json-schema.org/draft/2019-09/vocab/validation',
-    condition: (value, root) => {
-      return Array.isArray(value.items)
+    condition: {
+      $schema: 'https://json-schema.org/draft/2020-12/schema',
+      $id: 'https://github.com/jviotti/alterschema/rules/jsonschema-2019-19-to-2020-12/items-to-prefix-items',
+      type: 'object',
+      required: [ 'items' ],
+      properties: {
+        items: {
+          type: 'array'
+        }
+      }
     },
     transform: {
       $merge: [
