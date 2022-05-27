@@ -1,0 +1,17 @@
+[
+  {
+    "name": "items array to prefixItems",
+    "schema": {
+      "type": "array",
+      "items": [
+        { "type": "string" }
+      ]
+    },
+    "expected": {
+      "type": "array",
+      "prefixItems": [
+        { "type": "string" }
+      ]
+    }
+  }
+]
