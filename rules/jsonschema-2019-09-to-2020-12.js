@@ -1,5 +1,4 @@
 const _ = require('lodash')
-const jsone = require('json-e')
 const jsonschema = require('../lib/jsonschema')
 
 // See https://json-schema.org/draft/2020-12/release-notes.html
