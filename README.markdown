@@ -1,7 +1,10 @@
 alterschema
 ===========
 
-Convert between JSON Schema specification versions.
+This project implements [a set of format
+transformations](https://github.com/jviotti/alterschema/tree/master/rules) to
+automatically transform [JSON Schema](https://json-schema.org) documents across
+versions of the specification.
 
 Installation
 ------------
