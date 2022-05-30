@@ -10,8 +10,8 @@ Installation
 npm install --save alterschema
 ```
 
-Documentation
--------------
+Programmatic Use
+----------------
 
 #### `alterschema(schema: JSON, from: string, to: string) -> JSON`
 
@@ -50,18 +50,15 @@ const result = alterschema({ ... }, '2019-09', '2020-12')
 console.log(result)
 ```
 
-CLI
----
+Command-line tool
+-----------------
 
-Install `alterschema` globally:
+The project also ships with a command-line tool:
 
 ```sh
+# Install globally through npm
 npm install --global alterschema
-```
-
-The command-line tool is executed as follows:
-
-```sh
+# Run the command-line tool
 alterschema --from <from> --to <to> path/to/schema.json
 ```
 
