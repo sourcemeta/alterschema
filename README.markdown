@@ -20,12 +20,14 @@ parameters. The supported transformations are as follows:
 
 ##### Upgrade
 
-| From    | To      | Type     | Status     | Description                                                      |
-|---------|---------|----------|------------|------------------------------------------------------------------|
-| 2019-09 | 2020-12 | Lossless | Partial    | JSON Schema [2019-09][2019-09] to JSON Schema [2020-12][2020-12] |
-| draft7  | 2019-09 | Lossless | TODO       | JSON Schema [Draft 7][draft7] to JSON Schema [2019-09][2019-09]  |
-| draft6  | draft7  | Lossless | TODO       | JSON Schema [Draft 6][draft6] to JSON Schema [Draft 7][draft7]   |
-| draft4  | draft6  | Lossless | TODO       | JSON Schema [Draft 4][draft4] to JSON Schema [Draft 6][draft6]   |
+| From    | To      | Type     | Status       | Description                                                      |
+|---------|---------|----------|--------------|------------------------------------------------------------------|
+| 2019-09 | 2020-12 | Lossless | Partial [^1] | JSON Schema [2019-09][2019-09] to JSON Schema [2020-12][2020-12] |
+| draft7  | 2019-09 | Lossless | TODO         | JSON Schema [Draft 7][draft7] to JSON Schema [2019-09][2019-09]  |
+| draft6  | draft7  | Lossless | TODO         | JSON Schema [Draft 6][draft6] to JSON Schema [Draft 7][draft7]   |
+| draft4  | draft6  | Lossless | TODO         | JSON Schema [Draft 4][draft4] to JSON Schema [Draft 6][draft6]   |
+
+[^1]: Does not handle converting `$recursiveRef` and `$recursiveAnchor` to `$dynamicRef` and `$dynamicAnchor`.
 
 ##### Downgrade
 
