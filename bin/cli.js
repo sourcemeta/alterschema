@@ -45,4 +45,8 @@ if (!from || !to || !file) {
 }
 
 const input = JSON.parse(fs.readFileSync(file, 'utf8'))
-console.log(JSON.stringify(alterschema(input, from, to)))
+alterschema(input, from, to).then((result) => {
+  console.log(JSON.stringify(result, null, 2))
+}).catch((error) => {
+  console.error(error)
+})
