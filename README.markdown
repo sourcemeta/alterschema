@@ -1,7 +1,7 @@
 alterschema
 ===========
 
-This project implements [a set of format
+This project implements [a set of formal
 transformations](https://github.com/jviotti/alterschema/tree/master/rules) to
 automatically transform [JSON Schema](https://json-schema.org) documents across
 versions of the specification.
