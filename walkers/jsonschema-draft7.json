@@ -1,0 +1,82 @@
+{
+  "items": {
+    "vocabulary": "http://json-schema.org/draft-07/schema#",
+    "type": [ "array", "value" ],
+    "walker": "jsonschema-draft7"
+  },
+  "additionalItems": {
+    "vocabulary": "http://json-schema.org/draft-07/schema#",
+    "type": "value",
+    "walker": "jsonschema-draft7"
+  },
+  "contains": {
+    "vocabulary": "http://json-schema.org/draft-07/schema#",
+    "type": "value",
+    "walker": "jsonschema-draft7"
+  },
+  "properties": {
+    "vocabulary": "http://json-schema.org/draft-07/schema#",
+    "type": "object",
+    "walker": "jsonschema-draft7"
+  },
+  "patternProperties": {
+    "vocabulary": "http://json-schema.org/draft-07/schema#",
+    "type": "object",
+    "walker": "jsonschema-draft7"
+  },
+  "additionalProperties": {
+    "vocabulary": "http://json-schema.org/draft-07/schema#",
+    "type": "value",
+    "walker": "jsonschema-draft7"
+  },
+  "dependencies": {
+    "vocabulary": "http://json-schema.org/draft-07/schema#",
+    "type": "object",
+    "walker": "jsonschema-draft7"
+  },
+  "propertyNames": {
+    "vocabulary": "http://json-schema.org/draft-07/schema#",
+    "type": "value",
+    "walker": "jsonschema-draft7"
+  },
+  "if": {
+    "vocabulary": "http://json-schema.org/draft-07/schema#",
+    "type": "value",
+    "walker": "jsonschema-draft7"
+  },
+  "then": {
+    "vocabulary": "http://json-schema.org/draft-07/schema#",
+    "type": "value",
+    "walker": "jsonschema-draft7"
+  },
+  "else": {
+    "vocabulary": "http://json-schema.org/draft-07/schema#",
+    "type": "value",
+    "walker": "jsonschema-draft7"
+  },
+  "allOf": {
+    "vocabulary": "http://json-schema.org/draft-07/schema#",
+    "type": "array",
+    "walker": "jsonschema-draft7"
+  },
+  "anyOf": {
+    "vocabulary": "http://json-schema.org/draft-07/schema#",
+    "type": "array",
+    "walker": "jsonschema-draft7"
+  },
+  "oneOf": {
+    "vocabulary": "http://json-schema.org/draft-07/schema#",
+    "type": "array",
+    "walker": "jsonschema-draft7"
+  },
+  "not": {
+    "vocabulary": "http://json-schema.org/draft-07/schema#",
+    "type": "value",
+    "walker": "jsonschema-draft7"
+  },
+  "definitions": {
+    "vocabulary": "http://json-schema.org/draft-07/schema#",
+    "type": "object",
+    "walker": "jsonschema-draft7"
+  }
+}
