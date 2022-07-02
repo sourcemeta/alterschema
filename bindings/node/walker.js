@@ -3,7 +3,7 @@ const jsonschema = require('./jsonschema')
 
 module.exports = (walker, root, path) => {
   const value = path.length === 0 ? root : _.get(root, path)
-  return _.reduce(require(`../walkers/${walker}.json`), (accumulator, definition, keyword) => {
+  return _.reduce(require(`../../walkers/${walker}.json`), (accumulator, definition, keyword) => {
     if (typeof value[keyword] === 'undefined' || !jsonschema.usesVocabulary(root, value, definition.vocabulary)) {
       return accumulator
     }
