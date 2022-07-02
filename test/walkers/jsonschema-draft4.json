@@ -1,0 +1,187 @@
+[
+  {
+    "name": "boolean true",
+    "schema": true,
+    "trail": [
+      {
+        "type": "jsonschema-draft4",
+        "path": []
+      }
+    ]
+  },
+  {
+    "name": "boolean false",
+    "schema": false,
+    "trail": [
+      {
+        "type": "jsonschema-draft4",
+        "path": []
+      }
+    ]
+  },
+  {
+    "name": "https://datatracker.ietf.org/doc/html/draft-zyp-json-schema-04#section-3.4",
+    "schema": {
+      "title": "root"
+    },
+    "trail": [
+      {
+        "type": "jsonschema-draft4",
+        "path": []
+      }
+    ]
+  },
+  {
+    "name": "https://datatracker.ietf.org/doc/html/draft-zyp-json-schema-04#section-7.2.3",
+    "schema": {
+      "id": "http://my.site/myschema#",
+      "definitions": {
+        "schema1": {
+          "id": "schema1",
+          "type": "integer"
+        },
+        "schema2": {
+          "type": "array",
+          "items": { "$ref": "schema1" }
+        }
+      }
+    },
+    "trail": [
+      {
+        "type": "jsonschema-draft4",
+        "path": []
+      },
+      {
+        "type": "jsonschema-draft4",
+        "path": [ "definitions", "schema1" ]
+      },
+      {
+        "type": "jsonschema-draft4",
+        "path": [ "definitions", "schema2" ]
+      },
+      {
+        "type": "jsonschema-draft4",
+        "path": [ "definitions", "schema2", "items" ]
+      }
+    ]
+  },
+  {
+    "name": "https://datatracker.ietf.org/doc/html/draft-zyp-json-schema-04#section-7.2.4",
+    "schema": {
+      "id": "http://some.site/schema#",
+      "not": { "$ref": "#inner" },
+      "definitions": {
+        "schema1": {
+          "id": "#inner",
+          "type": "boolean"
+        }
+      }
+    },
+    "trail": [
+      {
+        "type": "jsonschema-draft4",
+        "path": []
+      },
+      {
+        "type": "jsonschema-draft4",
+        "path": [ "not" ]
+      },
+      {
+        "type": "jsonschema-draft4",
+        "path": [ "definitions", "schema1" ]
+      }
+    ]
+  },
+  {
+    "name": "https://datatracker.ietf.org/doc/html/draft-fge-json-schema-validation-00#section-5.3.1.3",
+    "schema": {
+      "items": [ {}, {}, {} ],
+      "additionalItems": false
+    },
+    "trail": [
+      {
+        "type": "jsonschema-draft4",
+        "path": []
+      },
+      {
+        "type": "jsonschema-draft4",
+        "path": [ "items", 0 ]
+      },
+      {
+        "type": "jsonschema-draft4",
+        "path": [ "items", 1 ]
+      },
+      {
+        "type": "jsonschema-draft4",
+        "path": [ "items", 2 ]
+      },
+      {
+        "type": "jsonschema-draft4",
+        "path": [ "additionalItems" ]
+      }
+    ]
+  },
+  {
+    "name": "https://datatracker.ietf.org/doc/html/draft-fge-json-schema-validation-00#section-5.4.4.5",
+    "schema": {
+      "additionalProperties": false,
+      "properties": {
+        "p1": {}
+      },
+      "patternProperties": {
+        "p": {},
+        "[0-9]": {}
+      }
+    },
+    "trail": [
+      {
+        "type": "jsonschema-draft4",
+        "path": []
+      },
+      {
+        "type": "jsonschema-draft4",
+        "path": [ "properties", "p1" ]
+      },
+      {
+        "type": "jsonschema-draft4",
+        "path": [ "patternProperties", "p" ]
+      },
+      {
+        "type": "jsonschema-draft4",
+        "path": [ "patternProperties", "[0-9]" ]
+      },
+      {
+        "type": "jsonschema-draft4",
+        "path": [ "additionalProperties" ]
+      }
+    ]
+  },
+  {
+    "name": "https://datatracker.ietf.org/doc/html/draft-fge-json-schema-validation-00#section-5.5.7.2",
+    "schema": {
+      "type": "array",
+      "items": { "$ref": "#/definitions/positiveInteger" },
+      "definitions": {
+        "positiveInteger": {
+          "type": "integer",
+          "minimum": 0,
+          "exclusiveMinimum": true
+        }
+      }
+    },
+    "trail": [
+      {
+        "type": "jsonschema-draft4",
+        "path": []
+      },
+      {
+        "type": "jsonschema-draft4",
+        "path": [ "items" ]
+      },
+      {
+        "type": "jsonschema-draft4",
+        "path": [ "definitions", "positiveInteger" ]
+      }
+    ]
+  }
+]
