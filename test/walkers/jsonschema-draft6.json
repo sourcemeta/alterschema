@@ -1,0 +1,147 @@
+[
+  {
+    "name": "boolean true",
+    "schema": true,
+    "trail": [
+      {
+        "type": "jsonschema-draft6",
+        "path": []
+      }
+    ]
+  },
+  {
+    "name": "boolean false",
+    "schema": false,
+    "trail": [
+      {
+        "type": "jsonschema-draft6",
+        "path": []
+      }
+    ]
+  },
+  {
+    "name": "https://datatracker.ietf.org/doc/html/draft-wright-json-schema-01#section-4.5",
+    "schema": {
+      "title": "root",
+      "items": {
+        "title": "array item"
+      }
+    },
+    "trail": [
+      {
+        "type": "jsonschema-draft6",
+        "path": []
+      },
+      {
+        "type": "jsonschema-draft6",
+        "path": [ "items" ]
+      }
+    ]
+  },
+  {
+    "name": "https://datatracker.ietf.org/doc/html/draft-wright-json-schema-01#section-9.2",
+    "schema": {
+      "$id": "http://example.com/root.json",
+      "definitions": {
+        "A": { "$id": "#foo" },
+        "B": {
+          "$id": "other.json",
+          "definitions": {
+            "X": { "$id": "#bar" },
+            "Y": { "$id": "t/inner.json" }
+          }
+        },
+        "C": {
+          "$id": "urn:uuid:ee564b8a-7a87-4125-8c96-e9f123d6766f"
+        }
+      }
+    },
+    "trail": [
+      {
+        "type": "jsonschema-draft6",
+        "path": []
+      },
+      {
+        "type": "jsonschema-draft6",
+        "path": [ "definitions", "A" ]
+      },
+      {
+        "type": "jsonschema-draft6",
+        "path": [ "definitions", "B" ]
+      },
+      {
+        "type": "jsonschema-draft6",
+        "path": [ "definitions", "B", "definitions", "X" ]
+      },
+      {
+        "type": "jsonschema-draft6",
+        "path": [ "definitions", "B", "definitions", "Y" ]
+      },
+      {
+        "type": "jsonschema-draft6",
+        "path": [ "definitions", "C" ]
+      }
+    ]
+  },
+  {
+    "name": "https://datatracker.ietf.org/doc/html/draft-wright-json-schema-01#section-9.2.1",
+    "schema": {
+      "$id": "http://example.net/root.json",
+      "items": {
+        "type": "array",
+        "items": { "$ref": "#item" }
+      },
+      "definitions": {
+        "single": {
+          "$id": "#item",
+          "type": "integer"
+        }
+      }
+    },
+    "trail": [
+      {
+        "type": "jsonschema-draft6",
+        "path": []
+      },
+      {
+        "type": "jsonschema-draft6",
+        "path": [ "items" ]
+      },
+      {
+        "type": "jsonschema-draft6",
+        "path": [ "items", "items" ]
+      },
+      {
+        "type": "jsonschema-draft6",
+        "path": [ "definitions", "single" ]
+      }
+    ]
+  },
+  {
+    "name": "https://datatracker.ietf.org/doc/html/draft-wright-json-schema-validation-01#section-7.1",
+    "schema": {
+      "type": "array",
+      "items": { "$ref": "#/definitions/positiveInteger" },
+      "definitions": {
+        "positiveInteger": {
+          "type": "integer",
+          "exclusiveMinimum": 0
+        }
+      }
+    },
+    "trail": [
+      {
+        "type": "jsonschema-draft6",
+        "path": []
+      },
+      {
+        "type": "jsonschema-draft6",
+        "path": [ "items" ]
+      },
+      {
+        "type": "jsonschema-draft6",
+        "path": [ "definitions", "positiveInteger" ]
+      }
+    ]
+  }
+]
