@@ -1,0 +1,57 @@
+{
+  "items": {
+    "vocabulary": "http://json-schema.org/draft-04/schema#",
+    "type": [ "array", "value" ],
+    "walker": "jsonschema-draft4"
+  },
+  "additionalItems": {
+    "vocabulary": "http://json-schema.org/draft-04/schema#",
+    "type": "value",
+    "walker": "jsonschema-draft4"
+  },
+  "properties": {
+    "vocabulary": "http://json-schema.org/draft-04/schema#",
+    "type": "object",
+    "walker": "jsonschema-draft4"
+  },
+  "patternProperties": {
+    "vocabulary": "http://json-schema.org/draft-04/schema#",
+    "type": "object",
+    "walker": "jsonschema-draft4"
+  },
+  "additionalProperties": {
+    "vocabulary": "http://json-schema.org/draft-04/schema#",
+    "type": "value",
+    "walker": "jsonschema-draft4"
+  },
+  "dependencies": {
+    "vocabulary": "http://json-schema.org/draft-04/schema#",
+    "type": "object",
+    "walker": "jsonschema-draft4"
+  },
+  "allOf": {
+    "vocabulary": "http://json-schema.org/draft-04/schema#",
+    "type": "array",
+    "walker": "jsonschema-draft4"
+  },
+  "anyOf": {
+    "vocabulary": "http://json-schema.org/draft-04/schema#",
+    "type": "array",
+    "walker": "jsonschema-draft4"
+  },
+  "oneOf": {
+    "vocabulary": "http://json-schema.org/draft-04/schema#",
+    "type": "array",
+    "walker": "jsonschema-draft4"
+  },
+  "not": {
+    "vocabulary": "http://json-schema.org/draft-04/schema#",
+    "type": "value",
+    "walker": "jsonschema-draft4"
+  },
+  "definitions": {
+    "vocabulary": "http://json-schema.org/draft-04/schema#",
+    "type": "object",
+    "walker": "jsonschema-draft4"
+  }
+}
