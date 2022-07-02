@@ -2,12 +2,12 @@
   "name": "alterschema",
   "version": "0.0.1",
   "description": "Convert between schema specifications",
-  "main": "lib/index.js",
+  "main": "bindings/node/index.js",
   "bin": {
-    "alterschema": "bin/cli.js"
+    "alterschema": "bindings/node/cli.js"
   },
   "scripts": {
-    "test": "standard 'test/*.js' 'bin/*.js' 'lib/*.js' && tap --reporter=list --no-coverage --no-timeout 'test/**/*.spec.js'"
+    "test": "standard 'bindings/node/*.js' && tap --reporter=list --no-coverage --no-timeout 'bindings/node/test.js'"
   },
   "ktywords": [
     "json",

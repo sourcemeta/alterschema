@@ -1,7 +1,7 @@
 const fs = require('fs')
-const packageJSON = require('../package.json')
-const builtin = require('../lib/builtin')
-const alterschema = require('..')
+const packageJSON = require('../../package.json')
+const builtin = require('./builtin')
+const alterschema = require('./index')
 
 function usage () {
   console.error(`Usage: ${packageJSON.name} --from/-f <version> --to/-t <version> <document.json>\n`)
