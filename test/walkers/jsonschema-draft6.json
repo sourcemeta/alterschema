@@ -22,6 +22,7 @@
   {
     "name": "https://datatracker.ietf.org/doc/html/draft-wright-json-schema-01#section-4.5",
     "schema": {
+      "$schema": "http://json-schema.org/draft-06/schema#",
       "title": "root",
       "items": {
         "title": "array item"
@@ -41,6 +42,7 @@
   {
     "name": "https://datatracker.ietf.org/doc/html/draft-wright-json-schema-01#section-9.2",
     "schema": {
+      "$schema": "http://json-schema.org/draft-06/schema#",
       "$id": "http://example.com/root.json",
       "definitions": {
         "A": { "$id": "#foo" },
@@ -86,6 +88,7 @@
   {
     "name": "https://datatracker.ietf.org/doc/html/draft-wright-json-schema-01#section-9.2.1",
     "schema": {
+      "$schema": "http://json-schema.org/draft-06/schema#",
       "$id": "http://example.net/root.json",
       "items": {
         "type": "array",
@@ -120,6 +123,7 @@
   {
     "name": "https://datatracker.ietf.org/doc/html/draft-wright-json-schema-validation-01#section-7.1",
     "schema": {
+      "$schema": "http://json-schema.org/draft-06/schema#",
       "type": "array",
       "items": { "$ref": "#/definitions/positiveInteger" },
       "definitions": {

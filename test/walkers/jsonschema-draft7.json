@@ -1,0 +1,185 @@
+[
+  {
+    "name": "boolean true",
+    "schema": true,
+    "trail": [
+      {
+        "type": "jsonschema-draft7",
+        "path": []
+      }
+    ]
+  },
+  {
+    "name": "boolean false",
+    "schema": false,
+    "trail": [
+      {
+        "type": "jsonschema-draft7",
+        "path": []
+      }
+    ]
+  },
+  {
+    "name": "https://datatracker.ietf.org/doc/html/draft-handrews-json-schema-01#section-4.3.3",
+    "schema": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "root",
+      "items": {
+        "title": "array item"
+      }
+    },
+    "trail": [
+      {
+        "type": "jsonschema-draft7",
+        "path": []
+      },
+      {
+        "type": "jsonschema-draft7",
+        "path": [ "items" ]
+      }
+    ]
+  },
+  {
+    "name": "https://datatracker.ietf.org/doc/html/draft-handrews-json-schema-01#section-8.2.4",
+    "schema": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "$id": "http://example.com/root.json",
+      "definitions": {
+        "A": { "$id": "#foo" },
+        "B": {
+          "$id": "other.json",
+          "definitions": {
+            "X": { "$id": "#bar" },
+            "Y": { "$id": "t/inner.json" }
+          }
+        },
+        "C": {
+          "$id": "urn:uuid:ee564b8a-7a87-4125-8c96-e9f123d6766f"
+        }
+      }
+    },
+    "trail": [
+      {
+        "type": "jsonschema-draft7",
+        "path": []
+      },
+      {
+        "type": "jsonschema-draft7",
+        "path": [ "definitions", "A" ]
+      },
+      {
+        "type": "jsonschema-draft7",
+        "path": [ "definitions", "B" ]
+      },
+      {
+        "type": "jsonschema-draft7",
+        "path": [ "definitions", "B", "definitions", "X" ]
+      },
+      {
+        "type": "jsonschema-draft7",
+        "path": [ "definitions", "B", "definitions", "Y" ]
+      },
+      {
+        "type": "jsonschema-draft7",
+        "path": [ "definitions", "C" ]
+      }
+    ]
+  },
+  {
+    "name": "https://datatracker.ietf.org/doc/html/draft-handrews-json-schema-01#section-8.3.2",
+    "schema": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "$id": "http://example.net/root.json",
+      "items": {
+        "type": "array",
+        "items": { "$ref": "#item" }
+      },
+      "definitions": {
+        "single": {
+          "$id": "#item",
+          "type": "object",
+          "additionalProperties": { "$ref": "other.json" }
+        }
+      }
+    },
+    "trail": [
+      {
+        "type": "jsonschema-draft7",
+        "path": []
+      },
+      {
+        "type": "jsonschema-draft7",
+        "path": [ "items" ]
+      },
+      {
+        "type": "jsonschema-draft7",
+        "path": [ "items", "items" ]
+      },
+      {
+        "type": "jsonschema-draft7",
+        "path": [ "definitions", "single" ]
+      },
+      {
+        "type": "jsonschema-draft7",
+        "path": [ "definitions", "single", "additionalProperties" ]
+      }
+    ]
+  },
+  {
+    "name": "https://datatracker.ietf.org/doc/html/draft-handrews-json-schema-validation-01#section-8.5 (1)",
+    "schema": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "type": "string",
+      "contentEncoding": "base64",
+      "contentMediaType": "image/png"
+    },
+    "trail": [
+      {
+        "type": "jsonschema-draft7",
+        "path": []
+      }
+    ]
+  },
+  {
+    "name": "https://datatracker.ietf.org/doc/html/draft-handrews-json-schema-validation-01#section-8.5 (2)",
+    "schema": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "type": "string",
+      "contentMediaType": "text/html"
+    },
+    "trail": [
+      {
+        "type": "jsonschema-draft7",
+        "path": []
+      }
+    ]
+  },
+  {
+    "name": "https://datatracker.ietf.org/doc/html/draft-handrews-json-schema-validation-01#section-9",
+    "schema": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "type": "array",
+      "items": { "$ref": "#/definitions/positiveInteger" },
+      "definitions": {
+        "positiveInteger": {
+          "type": "integer",
+          "exclusiveMinimum": 0
+        }
+      }
+    },
+    "trail": [
+      {
+        "type": "jsonschema-draft7",
+        "path": []
+      },
+      {
+        "type": "jsonschema-draft7",
+        "path": [ "items" ]
+      },
+      {
+        "type": "jsonschema-draft7",
+        "path": [ "definitions", "positiveInteger" ]
+      }
+    ]
+  }
+]
