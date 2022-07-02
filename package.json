@@ -20,12 +20,12 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/jviotti/alterschema.git"
+    "url": "git+https://github.com/sourcemeta/alterschema.git"
   },
   "author": "Juan Cruz Viotti <jv@jviotti.com>",
   "license": "Apache-2.0",
   "bugs": {
-    "url": "https://github.com/jviotti/alterschema/issues"
+    "url": "https://github.com/sourcemeta/alterschema/issues"
   },
   "devDependencies": {
     "standard": "^17.0.0",
