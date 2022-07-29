@@ -77,5 +77,20 @@
       "$schema": "https://json-schema.org/draft/2019-09/schema",
       "maximum": 5
     }
+  },
+  {
+    "name": "draft4 definitions",
+    "schema": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "definitions": {
+        "foo": { "type": "string" }
+      }
+    },
+    "expected": {
+      "$schema": "https://json-schema.org/draft/2019-09/schema",
+      "$defs": {
+        "foo": { "type": "string" }
+      }
+    }
   }
 ]

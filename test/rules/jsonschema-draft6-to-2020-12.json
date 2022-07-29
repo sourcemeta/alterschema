@@ -18,5 +18,20 @@
       "$schema": "https://json-schema.org/draft/2020-12/schema",
       "$anchor": "tag"
     }
+  },
+  {
+    "name": "draft6 definitions",
+    "schema": {
+      "$schema": "http://json-schema.org/draft-06/schema#",
+      "definitions": {
+        "foo": { "type": "string" }
+      }
+    },
+    "expected": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "$defs": {
+        "foo": { "type": "string" }
+      }
+    }
   }
 ]
