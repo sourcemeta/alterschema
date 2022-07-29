@@ -1,0 +1,22 @@
+[
+  {
+    "name": "draft6 $schema",
+    "schema": {
+      "$schema": "http://json-schema.org/draft-06/schema#"
+    },
+    "expected": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema"
+    }
+  },
+  {
+    "name": "draft6 $id with # to $anchor",
+    "schema": {
+      "$schema": "http://json-schema.org/draft-06/schema#",
+      "$id": "#tag"
+    },
+    "expected": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "$anchor": "tag"
+    }
+  }
+]

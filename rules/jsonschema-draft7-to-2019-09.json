@@ -20,6 +20,31 @@
           { "$$schema": "https://json-schema.org/draft/2019-09/schema" }
         ]
       }
+    },
+    {
+      "vocabulary": "core",
+      "condition": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "$id": "https://github.com/jviotti/alterschema/rules/jsonschema-draft7-to-2019-09/id-anchor",
+        "type": "object",
+        "required": [ "$id" ],
+        "properties": {
+          "$id": {
+            "type": "string",
+            "pattern": "^#"
+          }
+        }
+      },
+      "transform": {
+        "$merge": [
+          { "$eval": "omit(schema, '$id')" },
+          {
+            "$$anchor": {
+              "$eval": "tail(schema['$id'])"
+            }
+          }
+        ]
+      }
     }
   ]
 }

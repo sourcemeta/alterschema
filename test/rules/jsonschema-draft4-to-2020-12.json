@@ -18,5 +18,16 @@
       "$schema": "https://json-schema.org/draft/2020-12/schema",
       "$id": "http://example.com/schema"
     }
+  },
+  {
+    "name": "draft4 $id with # to $anchor",
+    "schema": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "$id": "#tag"
+    },
+    "expected": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "$anchor": "tag"
+    }
   }
 ]

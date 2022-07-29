@@ -18,6 +18,9 @@ async function transformer (root, path, ruleset) {
         schema: value,
         omit: (object, key) => {
           return _.omit(object, _.castArray(key))
+        },
+        tail: (value) => {
+          return value.slice(1)
         }
       })
 
