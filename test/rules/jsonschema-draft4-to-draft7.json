@@ -18,5 +18,16 @@
       "$schema": "http://json-schema.org/draft-07/schema#",
       "$id": "http://example.com/schema"
     }
+  },
+  {
+    "name": "draft4 id with # to $id",
+    "schema": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "id": "#tag"
+    },
+    "expected": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "$id": "#tag"
+    }
   }
 ]
