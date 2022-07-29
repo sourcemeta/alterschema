@@ -45,6 +45,30 @@
           }
         ]
       }
+    },
+    {
+      "vocabulary": "core",
+      "condition": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "$id": "https://github.com/jviotti/alterschema/rules/jsonschema-draft7-to-2019-09/definitions",
+        "type": "object",
+        "required": [ "definitions" ],
+        "properties": {
+          "definitions": {
+            "type": "object"
+          }
+        }
+      },
+      "transform": {
+        "$merge": [
+          { "$eval": "omit(schema, 'definitions')" },
+          {
+            "$$defs": {
+              "$eval": "schema.definitions"
+            }
+          }
+        ]
+      }
     }
   ]
 }
