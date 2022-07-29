@@ -1,0 +1,97 @@
+{
+  "$defs": {
+    "vocabulary": "https://json-schema.org/draft/2020-12/vocab/core",
+    "type": "object",
+    "walker": "jsonschema-2020-12"
+  },
+  "allOf": {
+    "vocabulary": "https://json-schema.org/draft/2020-12/vocab/applicator",
+    "type": "array",
+    "walker": "jsonschema-2020-12"
+  },
+  "anyOf": {
+    "vocabulary": "https://json-schema.org/draft/2020-12/vocab/applicator",
+    "type": "array",
+    "walker": "jsonschema-2020-12"
+  },
+  "oneOf": {
+    "vocabulary": "https://json-schema.org/draft/2020-12/vocab/applicator",
+    "type": "array",
+    "walker": "jsonschema-2020-12"
+  },
+  "not": {
+    "vocabulary": "https://json-schema.org/draft/2020-12/vocab/applicator",
+    "type": "value",
+    "walker": "jsonschema-2020-12"
+  },
+  "if": {
+    "vocabulary": "https://json-schema.org/draft/2020-12/vocab/applicator",
+    "type": "value",
+    "walker": "jsonschema-2020-12"
+  },
+  "then": {
+    "vocabulary": "https://json-schema.org/draft/2020-12/vocab/applicator",
+    "type": "value",
+    "walker": "jsonschema-2020-12"
+  },
+  "else": {
+    "vocabulary": "https://json-schema.org/draft/2020-12/vocab/applicator",
+    "type": "value",
+    "walker": "jsonschema-2020-12"
+  },
+  "dependentSchemas": {
+    "vocabulary": "https://json-schema.org/draft/2020-12/vocab/applicator",
+    "type": "object",
+    "walker": "jsonschema-2020-12"
+  },
+  "prefixItems": {
+    "vocabulary": "https://json-schema.org/draft/2020-12/vocab/applicator",
+    "type": "array",
+    "walker": "jsonschema-2020-12"
+  },
+  "items": {
+    "vocabulary": "https://json-schema.org/draft/2020-12/vocab/applicator",
+    "type": "value",
+    "walker": "jsonschema-2020-12"
+  },
+  "contains": {
+    "vocabulary": "https://json-schema.org/draft/2020-12/vocab/applicator",
+    "type": "value",
+    "walker": "jsonschema-2020-12"
+  },
+  "properties": {
+    "vocabulary": "https://json-schema.org/draft/2020-12/vocab/applicator",
+    "type": "object",
+    "walker": "jsonschema-2020-12"
+  },
+  "patternProperties": {
+    "vocabulary": "https://json-schema.org/draft/2020-12/vocab/applicator",
+    "type": "object",
+    "walker": "jsonschema-2020-12"
+  },
+  "additionalProperties": {
+    "vocabulary": "https://json-schema.org/draft/2020-12/vocab/applicator",
+    "type": "value",
+    "walker": "jsonschema-2020-12"
+  },
+  "propertyNames": {
+    "vocabulary": "https://json-schema.org/draft/2020-12/vocab/applicator",
+    "type": "value",
+    "walker": "jsonschema-2020-12"
+  },
+  "unevaluatedItems": {
+    "vocabulary": "https://json-schema.org/draft/2020-12/vocab/unevaluated",
+    "type": "value",
+    "walker": "jsonschema-2020-12"
+  },
+  "unevaluatedProperties": {
+    "vocabulary": "https://json-schema.org/draft/2020-12/vocab/unevaluated",
+    "type": "value",
+    "walker": "jsonschema-2020-12"
+  },
+  "contentSchema": {
+    "vocabulary": "https://json-schema.org/draft/2020-12/vocab/content",
+    "type": "value",
+    "walker": "jsonschema-2020-12"
+  }
+}
