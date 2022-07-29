@@ -160,6 +160,32 @@
         "const": { "not": true }
       },
       "transform": false
+    },
+    {
+      "vocabulary": "validation",
+      "condition": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "$id": "https://github.com/jviotti/alterschema/rules/jsonschema-draft4-to-draft6/enum-to-const",
+        "type": "object",
+        "required": [ "enum" ],
+        "properties": {
+          "enum": {
+            "type": "array",
+            "minItems": 1,
+            "maxitems": 1
+          }
+        }
+      },
+      "transform": {
+        "$merge": [
+          { "$eval": "omit(schema, 'enum')" },
+          {
+            "const": {
+              "$eval": "schema.enum[0]"
+            }
+          }
+        ]
+      }
     }
   ]
 }

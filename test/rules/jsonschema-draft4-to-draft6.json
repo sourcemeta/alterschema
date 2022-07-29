@@ -87,5 +87,27 @@
     "name": "true no metaschema",
     "schema": { "not": {} },
     "expected": false
+  },
+  {
+    "name": "enum with one value",
+    "schema": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "enum": [ "single-value" ]
+    },
+    "expected": {
+      "$schema": "http://json-schema.org/draft-06/schema#",
+      "const": "single-value"
+    }
+  },
+  {
+    "name": "enum with one value",
+    "schema": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "enum": [ "single-value" ]
+    },
+    "expected": {
+      "$schema": "http://json-schema.org/draft-06/schema#",
+      "const": "single-value"
+    }
   }
 ]

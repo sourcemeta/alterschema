@@ -43,5 +43,16 @@
     "name": "true no metaschema",
     "schema": { "not": {} },
     "expected": false
+  },
+  {
+    "name": "enum with one value",
+    "schema": {
+      "$schema": "http://json-schema.org/draft-06/schema#",
+      "enum": [ "single-value" ]
+    },
+    "expected": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "const": "single-value"
+    }
   }
 ]
