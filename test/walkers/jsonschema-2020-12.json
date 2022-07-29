@@ -1,0 +1,599 @@
+[
+  {
+    "name": "boolean true",
+    "schema": true,
+    "trail": [
+      {
+        "type": "jsonschema-2020-12",
+        "path": []
+      }
+    ]
+  },
+  {
+    "name": "boolean false",
+    "schema": false,
+    "trail": [
+      {
+        "type": "jsonschema-2020-12",
+        "path": []
+      }
+    ]
+  },
+  {
+    "name": "draft-bhutton-json-schema-01 (4.3.2) true",
+    "schema": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema"
+    },
+    "trail": [
+      {
+        "type": "jsonschema-2020-12",
+        "path": []
+      }
+    ]
+  },
+  {
+    "name": "draft-bhutton-json-schema-01 (4.3.2) false",
+    "schema": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "not": {}
+    },
+    "trail": [
+      {
+        "type": "jsonschema-2020-12",
+        "path": []
+      },
+      {
+        "type": "jsonschema-2020-12",
+        "path": [ "not" ]
+      }
+    ]
+  },
+  {
+    "name": "draft-bhutton-json-schema-01 (4.3.5)",
+    "schema": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "title": "root",
+      "items": {
+        "title": "array item"
+      }
+    },
+    "trail": [
+      {
+        "type": "jsonschema-2020-12",
+        "path": []
+      },
+      {
+        "type": "jsonschema-2020-12",
+        "path": [ "items" ]
+      }
+    ]
+  },
+  {
+    "name": "draft-bhutton-json-schema-01 (7.6.1)",
+    "schema": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "type": [ "string", "null" ],
+      "maxLength": 255
+    },
+    "trail": [
+      {
+        "type": "jsonschema-2020-12",
+        "path": []
+      }
+    ]
+  },
+  {
+    "name": "draft-bhutton-json-schema-01 (7.7.1.1)",
+    "schema": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "title": "Feature list",
+      "type": "array",
+      "prefixItems": [
+        {
+          "title": "Feature A",
+          "properties": {
+            "enabled": {
+              "$ref": "#/$defs/enabledToggle",
+              "default": true
+            }
+          }
+        },
+        {
+          "title": "Feature B",
+          "properties": {
+            "enabled": {
+              "description": "If set to null, Feature B inherits the enabled value from Feature A",
+              "$ref": "#/$defs/enabledToggle"
+            }
+          }
+        }
+      ],
+      "$defs": {
+        "enabledToggle": {
+          "title": "Enabled",
+          "description": "Whether the feature is enabled (true), disabled (false), or under automatic control (null)",
+          "type": [ "boolean", "null" ],
+          "default": null
+        }
+      }
+    },
+    "trail": [
+      {
+        "type": "jsonschema-2020-12",
+        "path": []
+      },
+      {
+        "type": "jsonschema-2020-12",
+        "path": [ "$defs", "enabledToggle" ]
+      },
+      {
+        "type": "jsonschema-2020-12",
+        "path": [ "prefixItems", 0 ]
+      },
+      {
+        "type": "jsonschema-2020-12",
+        "path": [ "prefixItems", 0, "properties", "enabled" ]
+      },
+      {
+        "type": "jsonschema-2020-12",
+        "path": [ "prefixItems", 1 ]
+      },
+      {
+        "type": "jsonschema-2020-12",
+        "path": [ "prefixItems", 1, "properties", "enabled" ]
+      }
+    ]
+  },
+  {
+    "name": "draft-bhutton-json-schema-01 (7.7.1.2)",
+    "schema": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "oneOf": [
+        {
+          "title": "Integer Value",
+          "type": "integer"
+        },
+        {
+          "title": "String Value",
+          "type": "string"
+        }
+      ]
+    },
+    "trail": [
+      {
+        "type": "jsonschema-2020-12",
+        "path": []
+      },
+      {
+        "type": "jsonschema-2020-12",
+        "path": [ "oneOf", 0 ]
+      },
+      {
+        "type": "jsonschema-2020-12",
+        "path": [ "oneOf", 1 ]
+      }
+    ]
+  },
+  {
+    "name": "draft-bhutton-json-schema-01 (8.2.4)",
+    "schema": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "type": "array",
+      "items": { "$ref": "#/$defs/positiveInteger" },
+      "$defs": {
+        "positiveInteger": {
+          "type": "integer",
+          "exclusiveMinimum": 0
+        }
+      }
+    },
+    "trail": [
+      {
+        "type": "jsonschema-2020-12",
+        "path": []
+      },
+      {
+        "type": "jsonschema-2020-12",
+        "path": [ "$defs", "positiveInteger" ]
+      },
+      {
+        "type": "jsonschema-2020-12",
+        "path": [ "items" ]
+      }
+    ]
+  },
+  {
+    "name": "draft-bhutton-json-schema-01 (9.2)",
+    "schema": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "$id": "https://example.net/root.json",
+      "items": {
+        "type": "array",
+        "items": { "$ref": "#item" }
+      },
+      "$defs": {
+        "single": {
+          "$anchor": "item",
+          "type": "object",
+          "additionalProperties": { "$ref": "other.json" }
+        }
+      }
+    },
+    "trail": [
+      {
+        "type": "jsonschema-2020-12",
+        "path": []
+      },
+      {
+        "type": "jsonschema-2020-12",
+        "path": [ "$defs", "single" ]
+      },
+      {
+        "type": "jsonschema-2020-12",
+        "path": [ "$defs", "single", "additionalProperties" ]
+      },
+      {
+        "type": "jsonschema-2020-12",
+        "path": [ "items" ]
+      },
+      {
+        "type": "jsonschema-2020-12",
+        "path": [ "items", "items" ]
+      }
+    ]
+  },
+  {
+    "name": "draft-bhutton-json-schema-01 (9.2.1) (1)",
+    "schema": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "$id": "https://example.com/foo",
+      "items": {
+        "$id": "https://example.com/bar",
+        "additionalProperties": {}
+      }
+    },
+    "trail": [
+      {
+        "type": "jsonschema-2020-12",
+        "path": []
+      },
+      {
+        "type": "jsonschema-2020-12",
+        "path": [ "items" ]
+      },
+      {
+        "type": "jsonschema-2020-12",
+        "path": [ "items", "additionalProperties" ]
+      }
+    ]
+  },
+  {
+    "name": "draft-bhutton-json-schema-01 (9.2.1) (2)",
+    "schema": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "$id": "https://example.com/foo",
+      "items": {
+        "$ref": "bar"
+      }
+    },
+    "trail": [
+      {
+        "type": "jsonschema-2020-12",
+        "path": []
+      },
+      {
+        "type": "jsonschema-2020-12",
+        "path": [ "items" ]
+      }
+    ]
+  },
+  {
+    "name": "draft-bhutton-json-schema-01 (9.2.1) (3)",
+    "schema": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "$id": "https://example.com/bar",
+      "additionalProperties": {}
+    },
+    "trail": [
+      {
+        "type": "jsonschema-2020-12",
+        "path": []
+      },
+      {
+        "type": "jsonschema-2020-12",
+        "path": [ "additionalProperties" ]
+      }
+    ]
+  },
+  {
+    "name": "draft-bhutton-json-schema-01 (12.4)",
+    "schema": {
+      "$id": "https://example.com/polygon",
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "$defs": {
+        "point": {
+          "type": "object",
+          "properties": {
+            "x": { "type": "number" },
+            "y": { "type": "number" }
+          },
+          "additionalProperties": false,
+          "required": [ "x", "y" ]
+        }
+      },
+      "type": "array",
+      "items": { "$ref": "#/$defs/point" },
+      "minItems": 3
+    },
+    "trail": [
+      {
+        "type": "jsonschema-2020-12",
+        "path": []
+      },
+      {
+        "type": "jsonschema-2020-12",
+        "path": [ "$defs", "point" ]
+      },
+      {
+        "type": "jsonschema-2020-12",
+        "path": [ "$defs", "point", "properties", "x" ]
+      },
+      {
+        "type": "jsonschema-2020-12",
+        "path": [ "$defs", "point", "properties", "y" ]
+      },
+      {
+        "type": "jsonschema-2020-12",
+        "path": [ "$defs", "point", "additionalProperties" ]
+      },
+      {
+        "type": "jsonschema-2020-12",
+        "path": [ "items" ]
+      }
+    ]
+  },
+  {
+    "name": "draft-bhutton-json-schema-01 (appendix C) (1)",
+    "schema": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "$id": "https://example.com/tree",
+      "$dynamicAnchor": "node",
+      "type": "object",
+      "properties": {
+        "data": true,
+        "children": {
+          "type": "array",
+          "items": {
+            "$dynamicRef": "#node"
+          }
+        }
+      }
+    },
+    "trail": [
+      {
+        "type": "jsonschema-2020-12",
+        "path": []
+      },
+      {
+        "type": "jsonschema-2020-12",
+        "path": [ "properties", "data" ]
+      },
+      {
+        "type": "jsonschema-2020-12",
+        "path": [ "properties", "children" ]
+      },
+      {
+        "type": "jsonschema-2020-12",
+        "path": [ "properties", "children", "items" ]
+      }
+    ]
+  },
+  {
+    "name": "draft-bhutton-json-schema-01 (appendix C) (2)",
+    "schema": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "$id": "https://example.com/strict-tree",
+      "$dynamicAnchor": "node",
+      "$ref": "tree",
+      "unevaluatedProperties": false
+    },
+    "trail": [
+      {
+        "type": "jsonschema-2020-12",
+        "path": []
+      },
+      {
+        "type": "jsonschema-2020-12",
+        "path": [ "unevaluatedProperties" ]
+      }
+    ]
+  },
+  {
+    "name": "draft-bhutton-json-schema-01 (D.2) (1)",
+    "schema": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "$id": "https://example.com/meta/general-use-example",
+      "$dynamicAnchor": "meta",
+      "$vocabulary": {
+        "https://json-schema.org/draft/2020-12/vocab/core": true,
+        "https://json-schema.org/draft/2020-12/vocab/applicator": true,
+        "https://json-schema.org/draft/2020-12/vocab/validation": true,
+        "https://example.com/vocab/example-vocab": true
+      },
+      "allOf": [
+        { "$ref": "https://json-schema.org/draft/2020-12/meta/core" },
+        { "$ref": "https://json-schema.org/draft/2020-12/meta/applicator" },
+        { "$ref": "https://json-schema.org/draft/2020-12/meta/validation" },
+        { "$ref": "https://example.com/meta/example-vocab" }
+      ],
+      "patternProperties": {
+        "^unevaluated": false
+      },
+      "properties": {
+        "localKeyword": {
+          "$comment": "Not in vocabulary, but validated if used",
+          "type": "string"
+        }
+      }
+    },
+    "trail": [
+      {
+        "type": "jsonschema-2020-12",
+        "path": []
+      },
+      {
+        "type": "jsonschema-2020-12",
+        "path": [ "allOf", 0 ]
+      },
+      {
+        "type": "jsonschema-2020-12",
+        "path": [ "allOf", 1 ]
+      },
+      {
+        "type": "jsonschema-2020-12",
+        "path": [ "allOf", 2 ]
+      },
+      {
+        "type": "jsonschema-2020-12",
+        "path": [ "allOf", 3 ]
+      },
+      {
+        "type": "jsonschema-2020-12",
+        "path": [ "properties", "localKeyword" ]
+      },
+      {
+        "type": "jsonschema-2020-12",
+        "path": [ "patternProperties", "^unevaluated" ]
+      }
+    ]
+  },
+  {
+    "name": "draft-bhutton-json-schema-01 (D.2) (2)",
+    "schema": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "$id": "https://example.com/meta/example-vocab",
+      "$dynamicAnchor": "meta",
+      "$vocabulary": {
+        "https://example.com/vocab/example-vocab": true
+      },
+      "type": [ "object", "boolean" ],
+      "properties": {
+        "minDate": {
+          "type": "string",
+          "pattern": "\\d\\d\\d\\d-\\d\\d-\\d\\d",
+          "format": "date"
+        }
+      }
+    },
+    "trail": [
+      {
+        "type": "jsonschema-2020-12",
+        "path": []
+      },
+      {
+        "type": "jsonschema-2020-12",
+        "path": [ "properties", "minDate" ]
+      }
+    ]
+  },
+  {
+    "name": "draft-bhutton-json-schema-01 (E)",
+    "schema": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "allOf": [
+        {
+          "classRelation": "is-a",
+          "$ref": "classes/base.json"
+        },
+        {
+          "$ref": "fields/common.json"
+        }
+      ],
+      "properties": {
+        "foo": {
+          "classRelation": "has-a",
+          "$ref": "classes/foo.json"
+        },
+        "date": {
+          "$ref": "types/dateStruct.json"
+        }
+      }
+    },
+    "trail": [
+      {
+        "type": "jsonschema-2020-12",
+        "path": []
+      },
+      {
+        "type": "jsonschema-2020-12",
+        "path": [ "allOf", 0 ]
+      },
+      {
+        "type": "jsonschema-2020-12",
+        "path": [ "allOf", 1 ]
+      },
+      {
+        "type": "jsonschema-2020-12",
+        "path": [ "properties", "foo" ]
+      },
+      {
+        "type": "jsonschema-2020-12",
+        "path": [ "properties", "date" ]
+      }
+    ]
+  },
+  {
+    "name": "draft-bhutton-json-schema-validation-01 (8.6)",
+    "schema": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "type": "string",
+      "contentMediaType": "application/jwt",
+      "contentSchema": {
+        "type": "array",
+        "minItems": 2,
+        "prefixItems": [
+          {
+            "const": {
+              "typ": "JWT",
+              "alg": "HS256"
+            }
+          },
+          {
+            "type": "object",
+            "required": [ "iss", "exp" ],
+            "properties": {
+              "iss": { "type": "string" },
+              "exp": { "type": "integer" }
+            }
+          }
+        ]
+      }
+    },
+    "trail": [
+      {
+        "type": "jsonschema-2020-12",
+        "path": []
+      },
+      {
+        "type": "jsonschema-2020-12",
+        "path": [ "contentSchema" ]
+      },
+      {
+        "type": "jsonschema-2020-12",
+        "path": [ "contentSchema", "prefixItems", 0 ]
+      },
+      {
+        "type": "jsonschema-2020-12",
+        "path": [ "contentSchema", "prefixItems", 1 ]
+      },
+      {
+        "type": "jsonschema-2020-12",
+        "path": [ "contentSchema", "prefixItems", 1, "properties", "iss" ]
+      },
+      {
+        "type": "jsonschema-2020-12",
+        "path": [ "contentSchema", "prefixItems", 1, "properties", "exp" ]
+      }
+    ]
+  }
+]
