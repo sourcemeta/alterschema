@@ -33,5 +33,15 @@
         "foo": { "type": "string" }
       }
     }
+  },
+  {
+    "name": "true no metaschema",
+    "schema": {},
+    "expected": true
+  },
+  {
+    "name": "true no metaschema",
+    "schema": { "not": {} },
+    "expected": false
   }
 ]

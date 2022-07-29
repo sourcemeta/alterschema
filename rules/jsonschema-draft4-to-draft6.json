@@ -142,6 +142,24 @@
           { "$eval": "omit(schema, 'exclusiveMaximum')" }
         ]
       }
+    },
+    {
+      "vocabulary": "core",
+      "condition": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "$id": "https://github.com/jviotti/alterschema/rules/jsonschema-draft4-to-draft6/empty-object",
+        "const": {}
+      },
+      "transform": true
+    },
+    {
+      "vocabulary": "core",
+      "condition": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "$id": "https://github.com/jviotti/alterschema/rules/jsonschema-draft4-to-draft6/negated-empty-object",
+        "const": { "not": true }
+      },
+      "transform": false
     }
   ]
 }

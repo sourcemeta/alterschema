@@ -20,6 +20,24 @@
           { "$$schema": "http://json-schema.org/draft-07/schema#" }
         ]
       }
+    },
+    {
+      "vocabulary": "core",
+      "condition": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "$id": "https://github.com/jviotti/alterschema/rules/jsonschema-draft6-to-draft7/empty-object",
+        "const": {}
+      },
+      "transform": true
+    },
+    {
+      "vocabulary": "core",
+      "condition": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "$id": "https://github.com/jviotti/alterschema/rules/jsonschema-draft6-to-draft7/negated-empty-object",
+        "const": { "not": true }
+      },
+      "transform": false
     }
   ]
 }

@@ -77,5 +77,15 @@
       "$schema": "http://json-schema.org/draft-06/schema#",
       "maximum": 5
     }
+  },
+  {
+    "name": "true no metaschema",
+    "schema": {},
+    "expected": true
+  },
+  {
+    "name": "true no metaschema",
+    "schema": { "not": {} },
+    "expected": false
   }
 ]
