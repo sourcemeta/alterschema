@@ -1,0 +1,49 @@
+{
+  "walker": "jsonschema-draft4",
+  "rules": [
+    {
+      "vocabulary": "core",
+      "condition": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "$id": "https://github.com/jviotti/alterschema/rules/jsonschema-draft4-to-draft6/upgrade-official-metaschema",
+        "type": "object",
+        "required": [ "$schema" ],
+        "properties": {
+          "$schema": {
+            "const": "http://json-schema.org/draft-04/schema#"
+          }
+        }
+      },
+      "transform": {
+        "$merge": [
+          { "$eval": "schema" },
+          { "$$schema": "http://json-schema.org/draft-06/schema#" }
+        ]
+      }
+    },
+    {
+      "vocabulary": "core",
+      "condition": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "$id": "https://github.com/jviotti/alterschema/rules/jsonschema-draft4-to-draft6/id",
+        "type": "object",
+        "required": [ "id" ],
+        "properties": {
+          "id": {
+            "type": "string"
+          }
+        }
+      },
+      "transform": {
+        "$merge": [
+          { "$eval": "omit(schema, 'id')" },
+          {
+            "$$id": {
+              "$eval": "schema.id"
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

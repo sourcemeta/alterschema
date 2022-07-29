@@ -48,7 +48,12 @@ for (const walkerName of fs.readdirSync(path.resolve(__dirname, '..', '..', 'tes
 }
 
 for (const name of fs.readdirSync(path.resolve(__dirname, '..', '..', 'test', 'rules'))) {
-  for (const rule of require(`../../rules/${name}`).rules) {
+  const rulesetPath = path.resolve(__dirname, '..', '..', 'rules', name)
+  if (!fs.existsSync(rulesetPath)) {
+    continue
+  }
+
+  for (const rule of require(rulesetPath).rules) {
     tap.test(`$id: (${name}) ${rule.condition.$id}`, (test) => {
       const basename = path.basename(name, path.extname(name))
       const prefix = `https://github.com/jviotti/alterschema/rules/${basename}/`

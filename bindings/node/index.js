@@ -32,18 +32,19 @@ async function transformer (root, path, ruleset) {
 }
 
 module.exports = async (value, from, to) => {
-  const mapper = builtin.jsonschema[from][to]
-  const trails = walker(mapper.walker, value, []).sort((a, b) => {
-    return b.path.length - a.path.length
-  })
-
   let accumulator = _.cloneDeep(value)
-  for (const trail of trails) {
-    const transform = await transformer(accumulator, trail.path, mapper.rules)
-    if (trail.path.length === 0) {
-      accumulator = transform
-    } else {
-      _.set(accumulator, trail.path, transform)
+  for (const mapper of builtin.jsonschema[from][to]) {
+    const trails = walker(mapper.walker, value, []).sort((a, b) => {
+      return b.path.length - a.path.length
+    })
+
+    for (const trail of trails) {
+      const transform = await transformer(accumulator, trail.path, mapper.rules)
+      if (trail.path.length === 0) {
+        accumulator = transform
+      } else {
+        _.set(accumulator, trail.path, transform)
+      }
     }
   }
 

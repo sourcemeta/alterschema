@@ -1,0 +1,25 @@
+{
+  "walker": "jsonschema-draft7",
+  "rules": [
+    {
+      "vocabulary": "core",
+      "condition": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "$id": "https://github.com/jviotti/alterschema/rules/jsonschema-draft7-to-2019-09/upgrade-official-metaschema",
+        "type": "object",
+        "required": [ "$schema" ],
+        "properties": {
+          "$schema": {
+            "const": "http://json-schema.org/draft-07/schema#"
+          }
+        }
+      },
+      "transform": {
+        "$merge": [
+          { "$eval": "schema" },
+          { "$$schema": "https://json-schema.org/draft/2019-09/schema" }
+        ]
+      }
+    }
+  ]
+}
