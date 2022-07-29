@@ -1,0 +1,11 @@
+[
+  {
+    "name": "draft6 $schema",
+    "schema": {
+      "$schema": "http://json-schema.org/draft-06/schema#"
+    },
+    "expected": {
+      "$schema": "http://json-schema.org/draft-07/schema#"
+    }
+  }
+]
