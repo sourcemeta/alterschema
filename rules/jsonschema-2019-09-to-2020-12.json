@@ -75,6 +75,24 @@
           }
         ]
       }
+    },
+    {
+      "vocabulary": "https://json-schema.org/draft/2019-09/vocab/core",
+      "condition": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "$id": "https://github.com/jviotti/alterschema/rules/jsonschema-2019-09-to-2020-12/empty-object",
+        "const": {}
+      },
+      "transform": true
+    },
+    {
+      "vocabulary": "https://json-schema.org/draft/2019-09/vocab/core",
+      "condition": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "$id": "https://github.com/jviotti/alterschema/rules/jsonschema-2019-09-to-2020-12/negated-empty-object",
+        "const": { "not": true }
+      },
+      "transform": false
     }
   ]
 }

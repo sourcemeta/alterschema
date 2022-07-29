@@ -69,6 +69,24 @@
           }
         ]
       }
+    },
+    {
+      "vocabulary": "core",
+      "condition": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "$id": "https://github.com/jviotti/alterschema/rules/jsonschema-draft7-to-2019-09/empty-object",
+        "const": {}
+      },
+      "transform": true
+    },
+    {
+      "vocabulary": "core",
+      "condition": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "$id": "https://github.com/jviotti/alterschema/rules/jsonschema-draft7-to-2019-09/negated-empty-object",
+        "const": { "not": true }
+      },
+      "transform": false
     }
   ]
 }
