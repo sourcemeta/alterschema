@@ -44,6 +44,104 @@
           }
         ]
       }
+    },
+    {
+      "vocabulary": "validation",
+      "condition": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "$id": "https://github.com/jviotti/alterschema/rules/jsonschema-draft4-to-draft6/boolean-exclusive-minimum-true",
+        "type": "object",
+        "required": [ "minimum", "exclusiveMinimum" ],
+        "properties": {
+          "minimum": {
+            "type": "number"
+          },
+          "exclusiveMinimum": {
+            "const": true
+          }
+        }
+      },
+      "transform": {
+        "$merge": [
+          { "$eval": "omit(schema, 'minimum')" },
+          {
+            "exclusiveMinimum": {
+              "$eval": "schema.minimum"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "vocabulary": "validation",
+      "condition": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "$id": "https://github.com/jviotti/alterschema/rules/jsonschema-draft4-to-draft6/boolean-exclusive-maximum-true",
+        "type": "object",
+        "required": [ "maximum", "exclusiveMaximum" ],
+        "properties": {
+          "maximum": {
+            "type": "number"
+          },
+          "exclusiveMaximum": {
+            "const": true
+          }
+        }
+      },
+      "transform": {
+        "$merge": [
+          { "$eval": "omit(schema, 'maximum')" },
+          {
+            "exclusiveMaximum": {
+              "$eval": "schema.maximum"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "vocabulary": "validation",
+      "condition": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "$id": "https://github.com/jviotti/alterschema/rules/jsonschema-draft4-to-draft6/boolean-exclusive-minimum-false",
+        "type": "object",
+        "required": [ "minimum", "exclusiveMinimum" ],
+        "properties": {
+          "minimum": {
+            "type": "number"
+          },
+          "exclusiveMinimum": {
+            "const": false
+          }
+        }
+      },
+      "transform": {
+        "$merge": [
+          { "$eval": "omit(schema, 'exclusiveMinimum')" }
+        ]
+      }
+    },
+    {
+      "vocabulary": "validation",
+      "condition": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "$id": "https://github.com/jviotti/alterschema/rules/jsonschema-draft4-to-draft6/boolean-exclusive-maximum-false",
+        "type": "object",
+        "required": [ "maximum", "exclusiveMaximum" ],
+        "properties": {
+          "maximum": {
+            "type": "number"
+          },
+          "exclusiveMaximum": {
+            "const": false
+          }
+        }
+      },
+      "transform": {
+        "$merge": [
+          { "$eval": "omit(schema, 'exclusiveMaximum')" }
+        ]
+      }
     }
   ]
 }

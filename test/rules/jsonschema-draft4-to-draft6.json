@@ -29,5 +29,53 @@
       "$schema": "http://json-schema.org/draft-06/schema#",
       "$id": "#tag"
     }
+  },
+  {
+    "name": "draft4 exclusiveMinimum to minimum",
+    "schema": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "minimum": 5,
+      "exclusiveMinimum": true
+    },
+    "expected": {
+      "$schema": "http://json-schema.org/draft-06/schema#",
+      "exclusiveMinimum": 5
+    }
+  },
+  {
+    "name": "draft4 exclusiveMaximum to maximum",
+    "schema": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "maximum": 5,
+      "exclusiveMaximum": true
+    },
+    "expected": {
+      "$schema": "http://json-schema.org/draft-06/schema#",
+      "exclusiveMaximum": 5
+    }
+  },
+  {
+    "name": "draft4 exclusiveMinimum false",
+    "schema": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "minimum": 5,
+      "exclusiveMinimum": false
+    },
+    "expected": {
+      "$schema": "http://json-schema.org/draft-06/schema#",
+      "minimum": 5
+    }
+  },
+  {
+    "name": "draft4 exclusiveMaximum false",
+    "schema": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "maximum": 5,
+      "exclusiveMaximum": false
+    },
+    "expected": {
+      "$schema": "http://json-schema.org/draft-06/schema#",
+      "maximum": 5
+    }
   }
 ]
