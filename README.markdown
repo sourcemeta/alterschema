@@ -1,27 +1,17 @@
 alterschema
 ===========
 
-This project implements [a set of formal
+[<img src="logo.svg" align="right" width="100">](https://json-schema.org)
+
+This project implements a language-independent [set of formal
 transformations](https://github.com/jviotti/alterschema/tree/master/rules) to
 automatically transform [JSON Schema](https://json-schema.org) documents across
 versions of the specification.
 
-Installation
-------------
+Coverage
+--------
 
-```sh
-npm install --save alterschema
-```
-
-Programmatic Use
-----------------
-
-#### `alterschema(schema: JSON, from: string, to: string) -> JSON`
-
-Transform the input document `schema` according to the `from` and `to` string
-parameters. The supported transformations are as follows:
-
-##### Upgrade
+### Upgrade
 
 | From    | To      | Type     | Status       | Description                                                      |
 |---------|---------|----------|--------------|------------------------------------------------------------------|
@@ -33,7 +23,7 @@ parameters. The supported transformations are as follows:
 [^1]: Does not handle converting `$recursiveRef` and `$recursiveAnchor` to `$dynamicRef` and `$dynamicAnchor`.
 [^2]: Does not handle converting `dependencies` to `dependentSchemas` and `dependentProperties`.
 
-##### Downgrade
+### Downgrade
 
 | From    | To      | Type     | Status     | Description                                                      |
 |---------|---------|----------|------------|------------------------------------------------------------------|
@@ -46,18 +36,24 @@ Transformations can be transitively applied. For example, transforming from
 `draft6` to `2019-09` implies transforming `draft6` to `draft7` and `draft7` to
 `2019-09`.
 
-### Example
+Bindings
+--------
+
+### JavaScript
 
 ```js
+// (1) Install by running "npm install --save alterschema"
 const alterschema = require('alterschema')
+
+// (2) alterschema(schema: JSON, from: string, to: string) -> JSON
+// Transform the input document `schema` according to the
+// `from` and `to` string parameters.
 const result = alterschema({ ... }, '2019-09', '2020-12')
+
 console.log(result)
 ```
 
-Command-line tool
------------------
-
-The project also ships with a command-line tool:
+#### Command-line tool
 
 ```sh
 # Install globally through npm
@@ -65,6 +61,12 @@ npm install --global alterschema
 # Run the command-line tool
 alterschema --from <from> --to <to> path/to/schema.json
 ```
+
+Acknowledgements
+----------------
+
+Special thanks to [@gregdeniss](https://github.com/gregsdennis) for curating
+the initial set of upgrade rules.
 
 [2020-12]: https://json-schema.org/draft/2020-12/json-schema-core.html
 [2019-09]: https://datatracker.ietf.org/doc/html/draft-handrews-json-schema-02
