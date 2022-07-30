@@ -62,6 +62,13 @@ npm install --global alterschema
 alterschema --from <from> --to <to> path/to/schema.json
 ```
 
+### Others
+
+We accept contributions to implement `alterschema` in any programming language.
+To produce an `alterschema` implementation, your programming language of choice
+must support a JSON Schema 2020-12 validator and a
+[JSON-e](https://json-e.js.org) interpreter.
+
 Acknowledgements
 ----------------
 
