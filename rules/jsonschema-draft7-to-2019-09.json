@@ -113,6 +113,55 @@
           }
         ]
       }
+    },
+    {
+      "vocabulary": "validation",
+      "condition": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "$id": "https://github.com/jviotti/alterschema/rules/jsonschema-draft7-to-2019-09/dependencies",
+        "type": "object",
+        "required": [ "dependencies" ],
+        "properties": {
+          "dependencies": {
+            "type": "object"
+          }
+        }
+      },
+      "transform": {
+        "$merge": [
+          { "$eval": "omit(schema, 'dependencies')" },
+          {
+            "dependentProperties": {
+              "$map": {
+                "$eval": "schema.dependencies"
+              },
+              "each(v,k)": {
+                "${k}": {
+                  "$if": "typeof(v) == 'array'",
+                  "then": {
+                    "$eval": "v"
+                  }
+                }
+              }
+            }
+          },
+          {
+            "dependentSchemas": {
+              "$map": {
+                "$eval": "schema.dependencies"
+              },
+              "each(v,k)": {
+                "${k}": {
+                  "$if": "typeof(v) == 'object' || typeof(v) == 'boolean'",
+                  "then": {
+                    "$eval": "v"
+                  }
+                }
+              }
+            }
+          }
+        ]
+      }
     }
   ]
 }

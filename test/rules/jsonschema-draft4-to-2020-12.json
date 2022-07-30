@@ -113,5 +113,62 @@
       "$schema": "https://json-schema.org/draft/2020-12/schema",
       "const": "single-value"
     }
+  },
+  {
+    "name": "dependencies to dependentProperties and dependentSchemas",
+    "schema": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "dependencies": {
+        "foo": { "type": "string" },
+        "bar": false,
+        "baz": true,
+        "qux": [ "foo" ]
+      }
+    },
+    "expected": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "dependentSchemas": {
+        "foo": { "type": "string" },
+        "bar": false,
+        "baz": true
+      },
+      "dependentProperties": {
+        "qux": [ "foo" ]
+      }
+    }
+  },
+  {
+    "name": "dependencies to dependentSchemas only",
+    "schema": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "dependencies": {
+        "foo": { "type": "string" },
+        "bar": false,
+        "baz": true
+      }
+    },
+    "expected": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "dependentSchemas": {
+        "foo": { "type": "string" },
+        "bar": false,
+        "baz": true
+      }
+    }
+  },
+  {
+    "name": "dependencies to dependentProperties only",
+    "schema": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "dependencies": {
+        "qux": [ "foo" ]
+      }
+    },
+    "expected": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "dependentProperties": {
+        "qux": [ "foo" ]
+      }
+    }
   }
 ]
