@@ -56,9 +56,9 @@ console.log(result)
 #### Command-line tool
 
 ```sh
-# Install globally through npm
+# (1) Install globally through npm
 npm install --global alterschema
-# Run the command-line tool
+# (2) Run the command-line tool
 alterschema --from <from> --to <to> path/to/schema.json
 ```
 
