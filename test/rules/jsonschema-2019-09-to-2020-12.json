@@ -13,12 +13,14 @@
   {
     "name": "items array to prefixItems",
     "schema": {
+      "$schema": "https://json-schema.org/draft/2019-09/schema",
       "items": [
         { "$ref": "#/$defs/foo" },
         { "$ref": "#/$defs/bar" }
       ]
     },
     "expected": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
       "prefixItems": [
         { "$ref": "#/$defs/foo" },
         { "$ref": "#/$defs/bar" }
@@ -28,6 +30,7 @@
   {
     "name": "items array with falsy additionalItems",
     "schema": {
+      "$schema": "https://json-schema.org/draft/2019-09/schema",
       "additionalItems": false,
       "items": [
         { "$ref": "#/$defs/foo" },
@@ -35,6 +38,7 @@
       ]
     },
     "expected": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
       "items": false,
       "prefixItems": [
         { "$ref": "#/$defs/foo" },
@@ -45,6 +49,7 @@
   {
     "name": "items array with non-falsy additionalItems",
     "schema": {
+      "$schema": "https://json-schema.org/draft/2019-09/schema",
       "additionalItems": { "$ref": "#/$defs/baz" },
       "items": [
         { "$ref": "#/$defs/foo" },
@@ -52,6 +57,7 @@
       ]
     },
     "expected": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
       "items": { "$ref": "#/$defs/baz" },
       "prefixItems": [
         { "$ref": "#/$defs/foo" },
@@ -68,5 +74,16 @@
     "name": "true no metaschema",
     "schema": { "not": {} },
     "expected": false
+  },
+  {
+    "name": "enum with one value",
+    "schema": {
+      "$schema": "https://json-schema.org/draft/2019-09/schema",
+      "enum": [ "single-value" ]
+    },
+    "expected": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "const": "single-value"
+    }
   }
 ]
