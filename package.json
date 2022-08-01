@@ -6,9 +6,6 @@
   "bin": {
     "alterschema": "bindings/node/cli.js"
   },
-  "scripts": {
-    "test": "standard 'bindings/node/*.js' && tap --reporter=list --no-coverage --no-timeout 'bindings/node/test.js'"
-  },
   "keywords": [
     "json",
     "json-schema",
