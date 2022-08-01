@@ -25,6 +25,7 @@
     "url": "https://github.com/sourcemeta/alterschema/issues"
   },
   "devDependencies": {
+    "ajv-cli": "^5.0.0",
     "standard": "^17.0.0",
     "tap": "^14.11.0"
   },
