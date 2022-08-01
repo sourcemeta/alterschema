@@ -16,12 +16,11 @@ Coverage
 | From    | To      | Type     | Status       | Description                                                      |
 |---------|---------|----------|--------------|------------------------------------------------------------------|
 | 2019-09 | 2020-12 | Lossless | Partial [^1] | JSON Schema [2019-09][2019-09] to JSON Schema [2020-12][2020-12] |
-| draft7  | 2019-09 | Lossless | Partial [^2] | JSON Schema [Draft 7][draft7] to JSON Schema [2019-09][2019-09]  |
+| draft7  | 2019-09 | Lossless | Full         | JSON Schema [Draft 7][draft7] to JSON Schema [2019-09][2019-09]  |
 | draft6  | draft7  | Lossless | Full         | JSON Schema [Draft 6][draft6] to JSON Schema [Draft 7][draft7]   |
 | draft4  | draft6  | Lossless | Full         | JSON Schema [Draft 4][draft4] to JSON Schema [Draft 6][draft6]   |
 
 [^1]: Does not handle converting `$recursiveRef` and `$recursiveAnchor` to `$dynamicRef` and `$dynamicAnchor`.
-[^2]: Does not handle converting `dependencies` to `dependentSchemas` and `dependentProperties`.
 
 ### Downgrade
 

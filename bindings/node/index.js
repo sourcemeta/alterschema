@@ -16,8 +16,9 @@ async function transformer (root, path, ruleset) {
       jsonschema.usesVocabulary(root, value, rule.vocabulary)) {
       const output = jsone(rule.transform, {
         schema: value,
-        omit: (object, key) => {
-          return _.omit(object, _.castArray(key))
+        // TODO: Use standard JSON-e operators instead
+        omit: (object, keys) => {
+          return _.omit(object, _.castArray(keys))
         },
         tail: (value) => {
           return value.slice(1)

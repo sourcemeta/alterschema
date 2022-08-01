@@ -1,0 +1,39 @@
+{
+  "walker": "jsonschema-2019-09",
+  "rules": [
+    {
+      "vocabulary": "https://json-schema.org/draft/2019-09/vocab/applicator",
+      "condition": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "$id": "https://github.com/jviotti/alterschema/rules/jsonschema-2019-09-to-2019-09/empty-dependent-schemas",
+        "type": "object",
+        "required": [ "dependentSchemas" ],
+        "properties": {
+          "dependentSchemas": {
+            "const": {}
+          }
+        }
+      },
+      "transform": {
+        "$eval": "omit(schema, 'dependentSchemas')"
+      }
+    },
+    {
+      "vocabulary": "https://json-schema.org/draft/2019-09/vocab/applicator",
+      "condition": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "$id": "https://github.com/jviotti/alterschema/rules/jsonschema-2019-09-to-2019-09/empty-dependent-properties",
+        "type": "object",
+        "required": [ "dependentProperties" ],
+        "properties": {
+          "dependentProperties": {
+            "const": {}
+          }
+        }
+      },
+      "transform": {
+        "$eval": "omit(schema, 'dependentProperties')"
+      }
+    }
+  ]
+}
