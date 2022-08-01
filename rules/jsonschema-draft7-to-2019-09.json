@@ -40,7 +40,7 @@
           { "$eval": "omit(schema, '$id')" },
           {
             "$$anchor": {
-              "$eval": "tail(schema['$id'])"
+              "$eval": "schema['$id'][1:]"
             }
           }
         ]
