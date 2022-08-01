@@ -9,7 +9,7 @@
   "scripts": {
     "test": "standard 'bindings/node/*.js' && tap --reporter=list --no-coverage --no-timeout 'bindings/node/test.js'"
   },
-  "ktywords": [
+  "keywords": [
     "json",
     "json-schema",
     "jsonschema",
