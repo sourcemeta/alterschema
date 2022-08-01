@@ -116,9 +116,7 @@
         }
       },
       "transform": {
-        "$merge": [
-          { "$eval": "omit(schema, 'exclusiveMinimum')" }
-        ]
+        "$eval": "omit(schema, 'exclusiveMinimum')"
       }
     },
     {
@@ -138,9 +136,7 @@
         }
       },
       "transform": {
-        "$merge": [
-          { "$eval": "omit(schema, 'exclusiveMaximum')" }
-        ]
+        "$eval": "omit(schema, 'exclusiveMaximum')"
       }
     },
     {
