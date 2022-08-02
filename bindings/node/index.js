@@ -34,6 +34,13 @@ async function transformer (root, path, ruleset) {
 
 module.exports = async (value, from, to) => {
   let accumulator = _.cloneDeep(value)
+
+  if (!builtin.jsonschema[from]) {
+    throw new Error(`Invalid "from": ${from}`)
+  } else if (!builtin.jsonschema[from][to]) {
+    throw new Error(`Invalid "to": ${to}`)
+  }
+
   for (const mapper of builtin.jsonschema[from][to]) {
     const trails = walker(mapper.walker, value, []).sort((a, b) => {
       return b.path.length - a.path.length

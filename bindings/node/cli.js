@@ -48,5 +48,5 @@ const input = JSON.parse(fs.readFileSync(file, 'utf8'))
 alterschema(input, from, to).then((result) => {
   console.log(JSON.stringify(result, null, 2))
 }).catch((error) => {
-  console.error(error)
+  console.error(error.message)
 })
