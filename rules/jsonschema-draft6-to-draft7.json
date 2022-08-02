@@ -28,7 +28,9 @@
         "$id": "https://github.com/jviotti/alterschema/rules/jsonschema-draft6-to-draft7/empty-object",
         "const": {}
       },
-      "transform": true
+      "transform": {
+        "$eval": "true"
+      }
     },
     {
       "vocabulary": "core",
@@ -37,7 +39,9 @@
         "$id": "https://github.com/jviotti/alterschema/rules/jsonschema-draft6-to-draft7/negated-empty-object",
         "const": { "not": true }
       },
-      "transform": false
+      "transform": {
+        "$eval": "false"
+      }
     },
     {
       "vocabulary": "validation",

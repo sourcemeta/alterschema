@@ -1,0 +1,32 @@
+{
+  "$id": "https://github.com/sourcemeta/alterschema/raw/master/schemas/rule.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": [ "walker", "rules" ],
+  "additionalProperties": false,
+  "properties": {
+    "walker": {
+      "type": "string"
+    },
+    "rules": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [ "vocabulary", "condition", "transform" ],
+        "additionalProperties": false,
+        "properties": {
+          "vocabulary": {
+            "type": "string"
+          },
+          "condition": {
+            "$ref": "https://json-schema.org/draft/2020-12/schema"
+          },
+          "transform": {
+            "$comment": "TODO: Implement a JSON-e schema at schemas.sourcemeta.com and use that here",
+            "type": "object"
+          }
+        }
+      }
+    }
+  }
+}
