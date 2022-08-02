@@ -8,6 +8,9 @@ transformations](https://github.com/jviotti/alterschema/tree/master/rules) to
 automatically transform [JSON Schema](https://json-schema.org) documents across
 versions of the specification.
 
+**Try the web playground at:
+[https://alterschema.sourcemeta.com](https://alterschema.sourcemeta.com)**
+
 Coverage
 --------
 
