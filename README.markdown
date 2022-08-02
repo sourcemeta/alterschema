@@ -31,7 +31,7 @@ Coverage
 | draft7  | draft6  | Lossy    | TODO       | JSON Schema [Draft 7][draft7] to JSON Schema [Draft 6][draft6]   |
 | draft6  | draft4  | Lossy    | TODO       | JSON Schema [Draft 6][draft6] to JSON Schema [Draft 4][draft4]   |
 
-Transformations can be transitively applied. For example, transforming from
+Transformations are transitively applied. For example, transforming from
 `draft6` to `2019-09` implies transforming `draft6` to `draft7` and `draft7` to
 `2019-09`.
 
