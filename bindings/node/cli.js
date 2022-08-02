@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 const fs = require('fs')
 const packageJSON = require('../../package.json')
 const builtin = require('./builtin')
