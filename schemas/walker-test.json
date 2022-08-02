@@ -1,0 +1,45 @@
+{
+  "$id": "https://github.com/sourcemeta/alterschema/raw/master/schemas/walker-test.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "array",
+  "minItems": 1,
+  "items": {
+    "type": "object",
+    "required": [ "name", "schema", "trail" ],
+    "additionalProperties": false,
+    "properties": {
+      "name": {
+        "type": "string"
+      },
+      "schema": {
+        "oneOf": [
+          { "type": "object" },
+          { "type": "boolean" }
+        ]
+      },
+      "trail": {
+        "type": "array",
+        "minItems": 1,
+        "items": {
+          "type": "object",
+          "required": [ "type", "path" ],
+          "additionalProperties": false,
+          "properties": {
+            "type": {
+              "type": "string"
+            },
+            "path": {
+              "type": "array",
+              "items": {
+                "oneOf": [
+                  { "type": "string" },
+                  { "type": "integer" }
+                ]
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

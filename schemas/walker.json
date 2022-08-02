@@ -1,0 +1,35 @@
+{
+  "$id": "https://github.com/sourcemeta/alterschema/raw/master/schemas/walker.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": {
+    "type": "object",
+    "required": [ "vocabulary", "type", "walker" ],
+    "additionalProperties": false,
+    "properties": {
+      "vocabulary": {
+        "type": "string"
+      },
+      "type": {
+        "oneOf": [
+          { "$ref": "#/$defs/applicator-type" },
+          {
+            "type": "array",
+            "uniqueItems": true,
+            "items": {
+              "$ref": "#/$defs/applicator-type"
+            }
+          }
+        ]
+      },
+      "walker": {
+        "type": "string"
+      }
+    }
+  },
+  "$defs": {
+    "applicator-type": {
+      "enum": [ "object", "array", "value" ]
+    }
+  }
+}
