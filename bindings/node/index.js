@@ -1,6 +1,5 @@
 const _ = require('lodash')
 const jsone = require('json-e')
-const assert = require('assert').strict
 const jsonschema = require('./jsonschema')
 const walker = require('./walker')
 const builtin = require('./builtin')
@@ -22,8 +21,10 @@ async function transformer (root, path, ruleset) {
         }
       })
 
-      assert(!await jsonschema.matches(rule.condition, output),
-        'Rule condition must not match after transform')
+      if (await jsonschema.matches(rule.condition, output)) {
+        throw new Error('Rule condition must not match after transform')
+      }
+
       const newRoot = path.length === 0 ? output : _.set(root, path, output)
       return transformer(newRoot, path, ruleset)
     }
