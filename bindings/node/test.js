@@ -56,7 +56,7 @@ for (const name of fs.readdirSync(path.resolve(__dirname, '..', '..', 'test', 'r
   for (const rule of require(rulesetPath).rules) {
     tap.test(`$id: (${name}) ${rule.condition.$id}`, (test) => {
       const basename = path.basename(name, path.extname(name))
-      const prefix = `https://github.com/jviotti/alterschema/rules/${basename}/`
+      const prefix = `https://github.com/sourcemeta/alterschema/rules/${basename}/`
       test.ok(rule.condition.$id.startsWith(prefix), `Must start with ${prefix}`)
       test.end()
     })

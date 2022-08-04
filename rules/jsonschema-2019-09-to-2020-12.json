@@ -5,7 +5,7 @@
       "vocabulary": "https://json-schema.org/draft/2019-09/vocab/core",
       "condition": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "https://github.com/jviotti/alterschema/rules/jsonschema-2019-09-to-2020-12/upgrade-official-metaschema",
+        "$id": "https://github.com/sourcemeta/alterschema/rules/jsonschema-2019-09-to-2020-12/upgrade-official-metaschema",
         "type": "object",
         "required": [ "$schema" ],
         "properties": {
@@ -25,7 +25,7 @@
       "vocabulary": "https://json-schema.org/draft/2019-09/vocab/validation",
       "condition": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "https://github.com/jviotti/alterschema/rules/jsonschema-2019-09-to-2020-12/open-tuple",
+        "$id": "https://github.com/sourcemeta/alterschema/rules/jsonschema-2019-09-to-2020-12/open-tuple",
         "$comment": "https://json-schema.org/draft/2020-12/release-notes.html",
         "type": "object",
         "required": [ "items" ],
@@ -51,7 +51,7 @@
       "vocabulary": "https://json-schema.org/draft/2019-09/vocab/validation",
       "condition": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "https://github.com/jviotti/alterschema/rules/jsonschema-2019-09-to-2020-12/closed-tuple",
+        "$id": "https://github.com/sourcemeta/alterschema/rules/jsonschema-2019-09-to-2020-12/closed-tuple",
         "$comment": "https://json-schema.org/draft/2020-12/release-notes.html",
         "type": "object",
         "required": [ "items", "additionalItems" ],
@@ -80,7 +80,7 @@
       "vocabulary": "https://json-schema.org/draft/2019-09/vocab/core",
       "condition": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "https://github.com/jviotti/alterschema/rules/jsonschema-2019-09-to-2020-12/empty-object",
+        "$id": "https://github.com/sourcemeta/alterschema/rules/jsonschema-2019-09-to-2020-12/empty-object",
         "const": {}
       },
       "transform": {
@@ -91,7 +91,7 @@
       "vocabulary": "https://json-schema.org/draft/2019-09/vocab/core",
       "condition": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "https://github.com/jviotti/alterschema/rules/jsonschema-2019-09-to-2020-12/negated-empty-object",
+        "$id": "https://github.com/sourcemeta/alterschema/rules/jsonschema-2019-09-to-2020-12/negated-empty-object",
         "const": { "not": true }
       },
       "transform": {
@@ -102,7 +102,7 @@
       "vocabulary": "https://json-schema.org/draft/2019-09/vocab/validation",
       "condition": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "https://github.com/jviotti/alterschema/rules/jsonschema-2019-09-to-2020-12/enum-to-const",
+        "$id": "https://github.com/sourcemeta/alterschema/rules/jsonschema-2019-09-to-2020-12/enum-to-const",
         "type": "object",
         "required": [ "enum" ],
         "properties": {

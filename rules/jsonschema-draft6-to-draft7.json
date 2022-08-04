@@ -5,7 +5,7 @@
       "vocabulary": "core",
       "condition": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "https://github.com/jviotti/alterschema/rules/jsonschema-draft6-to-draft7/upgrade-official-metaschema",
+        "$id": "https://github.com/sourcemeta/alterschema/rules/jsonschema-draft6-to-draft7/upgrade-official-metaschema",
         "type": "object",
         "required": [ "$schema" ],
         "properties": {
@@ -25,7 +25,7 @@
       "vocabulary": "core",
       "condition": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "https://github.com/jviotti/alterschema/rules/jsonschema-draft6-to-draft7/empty-object",
+        "$id": "https://github.com/sourcemeta/alterschema/rules/jsonschema-draft6-to-draft7/empty-object",
         "const": {}
       },
       "transform": {
@@ -36,7 +36,7 @@
       "vocabulary": "core",
       "condition": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "https://github.com/jviotti/alterschema/rules/jsonschema-draft6-to-draft7/negated-empty-object",
+        "$id": "https://github.com/sourcemeta/alterschema/rules/jsonschema-draft6-to-draft7/negated-empty-object",
         "const": { "not": true }
       },
       "transform": {
@@ -47,7 +47,7 @@
       "vocabulary": "validation",
       "condition": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "https://github.com/jviotti/alterschema/rules/jsonschema-draft6-to-draft7/enum-to-const",
+        "$id": "https://github.com/sourcemeta/alterschema/rules/jsonschema-draft6-to-draft7/enum-to-const",
         "type": "object",
         "required": [ "enum" ],
         "properties": {
