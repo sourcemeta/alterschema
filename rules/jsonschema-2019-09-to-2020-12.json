@@ -109,7 +109,7 @@
           "enum": {
             "type": "array",
             "minItems": 1,
-            "maxitems": 1
+            "maxItems": 1
           }
         }
       },
