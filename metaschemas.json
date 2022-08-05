@@ -1,0 +1,7 @@
+{
+  "http://json-schema.org/draft-04/schema#": "draft4",
+  "http://json-schema.org/draft-06/schema#": "draft6",
+  "http://json-schema.org/draft-07/schema#": "draft7",
+  "https://json-schema.org/draft/2019-09/schema": "2019-09",
+  "https://json-schema.org/draft/2020-12/schema": "2020-12"
+}
