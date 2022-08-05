@@ -11,6 +11,14 @@ const SPECIFICATION_NAMES = {
   draft7: 'Draft 7'
 }
 
+const METASCHEMAS = {
+  'http://json-schema.org/draft-04/schema#': 'draft4',
+  'http://json-schema.org/draft-06/schema#': 'draft6',
+  'http://json-schema.org/draft-07/schema#': 'draft7',
+  'https://json-schema.org/draft/2019-09/schema': '2019-09',
+  'https://json-schema.org/draft/2020-12/schema': '2020-12'
+}
+
 function safeJSONParse (string) {
   try {
     return JSON.parse(string)
@@ -36,8 +44,8 @@ function getSelectValue (element) {
     : element.options[element.selectedIndex].value
 }
 
-function setSpecificationOptions (element, options) {
-  const currentValue = getSelectValue(element)
+function setSpecificationOptions (element, options, expected) {
+  const currentValue = expected || getSelectValue(element)
   element.innerHTML = ''
   for (const option of options) {
     appendOption(element, SPECIFICATION_NAMES[option] || option,
@@ -76,7 +84,39 @@ const editor = new CodeMirror.EditorView({
   extensions: [
     CodeMirror.basicSetup,
     codemirrorJSON.json(),
-    codemirrorLint.linter(codemirrorJSON.jsonParseLinter())
+    codemirrorLint.linter(codemirrorJSON.jsonParseLinter()),
+    CodeMirror.EditorView.updateListener.of((event) => {
+      const types = event.transactions.reduce((accumulator, transaction) => {
+        const annotations = transaction.annotations.filter((annotation) => {
+          return typeof annotation.value === 'string'
+        }).map((annotation) => {
+          return annotation.value
+        })
+
+        return accumulator.concat(annotations)
+      }, [])
+
+      if (types.length === 0) {
+        return
+      } else if (types.length === 1) {
+        if (types[0] === 'select.pointer' || types[0] === 'select') {
+          return
+        }
+      }
+
+      const jsonValue = safeJSONParse(event.state.doc.toString())
+      if (jsonValue === null) {
+        return
+      }
+
+      const spec = METASCHEMAS[jsonValue.$schema]
+      if (!spec) {
+        return
+      }
+
+      setSpecificationOptions(from, Object.keys(builtin.jsonschema), spec)
+      from.dispatchEvent(new Event('change'))
+    })
   ],
   parent: input
 })
