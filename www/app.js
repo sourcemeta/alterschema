@@ -4,19 +4,12 @@ const codemirrorLint = require('@codemirror/lint')
 const builtin = require('../bindings/node/builtin')
 const alterschema = require('../bindings/node')
 const packageJSON = require('../package.json')
+const METASCHEMAS = require('../metaschemas.json')
 
 const SPECIFICATION_NAMES = {
   draft4: 'Draft 4',
   draft6: 'Draft 6',
   draft7: 'Draft 7'
-}
-
-const METASCHEMAS = {
-  'http://json-schema.org/draft-04/schema#': 'draft4',
-  'http://json-schema.org/draft-06/schema#': 'draft6',
-  'http://json-schema.org/draft-07/schema#': 'draft7',
-  'https://json-schema.org/draft/2019-09/schema': '2019-09',
-  'https://json-schema.org/draft/2020-12/schema': '2020-12'
 }
 
 function safeJSONParse (string) {
