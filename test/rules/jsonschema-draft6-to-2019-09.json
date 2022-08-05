@@ -111,5 +111,16 @@
         "qux": [ "foo" ]
       }
     }
+  },
+  {
+    "name": "enum with multiple elements is preserved",
+    "schema": {
+      "$schema": "http://json-schema.org/draft-06/schema#",
+      "enum": [ "foo", "bar" ]
+    },
+    "expected": {
+      "$schema": "https://json-schema.org/draft/2019-09/schema",
+      "enum": [ "foo", "bar" ]
+    }
   }
 ]
