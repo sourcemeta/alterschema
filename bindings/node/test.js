@@ -17,20 +17,6 @@ for (const from of Object.keys(builtin.jsonschema)) {
         test.strictSame(result, testCase.expected)
         test.end()
       })
-
-      tap.test(`(CLI) ${from} => ${to}: ${testCase.name}`, (test) => {
-        const tmp = fs.mkdtempSync(path.join(os.tmpdir(), packageJSON.name))
-        const schema = path.join(tmp, 'schema.json')
-        fs.writeFileSync(schema, JSON.stringify(testCase.schema, null, 2))
-        const cli = path.resolve(__dirname, 'cli.js')
-        const result = childProcess.spawnSync('node',
-          [cli, '--from', from, '--to', to, schema])
-        fs.rmdirSync(tmp, { recursive: true })
-        test.strictSame(JSON.parse(result.stdout.toString()), testCase.expected)
-        test.is(result.stderr.toString(), '')
-        test.is(result.status, 0)
-        test.end()
-      })
     }
   }
 }
@@ -62,3 +48,50 @@ for (const name of fs.readdirSync(path.resolve(__dirname, '..', '..', 'test', 'r
     })
   }
 }
+
+tap.test('(CLI) draft4 => 2020-12', (test) => {
+  const tmp = fs.mkdtempSync(path.join(os.tmpdir(), packageJSON.name))
+  const schema = path.join(tmp, 'schema.json')
+  fs.writeFileSync(schema, JSON.stringify({
+    id: 'http://example.com/schema',
+    $schema: 'http://json-schema.org/draft-04/schema#',
+    dependencies: {
+      foo: ['bar']
+    },
+    properties: {
+      foo: {
+        enum: ['single-value']
+      },
+      bar: {
+        type: 'number',
+        minimum: 5,
+        exclusiveMinimum: true
+      }
+    }
+  }, null, 2))
+
+  const cli = path.resolve(__dirname, 'cli.js')
+  const result = childProcess.spawnSync('node',
+    [cli, '--from', 'draft4', '--to', '2020-12', schema])
+  fs.rmdirSync(tmp, { recursive: true })
+  test.strictSame(JSON.parse(result.stdout.toString()), {
+    $id: 'http://example.com/schema',
+    $schema: 'https://json-schema.org/draft/2020-12/schema',
+    dependentProperties: {
+      foo: ['bar']
+    },
+    properties: {
+      foo: {
+        const: 'single-value'
+      },
+      bar: {
+        type: 'number',
+        exclusiveMinimum: 5
+      }
+    }
+  })
+
+  test.is(result.stderr.toString(), '')
+  test.is(result.status, 0)
+  test.end()
+})
