@@ -23,12 +23,22 @@
     "name": "draft6 definitions",
     "schema": {
       "$schema": "http://json-schema.org/draft-06/schema#",
+      "properties": {
+        "foo": {
+          "$ref": "#/definitions/foo"
+        }
+      },
       "definitions": {
         "foo": { "type": "string" }
       }
     },
     "expected": {
       "$schema": "https://json-schema.org/draft/2019-09/schema",
+      "properties": {
+        "foo": {
+          "$ref": "#/$defs/foo"
+        }
+      },
       "$defs": {
         "foo": { "type": "string" }
       }

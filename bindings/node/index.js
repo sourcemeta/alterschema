@@ -18,6 +18,9 @@ async function transformer (root, path, ruleset) {
         // TODO: Use standard JSON-e operators instead
         omit: (object, keys) => {
           return _.omit(object, _.castArray(keys))
+        },
+        replace: (value, string, replacement) => {
+          return value.replaceAll(string, replacement)
         }
       })
 
