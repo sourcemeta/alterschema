@@ -51,6 +51,12 @@ module.exports = async (value, from, to) => {
     })
 
     for (const trail of trails) {
+      // The trail might not be valid anymore if there were mid-way
+      // transformation rules that changed the layout of the schema
+      if (trail.path.length > 0 && !_.has(accumulator, trail.path)) {
+        continue
+      }
+
       const transform = await transformer(accumulator, trail.path, mapper.rules)
       if (trail.path.length === 0) {
         accumulator = transform

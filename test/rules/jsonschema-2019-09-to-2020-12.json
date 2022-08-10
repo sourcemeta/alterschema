@@ -96,5 +96,22 @@
       "$schema": "https://json-schema.org/draft/2020-12/schema",
       "enum": [ "foo", "bar" ]
     }
+  },
+  {
+    "name": "properties with a not: {} schema",
+    "schema": {
+      "$schema": "https://json-schema.org/draft/2019-09/schema",
+      "properties": {
+        "foo": {
+          "not": {}
+        }
+      }
+    },
+    "expected": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "properties": {
+        "foo": false
+      }
+    }
   }
 ]
