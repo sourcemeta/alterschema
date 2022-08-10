@@ -73,7 +73,6 @@ const BLACKLIST = [
   'items',
   'maxLength',
   'minLength',
-  'not',
   'recursiveRef',
   'ref',
   'refRemote',
