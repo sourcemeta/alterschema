@@ -35,6 +35,31 @@
     }
   },
   {
+    "name": "draft7 definitions",
+    "schema": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "properties": {
+        "foo": {
+          "$ref": "#/definitions/foo"
+        }
+      },
+      "definitions": {
+        "foo": { "type": "string" }
+      }
+    },
+    "expected": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "properties": {
+        "foo": {
+          "$ref": "#/$defs/foo"
+        }
+      },
+      "$defs": {
+        "foo": { "type": "string" }
+      }
+    }
+  },
+  {
     "name": "true no metaschema",
     "schema": {},
     "expected": true

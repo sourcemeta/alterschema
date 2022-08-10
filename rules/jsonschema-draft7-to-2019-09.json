@@ -74,6 +74,31 @@
       "vocabulary": "core",
       "condition": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "$id": "https://github.com/sourcemeta/alterschema/rules/jsonschema-draft7-to-2019-09/definitions-in-ref",
+        "type": "object",
+        "required": [ "$ref" ],
+        "properties": {
+          "$ref": {
+            "type": "string",
+            "pattern": "/definitions/"
+          }
+        }
+      },
+      "transform": {
+        "$merge": [
+          { "$eval": "omit(schema, '$ref')" },
+          {
+            "$$ref": {
+              "$eval": "replace(schema['$ref'], 'definitions', '$defs')"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "vocabulary": "core",
+      "condition": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
         "$id": "https://github.com/sourcemeta/alterschema/rules/jsonschema-draft7-to-2019-09/empty-object",
         "const": {}
       },
