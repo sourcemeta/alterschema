@@ -42,7 +42,7 @@ Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to
 
 - Full JSON Schema draft4 to JSON Schema draft6 upgrade support
 - Full JSON Schema draft6 to JSON Schema draft7 upgrade support
-- Full JSON Schema draft6 to JSON Schema draft7 upgrade support
+- Full JSON Schema draft7 to JSON Schema 2019-09 upgrade support
 
 [0.0.1] - 2022-07-01
 --------------------
