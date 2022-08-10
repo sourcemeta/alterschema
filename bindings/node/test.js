@@ -66,13 +66,17 @@ for (const name of fs.readdirSync(path.resolve(__dirname, '..', '..', 'test', 'r
 
 // TODO: Reduce this blacklist to a minimum
 const BLACKLIST = [
+  // The Node.js implementation used by this project does
+  // not fully pass the official test suite.
+  // See https://github.com/hyperjump-io/json-schema-validator/blob/024ee94f6b7a1da8110855bb94447b0295cfaf83/lib/json-schema-test-suite.spec.ts#L23-L60
+  'draft4|minLength|minLength validation|one supplementary Unicode code point is not long enough',
+  'draft4|maxLength|maxLength validation|two supplementary Unicode code points is long enough',
+
   'anchor',
   'content',
   'dependencies',
   'id',
   'items',
-  'maxLength',
-  'minLength',
   'recursiveRef',
   'ref',
   'refRemote',
@@ -119,10 +123,14 @@ for (const from of Object.keys(builtin.jsonschema)) {
 
     for (const testCase of require(testPath)) {
       for (const instance of testCase.tests) {
+        if (BLACKLIST.includes(`${from}|${suiteName}|${testCase.description}|${instance.description}`)) {
+          continue
+        }
+
         const index = testCase.tests.indexOf(instance)
         for (const to of Object.keys(builtin.jsonschema[from])) {
           tap.test(`${suiteName} (${from} -> ${to}) ${testCase.description} #${index}`, async (test) => {
-            // We need at least an arbitrary to make @hyperjump/json-schema
+            // We need at least an arbitrary id to make @hyperjump/json-schema work
             const id = `https://alterschema.sourcemeta.com/${_.kebabCase(testCase.description)}/${index}`
             if (from === 'draft4') {
               testCase.schema.id = testCase.schema.id || id
