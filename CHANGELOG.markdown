@@ -7,6 +7,14 @@ The format is based on [Keep a
 Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+[1.0.5] - 2022-08-15
+--------------------
+
+### Changed
+
+- Upgrade `@hyperjump/json-schema` to fix `rimraf` issue when installing
+  `alterschema` with `sudo`
+
 [1.0.4] - 2022-08-10
 --------------------
 
@@ -51,6 +59,7 @@ Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to
 
 - Partial JSON Schema 2019-09 to JSON Schema 2020-12 upgrade support
 
+[1.0.5]: https://github.com/sourcemeta/alterschema/releases/tag/v1.0.5
 [1.0.4]: https://github.com/sourcemeta/alterschema/releases/tag/v1.0.4
 [1.0.3]: https://github.com/sourcemeta/alterschema/releases/tag/v1.0.3
 [1.0.2]: https://github.com/sourcemeta/alterschema/releases/tag/v1.0.2
