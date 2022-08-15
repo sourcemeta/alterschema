@@ -36,7 +36,7 @@
     "webpack-cli": "^4.10.0"
   },
   "dependencies": {
-    "@hyperjump/json-schema": "^0.23.0",
+    "@hyperjump/json-schema": "^0.23.2",
     "json-e": "^4.4.3",
     "lodash": "^4.17.21"
   }
