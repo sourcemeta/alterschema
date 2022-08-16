@@ -50,7 +50,7 @@ const alterschema = require('alterschema')
 // (2) alterschema(schema: JSON, from: string, to: string) -> JSON
 // Transform the input document `schema` according to the
 // `from` and `to` string parameters.
-const result = alterschema({ ... }, '2019-09', '2020-12')
+const result = await alterschema({ ... }, '2019-09', '2020-12')
 
 console.log(result)
 ```
