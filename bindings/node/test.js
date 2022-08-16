@@ -66,9 +66,28 @@ for (const name of fs.readdirSync(path.resolve(__dirname, '..', '..', 'test', 'r
 
 // TODO: Reduce this blacklist to a minimum
 const BLACKLIST = [
+  // The JSON Schema implementation used by this module cannot
+  // ignore keywords in locations that are not subschemas.
+  // See https://github.com/hyperjump-io/json-schema-validator/blob/7b352e75b2d2e37b54e854b2289ec137507bb174/lib/json-schema-test-suite.spec.ts#L32-L36
+  'draft4|id|id inside an enum is not a real identifier|exact match to enum, and type matches',
+  'draft4|id|id inside an enum is not a real identifier|match $ref to id',
+  'draft4|id|id inside an enum is not a real identifier|no match on enum or $ref to id',
+  'draft6|id|id inside an enum is not a real identifier|exact match to enum, and type matches',
+  'draft6|id|id inside an enum is not a real identifier|match $ref to id',
+  'draft6|id|id inside an enum is not a real identifier|no match on enum or $ref to id',
+  'draft7|id|id inside an enum is not a real identifier|exact match to enum, and type matches',
+  'draft7|id|id inside an enum is not a real identifier|match $ref to id',
+  'draft7|id|id inside an enum is not a real identifier|no match on enum or $ref to id',
+  '2019-09|id|$id inside an enum is not a real identifier|exact match to enum, and type matches',
+  '2019-09|id|$id inside an enum is not a real identifier|match $ref to $id',
+  '2019-09|id|$id inside an enum is not a real identifier|no match on enum or $ref to $id',
+  'draft6|id|non-schema object containing a plain-name $id property|skip traversing definition for a valid result',
+  'draft6|id|non-schema object containing a plain-name $id property|const at const_not_anchor does not match',
+  'draft7|id|non-schema object containing a plain-name $id property|skip traversing definition for a valid result',
+  'draft7|id|non-schema object containing a plain-name $id property|const at const_not_anchor does not match',
+
   'anchor',
   'content',
-  'id',
   'recursiveRef',
   'ref',
   'refRemote',
