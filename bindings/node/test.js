@@ -85,13 +85,18 @@ const BLACKLIST = [
   'draft6|id|non-schema object containing a plain-name $id property|const at const_not_anchor does not match',
   'draft7|id|non-schema object containing a plain-name $id property|skip traversing definition for a valid result',
   'draft7|id|non-schema object containing a plain-name $id property|const at const_not_anchor does not match',
+  'draft6|unknownKeyword|$id inside an unknown keyword is not a real identifier|type matches second anyOf, which has a real schema in it',
+  'draft6|unknownKeyword|$id inside an unknown keyword is not a real identifier|type matches non-schema in third anyOf',
+  'draft7|unknownKeyword|$id inside an unknown keyword is not a real identifier|type matches second anyOf, which has a real schema in it',
+  'draft7|unknownKeyword|$id inside an unknown keyword is not a real identifier|type matches non-schema in third anyOf',
+  '2019-09|unknownKeyword|$id inside an unknown keyword is not a real identifier|type matches second anyOf, which has a real schema in it',
+  '2019-09|unknownKeyword|$id inside an unknown keyword is not a real identifier|type matches non-schema in third anyOf',
 
   'anchor',
   'content',
   'recursiveRef',
   'ref',
   'refRemote',
-  'unknownKeyword',
   'vocabulary',
 
   // Optionals
