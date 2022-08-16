@@ -46,7 +46,7 @@ module.exports = async (value, from, to) => {
   }
 
   for (const mapper of builtin.jsonschema[from][to]) {
-    const trails = walker(mapper.walker, value, []).sort((a, b) => {
+    const trails = walker(mapper.walker, accumulator, []).sort((a, b) => {
       return b.path.length - a.path.length
     })
 

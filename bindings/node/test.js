@@ -76,7 +76,6 @@ const BLACKLIST = [
   'content',
   'dependencies',
   'id',
-  'items',
   'recursiveRef',
   'ref',
   'refRemote',

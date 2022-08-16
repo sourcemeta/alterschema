@@ -164,5 +164,24 @@
         "foo": false
       }
     }
+  },
+  {
+    "name": "array items within definitions",
+    "schema": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "definitions": {
+        "item": {
+          "items": [ { "type": "string" } ]
+        }
+      }
+    },
+    "expected": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "$defs": {
+        "item": {
+          "prefixItems": [ { "type": "string" } ]
+        }
+      }
+    }
   }
 ]
