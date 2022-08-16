@@ -66,12 +66,6 @@ for (const name of fs.readdirSync(path.resolve(__dirname, '..', '..', 'test', 'r
 
 // TODO: Reduce this blacklist to a minimum
 const BLACKLIST = [
-  // The Node.js implementation used by this project does
-  // not fully pass the official test suite.
-  // See https://github.com/hyperjump-io/json-schema-validator/blob/024ee94f6b7a1da8110855bb94447b0295cfaf83/lib/json-schema-test-suite.spec.ts#L23-L60
-  'draft4|minLength|minLength validation|one supplementary Unicode code point is not long enough',
-  'draft4|maxLength|maxLength validation|two supplementary Unicode code points is long enough',
-
   'anchor',
   'content',
   'dependencies',
