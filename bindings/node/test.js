@@ -91,8 +91,10 @@ const BLACKLIST = [
   'draft7|unknownKeyword|$id inside an unknown keyword is not a real identifier|type matches non-schema in third anyOf',
   '2019-09|unknownKeyword|$id inside an unknown keyword is not a real identifier|type matches second anyOf, which has a real schema in it',
   '2019-09|unknownKeyword|$id inside an unknown keyword is not a real identifier|type matches non-schema in third anyOf',
+  '2019-09|anchor|$anchor inside an enum is not a real identifier|exact match to enum, and type matches',
+  '2019-09|anchor|$anchor inside an enum is not a real identifier|in implementations that strip $anchor, this may match either $def',
+  '2019-09|anchor|$anchor inside an enum is not a real identifier|match $ref to $anchor',
 
-  'anchor',
   'recursiveRef',
   'ref',
   'refRemote',
