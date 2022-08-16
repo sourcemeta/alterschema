@@ -68,7 +68,6 @@ for (const name of fs.readdirSync(path.resolve(__dirname, '..', '..', 'test', 'r
 const BLACKLIST = [
   'anchor',
   'content',
-  'dependencies',
   'id',
   'recursiveRef',
   'ref',
@@ -183,7 +182,7 @@ tap.test('(CLI) draft4 => 2020-12', (test) => {
   test.strictSame(JSON.parse(result.stdout.toString()), {
     $id: 'http://example.com/schema',
     $schema: 'https://json-schema.org/draft/2020-12/schema',
-    dependentProperties: {
+    dependentRequired: {
       foo: ['bar']
     },
     properties: {

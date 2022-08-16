@@ -66,7 +66,7 @@
     }
   },
   {
-    "name": "dependencies to dependentProperties and dependentSchemas",
+    "name": "dependencies to dependentRequired and dependentSchemas",
     "schema": {
       "$schema": "http://json-schema.org/draft-06/schema#",
       "dependencies": {
@@ -83,7 +83,7 @@
         "bar": false,
         "baz": true
       },
-      "dependentProperties": {
+      "dependentRequired": {
         "qux": [ "foo" ]
       }
     }
@@ -108,7 +108,7 @@
     }
   },
   {
-    "name": "dependencies to dependentProperties only",
+    "name": "dependencies to dependentRequired only",
     "schema": {
       "$schema": "http://json-schema.org/draft-06/schema#",
       "dependencies": {
@@ -117,7 +117,7 @@
     },
     "expected": {
       "$schema": "https://json-schema.org/draft/2019-09/schema",
-      "dependentProperties": {
+      "dependentRequired": {
         "qux": [ "foo" ]
       }
     }
