@@ -93,38 +93,10 @@ const BLACKLIST = [
   '2019-09|unknownKeyword|$id inside an unknown keyword is not a real identifier|type matches non-schema in third anyOf',
 
   'anchor',
-  'content',
   'recursiveRef',
   'ref',
   'refRemote',
-  'vocabulary',
-
-  // Optionals
-  'dependencies-compatibility',
-  'ecmascript-regex',
-  'format-assertion',
-  'zeroTerminatedFloats',
-
-  // Formats
-  'date-time',
-  'date',
-  'duration',
-  'email',
-  'hostname',
-  'idn-email',
-  'idn-hostname',
-  'ipv4',
-  'ipv6',
-  'iri-reference',
-  'iri',
-  'json-pointer',
-  'regex',
-  'relative-json-pointer',
-  'time',
-  'uri-reference',
-  'uri-template',
-  'uri',
-  'uuid'
+  'vocabulary'
 ]
 
 for (const from of Object.keys(builtin.jsonschema)) {
@@ -132,6 +104,12 @@ for (const from of Object.keys(builtin.jsonschema)) {
   const testsPath = path.resolve(TESTS_BASE_DIRECTORY, testId)
 
   for (const testPath of recursiveReadDirectory(testsPath)) {
+    // We don't consider optional suites
+    if (path.basename(path.dirname(testPath)) === 'optional' ||
+      path.basename(path.dirname(path.dirname(testPath))) === 'optional') {
+      continue
+    }
+
     const suiteName = path.basename(testPath, path.extname(testPath))
     if (BLACKLIST.includes(suiteName)) {
       continue
