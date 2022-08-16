@@ -160,7 +160,7 @@
         "$merge": [
           { "$eval": "omit(schema, 'dependencies')" },
           {
-            "dependentProperties": {
+            "dependentRequired": {
               "$map": {
                 "$eval": "schema.dependencies"
               },

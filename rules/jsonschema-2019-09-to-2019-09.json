@@ -22,17 +22,17 @@
       "vocabulary": "https://json-schema.org/draft/2019-09/vocab/applicator",
       "condition": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
-        "$id": "https://github.com/sourcemeta/alterschema/rules/jsonschema-2019-09-to-2019-09/empty-dependent-properties",
+        "$id": "https://github.com/sourcemeta/alterschema/rules/jsonschema-2019-09-to-2019-09/empty-dependent-required",
         "type": "object",
-        "required": [ "dependentProperties" ],
+        "required": [ "dependentRequired" ],
         "properties": {
-          "dependentProperties": {
+          "dependentRequired": {
             "const": {}
           }
         }
       },
       "transform": {
-        "$eval": "omit(schema, 'dependentProperties')"
+        "$eval": "omit(schema, 'dependentRequired')"
       }
     }
   ]
