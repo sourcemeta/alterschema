@@ -123,6 +123,77 @@
           }
         ]
       }
+    },
+    {
+      "vocabulary": "https://json-schema.org/draft/2019-09/vocab/validation",
+      "condition": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "$id": "https://github.com/sourcemeta/alterschema/rules/jsonschema-2019-09-to-2020-12/recursive-anchor-false",
+        "type": "object",
+        "required": [ "$recursiveAnchor" ],
+        "properties": {
+          "$recursiveAnchor": {
+            "const": false
+          }
+        }
+      },
+      "transform": {
+        "$eval": "omit(schema, '$recursiveAnchor')"
+      }
+    },
+    {
+      "vocabulary": "https://json-schema.org/draft/2019-09/vocab/validation",
+      "condition": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "$id": "https://github.com/sourcemeta/alterschema/rules/jsonschema-2019-09-to-2020-12/recursive-anchor-true",
+        "type": "object",
+        "required": [ "$recursiveAnchor" ],
+        "properties": {
+          "$recursiveAnchor": {
+            "const": true
+          }
+        }
+      },
+      "transform": {
+        "$merge": [
+          { "$eval": "omit(schema, '$recursiveAnchor')" },
+          {
+            "$$dynamicAnchor": {
+              "$eval": "jsonHash(original)"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "vocabulary": "https://json-schema.org/draft/2019-09/vocab/validation",
+      "condition": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "$id": "https://github.com/sourcemeta/alterschema/rules/jsonschema-2019-09-to-2020-12/recursive-ref-empty-fragment",
+        "type": "object",
+        "required": [ "$recursiveRef" ],
+        "properties": {
+          "$recursiveRef": {
+            "const": "#"
+          }
+        }
+      },
+      "transform": {
+        "$merge": [
+          { "$eval": "omit(schema, '$recursiveRef')" },
+          {
+            "$$dynamicRef": {
+              "$if": "hasContext('$recursiveAnchor', true)",
+              "then": {
+                "$eval": "'#' + jsonHash(original)"
+              },
+              "else": {
+                "$eval": "schema['$recursiveRef']"
+              }
+            }
+          }
+        ]
+      }
     }
   ]
 }
