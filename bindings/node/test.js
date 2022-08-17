@@ -13,6 +13,7 @@ const METASCHEMAS = _.invert(require('../../metaschemas.json'))
 
 const JSON_SCHEMA_TEST_SUITE = path.resolve(__dirname, '..', '..', 'vendor', 'json-schema-test-suite')
 const TESTS_BASE_DIRECTORY = path.resolve(JSON_SCHEMA_TEST_SUITE, 'tests')
+const REMOTES_BASE_DIRECTORY = path.resolve(JSON_SCHEMA_TEST_SUITE, 'remotes')
 
 const recursiveReadDirectory = (directory) => {
   return fs.readdirSync(directory).reduce((accumulator, basename) => {
@@ -104,6 +105,18 @@ const BLACKLIST = [
 for (const from of Object.keys(builtin.jsonschema)) {
   const testId = from === '2020-12' || from === '2019-09' ? `draft${from}` : from
   const testsPath = path.resolve(TESTS_BASE_DIRECTORY, testId)
+
+  for (const remote of recursiveReadDirectory(REMOTES_BASE_DIRECTORY)) {
+    const relativePath = path.relative(REMOTES_BASE_DIRECTORY, remote)
+    const schema = require(remote)
+    const schemaId = path.posix.join('http://localhost:1234', relativePath)
+    const dialect = METASCHEMAS[from]
+    try {
+      jsonschema.implementation.add(schema, schemaId, dialect)
+    } catch (error) {
+      console.error(`Cannot add remote ${relativePath} for ${dialect}`)
+    }
+  }
 
   for (const testPath of recursiveReadDirectory(testsPath)) {
     // We don't consider optional suites

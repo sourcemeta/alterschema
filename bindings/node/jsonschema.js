@@ -2,6 +2,8 @@ const jsonschema = require('@hyperjump/json-schema')
 const METASCHEMAS = require('../../metaschemas.json')
 jsonschema.setMetaOutputFormat(jsonschema.FLAG)
 
+exports.implementation = jsonschema
+
 // TODO: This is a mock implementation. Ideally, we look at the metaschema
 exports.usesVocabulary = (_root, value, _vocabulary) => {
   if (typeof value === 'object' && !Array.isArray(value) && value !== null) {
