@@ -98,8 +98,7 @@ const BLACKLIST = [
 
   'recursiveRef',
   'ref',
-  'refRemote',
-  'vocabulary'
+  'refRemote'
 ]
 
 for (const from of Object.keys(builtin.jsonschema)) {
@@ -155,7 +154,7 @@ for (const from of Object.keys(builtin.jsonschema)) {
               const schema = await alterschema(testCase.schema, from, to)
               test.equal(schema, testCase.schema)
             } else {
-              testCase.schema.$schema = metaschema
+              testCase.schema.$schema = testCase.schema.$schema || metaschema
               const beforeResult = await jsonschema.matches(testCase.schema, instance.data)
               test.equal(beforeResult, instance.valid)
               const schema = await alterschema(testCase.schema, from, to)
