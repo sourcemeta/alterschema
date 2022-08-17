@@ -48,7 +48,7 @@ test: node_modules bindings/node/test.js
 	$(NODE) ./$</ajv-cli/dist/index.js test --valid --spec=draft2020 -s schemas/rule-test.json -d test/rules/jsonschema-draft7-to-2019-09.json
 	$(NODE) ./$</ajv-cli/dist/index.js test --valid --spec=draft2020 -s schemas/rule-test.json -d test/rules/jsonschema-draft7-to-2020-12.json
 	$(NODE) ./$</ajv-cli/dist/index.js test --valid --spec=draft2020 -s schemas/rule-test.json -d test/rules/jsonschema-2019-09-to-2020-12.json
-	$(NODE) ./$</tap/bin/run.js --reporter=list --no-coverage --no-timeout $(word 2,$^)
+	$(NODE) ./$</tap/bin/run.js --jobs=1 --reporter=list --no-coverage --no-timeout $(word 2,$^)
 
 dist:
 	$(MKDIR) $@
