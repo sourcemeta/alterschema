@@ -56,7 +56,7 @@ dist/icon-%.png: www/icon.svg | dist
 	$(CONVERT) -resize $(basename $(notdir $(subst icon-,,$@))) $< $@
 dist/apple-touch-icon.png: dist/icon-180x180.png | dist
 	$(INSTALL) -m 0664 $< $@
-dist/favicon.ico: dist/icon-32x32.png| dist
+dist/favicon.ico: dist/icon-32x32.png | dist
 	$(CONVERT) $^ $@
 dist/main.css: www/main.scss node_modules | dist
 	$(SASSC) --style compressed $< $@
