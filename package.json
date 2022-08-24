@@ -1,6 +1,6 @@
 {
   "name": "alterschema",
-  "version": "1.0.6",
+  "version": "1.1.0",
   "description": "Convert between schema specifications",
   "main": "bindings/node/index.js",
   "bin": {
