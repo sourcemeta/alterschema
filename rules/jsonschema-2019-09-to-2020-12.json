@@ -159,7 +159,7 @@
           { "$eval": "omit(schema, '$recursiveAnchor')" },
           {
             "$$dynamicAnchor": {
-              "$eval": "jsonHash(original)"
+              "$eval": "'anchor-' + jsonHash(original)"
             }
           }
         ]
@@ -185,7 +185,7 @@
             "$$dynamicRef": {
               "$if": "hasContext('$recursiveAnchor', true)",
               "then": {
-                "$eval": "'#' + jsonHash(original)"
+                "$eval": "'#anchor-' + jsonHash(original)"
               },
               "else": {
                 "$eval": "schema['$recursiveRef']"

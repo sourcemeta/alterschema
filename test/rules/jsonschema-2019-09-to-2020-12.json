@@ -126,10 +126,10 @@
     },
     "expected": {
       "$schema": "https://json-schema.org/draft/2020-12/schema",
-      "$dynamicAnchor": "452249d4fa018cdc5ec4b60924df6d0177fb65b9",
+      "$dynamicAnchor": "anchor-452249d4fa018cdc5ec4b60924df6d0177fb65b9",
       "additionalProperties": false,
       "properties": {
-        "foo": { "$dynamicRef": "#452249d4fa018cdc5ec4b60924df6d0177fb65b9" }
+        "foo": { "$dynamicRef": "#anchor-452249d4fa018cdc5ec4b60924df6d0177fb65b9" }
       }
     }
   },
