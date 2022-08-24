@@ -208,5 +208,22 @@
         "foo": false
       }
     }
+  },
+  {
+    "name": "items to prefixItems within $ref",
+    "schema": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "items": [
+        { "type": "integer" },
+        { "$ref": "#/items/0" }
+      ]
+    },
+    "expected": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "prefixItems": [
+        { "type": "integer" },
+        { "$ref": "#/prefixItems/0" }
+      ]
+    }
   }
 ]
