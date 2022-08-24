@@ -113,5 +113,59 @@
         "foo": false
       }
     }
+  },
+  {
+    "name": "$recursiveRef with $recursiveAnchor: true",
+    "schema": {
+      "$schema": "https://json-schema.org/draft/2019-09/schema",
+      "$recursiveAnchor": true,
+      "additionalProperties": false,
+      "properties": {
+        "foo": { "$recursiveRef": "#" }
+      }
+    },
+    "expected": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "$dynamicAnchor": "452249d4fa018cdc5ec4b60924df6d0177fb65b9",
+      "additionalProperties": false,
+      "properties": {
+        "foo": { "$dynamicRef": "#452249d4fa018cdc5ec4b60924df6d0177fb65b9" }
+      }
+    }
+  },
+  {
+    "name": "$recursiveRef with $recursiveAnchor: false",
+    "schema": {
+      "$schema": "https://json-schema.org/draft/2019-09/schema",
+      "$recursiveAnchor": false,
+      "additionalProperties": false,
+      "properties": {
+        "foo": { "$recursiveRef": "#" }
+      }
+    },
+    "expected": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "additionalProperties": false,
+      "properties": {
+        "foo": { "$dynamicRef": "#" }
+      }
+    }
+  },
+  {
+    "name": "$recursiveRef without $recursiveAnchor",
+    "schema": {
+      "$schema": "https://json-schema.org/draft/2019-09/schema",
+      "additionalProperties": false,
+      "properties": {
+        "foo": { "$recursiveRef": "#" }
+      }
+    },
+    "expected": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "additionalProperties": false,
+      "properties": {
+        "foo": { "$dynamicRef": "#" }
+      }
+    }
   }
 ]

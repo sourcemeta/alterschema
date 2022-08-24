@@ -1,10 +1,11 @@
 const _ = require('lodash')
 const jsone = require('json-e')
+const hash = require('object-hash')
 const jsonschema = require('./jsonschema')
 const walker = require('./walker')
 const builtin = require('./builtin')
 
-async function transformer (root, path, ruleset) {
+async function transformer (root, path, ruleset, trails, originalSchema) {
   const value = path.length === 0 ? root : _.get(root, path)
   for (const rule of ruleset) {
     // Guard against rules accidentally modifying the input document
@@ -15,6 +16,23 @@ async function transformer (root, path, ruleset) {
       jsonschema.usesVocabulary(root, value, rule.vocabulary)) {
       const output = jsone(rule.transform, {
         schema: value,
+        original: originalSchema,
+        jsonHash: (document) => {
+          return hash.sha1(document)
+        },
+        hasContext: (key, value) => {
+          for (const trail of trails) {
+            const subpath = trail.path.concat(key)
+            if (typeof value === 'undefined' && _.has(root, subpath)) {
+              return true
+            } else if (_.isEqual(_.get(root, subpath), value)) {
+              return true
+            }
+          }
+
+          return false
+        },
+
         // TODO: Use standard JSON-e operators instead
         omit: (object, keys) => {
           return _.omit(object, _.castArray(keys))
@@ -29,7 +47,7 @@ async function transformer (root, path, ruleset) {
       }
 
       const newRoot = path.length === 0 ? output : _.set(root, path, output)
-      return transformer(newRoot, path, ruleset)
+      return transformer(newRoot, path, ruleset, trails, originalSchema)
     }
   }
 
@@ -57,7 +75,7 @@ module.exports = async (value, from, to) => {
         continue
       }
 
-      const transform = await transformer(accumulator, trail.path, mapper.rules)
+      const transform = await transformer(accumulator, trail.path, mapper.rules, trails, value)
       if (trail.path.length === 0) {
         accumulator = transform
       } else {
