@@ -97,21 +97,9 @@ const BLACKLIST = [
   '2019-09|anchor|$anchor inside an enum is not a real identifier|match $ref to $anchor',
 
   // TODO: Make these pass
-  '2019-09|recursiveRef|$recursiveRef with no $recursiveAnchor in the outer schema resource|leaf node does not match; no recursion',
-  '2019-09|recursiveRef|$recursiveRef with no $recursiveAnchor in the outer schema resource|leaf node matches: recursion only uses inner schema',
-  '2019-09|recursiveRef|$recursiveRef with no $recursiveAnchor in the outer schema resource|leaf node does not match: recursion only uses inner schema',
-  '2019-09|recursiveRef|multiple dynamic paths to the $recursiveRef keyword|recurse to anyLeafNode - floats are allowed',
-  '2019-09|recursiveRef|multiple dynamic paths to the $recursiveRef keyword|recurse to integerNode - floats are not allowed',
-  '2019-09|recursiveRef|dynamic $recursiveRef destination (not predictable at schema compile time)|numeric node',
-  '2019-09|recursiveRef|dynamic $recursiveRef destination (not predictable at schema compile time)|integer node',
   '2019-09|recursiveRef|$recursiveRef with no $recursiveAnchor in the initial target schema resource|leaf node does not match; no recursion',
   '2019-09|recursiveRef|$recursiveRef with no $recursiveAnchor in the initial target schema resource|leaf node matches: recursion uses the inner schema',
   '2019-09|recursiveRef|$recursiveRef with no $recursiveAnchor in the initial target schema resource|leaf node does not match: recursion uses the inner schema',
-  '2019-09|recursiveRef|$recursiveRef without using nesting|integer matches at the outer level',
-  '2019-09|recursiveRef|$recursiveRef without using nesting|single level match',
-  '2019-09|recursiveRef|$recursiveRef without using nesting|integer does not match as a property value',
-  '2019-09|recursiveRef|$recursiveRef without using nesting|two levels, properties match with inner definition',
-  '2019-09|recursiveRef|$recursiveRef without using nesting|two levels, no match',
 
   'ref',
   'refRemote'
