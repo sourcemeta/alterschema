@@ -167,5 +167,39 @@
         "foo": { "$dynamicRef": "#" }
       }
     }
+  },
+  {
+    "name": "items to prefixItems within $ref",
+    "schema": {
+      "$schema": "https://json-schema.org/draft/2019-09/schema",
+      "items": [
+        { "type": "integer" },
+        { "$ref": "#/items/0" }
+      ]
+    },
+    "expected": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "prefixItems": [
+        { "type": "integer" },
+        { "$ref": "#/prefixItems/0" }
+      ]
+    }
+  },
+  {
+    "name": "items not to prefixItems within $ref",
+    "schema": {
+      "$schema": "https://json-schema.org/draft/2019-09/schema",
+      "items": { "type": "integer" },
+      "properties": {
+        "foo": { "$ref": "#/items" }
+      }
+    },
+    "expected": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "items": { "type": "integer" },
+      "properties": {
+        "foo": { "$ref": "#/items" }
+      }
+    }
   }
 ]

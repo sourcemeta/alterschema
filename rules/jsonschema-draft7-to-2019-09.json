@@ -89,7 +89,7 @@
           { "$eval": "omit(schema, '$ref')" },
           {
             "$$ref": {
-              "$eval": "replace(schema['$ref'], 'definitions', '$defs')"
+              "$eval": "replace(schema['$ref'], '/definitions/', '/$defs/')"
             }
           }
         ]
