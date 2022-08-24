@@ -97,10 +97,6 @@ const BLACKLIST = [
   '2019-09|anchor|$anchor inside an enum is not a real identifier|match $ref to $anchor',
 
   // TODO: Make these pass
-  '2019-09|recursiveRef|$recursiveRef with no $recursiveAnchor in the initial target schema resource|leaf node does not match; no recursion',
-  '2019-09|recursiveRef|$recursiveRef with no $recursiveAnchor in the initial target schema resource|leaf node matches: recursion uses the inner schema',
-  '2019-09|recursiveRef|$recursiveRef with no $recursiveAnchor in the initial target schema resource|leaf node does not match: recursion uses the inner schema',
-
   'ref',
   'refRemote'
 ]

@@ -5,7 +5,7 @@ const jsonschema = require('./jsonschema')
 const walker = require('./walker')
 const builtin = require('./builtin')
 
-async function transformer (root, path, ruleset, trails, originalSchema) {
+async function transformer (root, path, ruleset, trails, originalSchema, from) {
   const value = path.length === 0 ? root : _.get(root, path)
   for (const rule of ruleset) {
     // Guard against rules accidentally modifying the input document
@@ -28,6 +28,10 @@ async function transformer (root, path, ruleset, trails, originalSchema) {
             } else if (_.isEqual(_.get(root, subpath), value)) {
               return true
             }
+
+            if (_.has(root, trail.path.concat(from === 'draft4' ? 'id' : '$id'))) {
+              return false
+            }
           }
 
           return false
@@ -47,7 +51,7 @@ async function transformer (root, path, ruleset, trails, originalSchema) {
       }
 
       const newRoot = path.length === 0 ? output : _.set(root, path, output)
-      return transformer(newRoot, path, ruleset, trails, originalSchema)
+      return transformer(newRoot, path, ruleset, trails, originalSchema, from)
     }
   }
 
@@ -75,7 +79,8 @@ module.exports = async (value, from, to) => {
         continue
       }
 
-      const transform = await transformer(accumulator, trail.path, mapper.rules, trails, value)
+      const transform = await transformer(
+        accumulator, trail.path, mapper.rules, trails, value, from)
       if (trail.path.length === 0) {
         accumulator = transform
       } else {
