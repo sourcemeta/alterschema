@@ -77,6 +77,32 @@
       "vocabulary": "https://json-schema.org/draft/2019-09/vocab/validation",
       "condition": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "$id": "https://github.com/sourcemeta/alterschema/rules/jsonschema-2019-09-to-2020-12/additional-items-in-ref",
+        "$comment": "https://json-schema.org/draft/2020-12/release-notes.html",
+        "type": "object",
+        "required": [ "$ref" ],
+        "properties": {
+          "$ref": {
+            "type": "string",
+            "pattern": "/additionalItems"
+          }
+        }
+      },
+      "transform": {
+        "$merge": [
+          { "$eval": "omit(schema, '$ref')" },
+          {
+            "$$ref": {
+              "$eval": "replace(schema['$ref'], '/additionalItems', '/items')"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "vocabulary": "https://json-schema.org/draft/2019-09/vocab/validation",
+      "condition": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
         "$id": "https://github.com/sourcemeta/alterschema/rules/jsonschema-2019-09-to-2020-12/closed-tuple",
         "$comment": "https://json-schema.org/draft/2020-12/release-notes.html",
         "type": "object",
