@@ -201,5 +201,28 @@
         "foo": { "$ref": "#/items" }
       }
     }
+  },
+  {
+    "name": "additionalItems to items within $ref",
+    "schema": {
+      "$schema": "https://json-schema.org/draft/2019-09/schema",
+      "items": [
+        { "type": "string" }
+      ],
+      "additionalItems": { "type": "integer" },
+      "properties": {
+        "foo": { "$ref": "#/additionalItems" }
+      }
+    },
+    "expected": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "prefixItems": [
+        { "type": "string" }
+      ],
+      "items": { "type": "integer" },
+      "properties": {
+        "foo": { "$ref": "#/items" }
+      }
+    }
   }
 ]
