@@ -7,12 +7,12 @@
         },
         "tests": [
             {
-                "description": "matches in Python, but should not in jsonschema",
+                "description": "matches in Python, but not in ECMA 262",
                 "data": "abc\\n",
                 "valid": false
             },
             {
-                "description": "should match",
+                "description": "matches",
                 "data": "abc",
                 "valid": true
             }
@@ -290,7 +290,7 @@
         ]
     },
     {
-        "description": "unicode semantics should be used for all pattern matching",
+        "description": "patterns always use unicode semantics with pattern",
         "schema": { "pattern": "\\p{Letter}cole" },
         "tests": [
             {
@@ -342,7 +342,7 @@
         ]
     },
     {
-        "description": "unicode characters do not match ascii ranges",
+        "description": "pattern with ASCII ranges",
         "schema": { "pattern": "[a-z]cole" },
         "tests": [
             {
@@ -395,7 +395,7 @@
         ]
     },
     {
-        "description": "unicode digits are more than 0 through 9",
+        "description": "pattern with non-ASCII digits",
         "schema": { "pattern": "^\\p{digit}+$" },
         "tests": [
             {
@@ -416,7 +416,7 @@
         ]
     },
     {
-        "description": "unicode semantics should be used for all patternProperties matching",
+        "description": "patterns always use unicode semantics with patternProperties",
         "schema": {
             "type": "object",
             "patternProperties": {
@@ -480,7 +480,7 @@
         ]
     },
     {
-        "description": "unicode characters do not match ascii ranges",
+        "description": "patternProperties with ASCII ranges",
         "schema": {
             "type": "object",
             "patternProperties": {
@@ -534,7 +534,7 @@
         ]
     },
     {
-        "description": "unicode digits are more than 0 through 9",
+        "description": "patternProperties with non-ASCII digits",
         "schema": {
             "type": "object",
             "patternProperties": {
