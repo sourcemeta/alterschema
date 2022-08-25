@@ -41,8 +41,8 @@ async function transformer (root, path, ruleset, trails, originalSchema, from) {
         omit: (object, keys) => {
           return _.omit(object, _.castArray(keys))
         },
-        replace: (value, string, replacement) => {
-          return value.replaceAll(string, replacement)
+        replace: (value, regex, replacement) => {
+          return value.replace(new RegExp(regex, 'g'), replacement)
         }
       })
 
