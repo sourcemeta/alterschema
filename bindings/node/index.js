@@ -29,7 +29,7 @@ async function transformer (root, path, ruleset, trails, originalSchema, from) {
               return true
             }
 
-            if (_.has(root, trail.path.concat(from === 'draft4' ? 'id' : '$id'))) {
+            if (_.has(root, trail.path.concat(jsonschema.getIdProperty(from)))) {
               return false
             }
           }
