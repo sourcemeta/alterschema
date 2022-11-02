@@ -1,4 +1,5 @@
 {
+  "http://json-schema.org/draft-03/schema#": "draft3",
   "http://json-schema.org/draft-04/schema#": "draft4",
   "http://json-schema.org/draft-06/schema#": "draft6",
   "http://json-schema.org/draft-07/schema#": "draft7",
