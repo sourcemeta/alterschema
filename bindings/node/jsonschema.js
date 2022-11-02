@@ -13,8 +13,12 @@ exports.usesVocabulary = (_root, value, _vocabulary) => {
   return false
 }
 
+exports.getIdProperty = (version) => {
+  return ['draft3', 'draft4'].includes(version) ? 'id' : '$id'
+}
+
 exports.matches = async (schema, value) => {
-  const idProperty = METASCHEMAS[schema.$schema] === 'draft4' ? 'id' : '$id'
+  const idProperty = exports.getIdProperty(METASCHEMAS[schema.$schema])
   jsonschema.add(schema)
   const result = await jsonschema.validate(jsonschema.get(schema[idProperty]), value)
   return result.valid
