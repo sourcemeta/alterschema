@@ -1,0 +1,37 @@
+{
+  "properties": {
+    "vocabulary": "http://json-schema.org/draft-03/schema#",
+    "type": "object",
+    "walker": "jsonschema-draft3"
+  },
+  "patternProperties": {
+    "vocabulary": "http://json-schema.org/draft-03/schema#",
+    "type": "object",
+    "walker": "jsonschema-draft3"
+  },
+  "additionalProperties": {
+    "vocabulary": "http://json-schema.org/draft-03/schema#",
+    "type": "value",
+    "walker": "jsonschema-draft3"
+  },
+  "items": {
+    "vocabulary": "http://json-schema.org/draft-03/schema#",
+    "type": [ "array", "value" ],
+    "walker": "jsonschema-draft3"
+  },
+  "additionalItems": {
+    "vocabulary": "http://json-schema.org/draft-03/schema#",
+    "type": "value",
+    "walker": "jsonschema-draft3"
+  },
+  "dependencies": {
+    "vocabulary": "http://json-schema.org/draft-03/schema#",
+    "type": "object",
+    "walker": "jsonschema-draft3"
+  },
+  "extends": {
+    "vocabulary": "http://json-schema.org/draft-03/schema#",
+    "type": "value",
+    "walker": "jsonschema-draft3"
+  }
+}
