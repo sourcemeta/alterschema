@@ -102,6 +102,11 @@ const BLACKLIST = [
 ]
 
 for (const from of Object.keys(builtin.jsonschema)) {
+  // TODO: Support running draft3 tests
+  if (from === 'draft3') {
+    continue
+  }
+
   const testId = from === '2020-12' || from === '2019-09' ? `draft${from}` : from
   const testsPath = path.resolve(TESTS_BASE_DIRECTORY, testId)
 
