@@ -18,7 +18,7 @@ module.exports = (walker, root, path) => {
         for (const key of Object.keys(value[keyword])) {
           accumulator.push(...module.exports(definition.walker, root, path.concat([keyword, key])))
         }
-      } else if (type === 'value' && !Array.isArray(value[keyword])) {
+      } else if (type === 'value' && !Array.isArray(value[keyword]) && typeof value[keyword] !== 'string') {
         accumulator.push(...module.exports(definition.walker, root, path.concat([keyword])))
       }
     }

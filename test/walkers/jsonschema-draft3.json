@@ -1,0 +1,231 @@
+[
+  {
+    "name": "boolean true",
+    "schema": true,
+    "trail": [
+      {
+        "type": "jsonschema-draft3",
+        "path": []
+      }
+    ]
+  },
+  {
+    "name": "boolean false",
+    "schema": false,
+    "trail": [
+      {
+        "type": "jsonschema-draft3",
+        "path": []
+      }
+    ]
+  },
+  {
+    "name": "https://datatracker.ietf.org/doc/html/draft-zyp-json-schema-03#section-3",
+    "schema": {
+      "$schema": "http://json-schema.org/draft-03/schema#",
+      "name": "Product",
+      "properties": {
+        "id": {
+          "type": "number",
+          "description": "Product identifier",
+          "required": true
+        },
+        "name": {
+          "description": "Name of the product",
+          "type": "string",
+          "required": true
+        },
+        "price": {
+          "required": true,
+          "type": "number",
+          "minimum": 0,
+          "required": true
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "links": [
+        {
+          "rel": "full",
+          "href": "{id}"
+        },
+        {
+          "rel": "comments",
+          "href": "comments/?id={id}"
+        }
+      ]
+    },
+    "trail": [
+      {
+        "type": "jsonschema-draft3",
+        "path": []
+      },
+      {
+        "type": "jsonschema-draft3",
+        "path": [ "properties", "id" ]
+      },
+      {
+        "type": "jsonschema-draft3",
+        "path": [ "properties", "name" ]
+      },
+      {
+        "type": "jsonschema-draft3",
+        "path": [ "properties", "price" ]
+      },
+      {
+        "type": "jsonschema-draft3",
+        "path": [ "properties", "tags" ]
+      },
+      {
+        "type": "jsonschema-draft3",
+        "path": [ "properties", "tags", "items" ]
+      }
+    ]
+  },
+  {
+    "name": "https://datatracker.ietf.org/doc/html/draft-zyp-json-schema-03#section-5",
+    "schema": {
+      "$schema": "http://json-schema.org/draft-03/schema#",
+      "description": "A person",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "age": {
+          "type": "integer",
+          "maximum": 125
+        }
+      }
+    },
+    "trail": [
+      {
+        "type": "jsonschema-draft3",
+        "path": []
+      },
+      {
+        "type": "jsonschema-draft3",
+        "path": [ "properties", "name" ]
+      },
+      {
+        "type": "jsonschema-draft3",
+        "path": [ "properties", "age" ]
+      }
+    ]
+  },
+  {
+    "name": "https://datatracker.ietf.org/doc/html/draft-zyp-json-schema-03#section-5.26 (1)",
+    "schema": {
+      "$schema": "http://json-schema.org/draft-03/schema#",
+      "description": "An adult",
+      "properties": { "age": { "minimum": 21 } },
+      "extends": "person"
+    },
+    "trail": [
+      {
+        "type": "jsonschema-draft3",
+        "path": []
+      },
+      {
+        "type": "jsonschema-draft3",
+        "path": [ "properties", "age" ]
+      }
+    ]
+  },
+  {
+    "name": "https://datatracker.ietf.org/doc/html/draft-zyp-json-schema-03#section-5.26 (2)",
+    "schema": {
+      "$schema": "http://json-schema.org/draft-03/schema#",
+      "description": "Extended schema",
+      "properties": { "deprecated": { "type": "boolean" } },
+      "extends": "http://json-schema.org/draft-03/schema"
+    },
+    "trail": [
+      {
+        "type": "jsonschema-draft3",
+        "path": []
+      },
+      {
+        "type": "jsonschema-draft3",
+        "path": [ "properties", "deprecated" ]
+      }
+    ]
+  },
+  {
+    "name": "https://github.com/json-schema-org/JSON-Schema-Test-Suite/blob/104f9f98f782d258eab6b2a760f9dca41739cebe/tests/draft3/extends.json (1)",
+    "schema": {
+      "$schema": "http://json-schema.org/draft-03/schema#",
+      "properties": { "bar": {"type": "integer", "required": true } },
+      "extends": {
+        "properties": {
+          "foo": { "type": "string", "required": true }
+        }
+      }
+    },
+    "trail": [
+      {
+        "type": "jsonschema-draft3",
+        "path": []
+      },
+      {
+        "type": "jsonschema-draft3",
+        "path": [ "properties", "bar" ]
+      },
+      {
+        "type": "jsonschema-draft3",
+        "path": [ "extends" ]
+      },
+      {
+        "type": "jsonschema-draft3",
+        "path": [ "extends", "properties", "foo" ]
+      }
+    ]
+  },
+  {
+    "name": "https://github.com/json-schema-org/JSON-Schema-Test-Suite/blob/104f9f98f782d258eab6b2a760f9dca41739cebe/tests/draft3/extends.json (2)",
+    "schema": {
+      "$schema": "http://json-schema.org/draft-03/schema#",
+      "properties": { "bar": { "type": "integer", "required": true } },
+      "extends": [
+        {
+          "properties": {
+            "foo": { "type": "string", "required": true }
+          }
+        },
+        {
+          "properties": {
+            "baz": { "type": "null", "required": true }
+          }
+        }
+      ]
+    },
+    "trail": [
+      {
+        "type": "jsonschema-draft3",
+        "path": []
+      },
+      {
+        "type": "jsonschema-draft3",
+        "path": [ "properties", "bar" ]
+      },
+      {
+        "type": "jsonschema-draft3",
+        "path": [ "extends", 0 ]
+      },
+      {
+        "type": "jsonschema-draft3",
+        "path": [ "extends", 0, "properties", "foo" ]
+      },
+      {
+        "type": "jsonschema-draft3",
+        "path": [ "extends", 1 ]
+      },
+      {
+        "type": "jsonschema-draft3",
+        "path": [ "extends", 1, "properties", "baz" ]
+      }
+    ]
+  }
+]
