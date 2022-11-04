@@ -1,3 +1,5 @@
+const DRAFT3_TO_DRAFT3 = require('../../rules/jsonschema-draft3-to-draft3.json')
+const DRAFT3_TO_DRAFT4 = require('../../rules/jsonschema-draft3-to-draft4.json')
 const DRAFT4_TO_DRAFT4 = require('../../rules/jsonschema-draft4-to-draft4.json')
 const DRAFT4_TO_DRAFT6 = require('../../rules/jsonschema-draft4-to-draft6.json')
 const DRAFT6_TO_DRAFT7 = require('../../rules/jsonschema-draft6-to-draft7.json')
@@ -11,6 +13,13 @@ const V2020_12_TO_V2020_12 = require('../../rules/jsonschema-2020-12-to-2020-12.
 // TODO: Find a way to specify transitiveness in a less verbose manner
 module.exports = {
   jsonschema: {
+    draft3: {
+      draft4: [DRAFT3_TO_DRAFT3, DRAFT3_TO_DRAFT4, DRAFT4_TO_DRAFT4],
+      draft6: [DRAFT3_TO_DRAFT3, DRAFT3_TO_DRAFT4, DRAFT4_TO_DRAFT4, DRAFT4_TO_DRAFT6, DRAFT6_TO_DRAFT6],
+      draft7: [DRAFT3_TO_DRAFT3, DRAFT3_TO_DRAFT4, DRAFT4_TO_DRAFT4, DRAFT4_TO_DRAFT6, DRAFT6_TO_DRAFT6, DRAFT6_TO_DRAFT7, DRAFT7_TO_DRAFT7],
+      '2019-09': [DRAFT3_TO_DRAFT3, DRAFT3_TO_DRAFT4, DRAFT4_TO_DRAFT4, DRAFT4_TO_DRAFT6, DRAFT6_TO_DRAFT6, DRAFT6_TO_DRAFT7, DRAFT7_TO_DRAFT7, DRAFT7_TO_V2019_09, V2019_09_TO_V2019_09],
+      '2020-12': [DRAFT3_TO_DRAFT3, DRAFT3_TO_DRAFT4, DRAFT4_TO_DRAFT4, DRAFT4_TO_DRAFT6, DRAFT6_TO_DRAFT6, DRAFT6_TO_DRAFT7, DRAFT7_TO_DRAFT7, DRAFT7_TO_V2019_09, V2019_09_TO_V2019_09, V2019_09_TO_V2020_12, V2020_12_TO_V2020_12]
+    },
     draft4: {
       draft6: [DRAFT4_TO_DRAFT4, DRAFT4_TO_DRAFT6, DRAFT6_TO_DRAFT6],
       draft7: [DRAFT4_TO_DRAFT4, DRAFT4_TO_DRAFT6, DRAFT6_TO_DRAFT6, DRAFT6_TO_DRAFT7, DRAFT7_TO_DRAFT7],
