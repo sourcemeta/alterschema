@@ -57,6 +57,30 @@
       "transform": {
         "$eval": "omit(schema, 'type')"
       }
+    },
+    {
+      "vocabulary": "core",
+      "condition": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "$id": "https://github.com/sourcemeta/alterschema/rules/jsonschema-draft3-to-draft4/divisible-by",
+        "type": "object",
+        "required": [ "divisibleBy" ],
+        "properties": {
+          "divisibleBy": {
+            "type": "number"
+          }
+        }
+      },
+      "transform": {
+        "$merge": [
+          { "$eval": "omit(schema, 'divisibleBy')" },
+          {
+            "multipleOf": {
+              "$eval": "schema.divisibleBy"
+            }
+          }
+        ]
+      }
     }
   ]
 }
