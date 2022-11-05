@@ -1,4 +1,62 @@
 {
   "walker": "jsonschema-draft3",
-  "rules": []
+  "rules": [
+    {
+      "vocabulary": "core",
+      "condition": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "$id": "https://github.com/sourcemeta/alterschema/rules/jsonschema-draft3-to-draft4/upgrade-official-metaschema",
+        "type": "object",
+        "required": [ "$schema" ],
+        "properties": {
+          "$schema": {
+            "const": "http://json-schema.org/draft-03/schema#"
+          }
+        }
+      },
+      "transform": {
+        "$merge": [
+          { "$eval": "schema" },
+          { "$$schema": "http://json-schema.org/draft-04/schema#" }
+        ]
+      }
+    },
+    {
+      "vocabulary": "core",
+      "condition": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "$id": "https://github.com/sourcemeta/alterschema/rules/jsonschema-draft3-to-draft4/type-any",
+        "type": "object",
+        "required": [ "type" ],
+        "properties": {
+          "type": {
+            "const": "any"
+          }
+        }
+      },
+      "transform": {
+        "$eval": "omit(schema, 'type')"
+      }
+    },
+    {
+      "vocabulary": "core",
+      "condition": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "$id": "https://github.com/sourcemeta/alterschema/rules/jsonschema-draft3-to-draft4/type-any-array",
+        "type": "object",
+        "required": [ "type" ],
+        "properties": {
+          "type": {
+            "type": "array",
+            "contains": {
+              "const": "any"
+            }
+          }
+        }
+      },
+      "transform": {
+        "$eval": "omit(schema, 'type')"
+      }
+    }
+  ]
 }
