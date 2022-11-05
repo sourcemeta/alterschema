@@ -7,6 +7,7 @@ const packageJSON = require('../package.json')
 const METASCHEMAS = require('../metaschemas.json')
 
 const SPECIFICATION_NAMES = {
+  draft3: 'Draft 3',
   draft4: 'Draft 4',
   draft6: 'Draft 6',
   draft7: 'Draft 7'
@@ -56,24 +57,31 @@ function onError (error) {
   output.value = `ERROR: ${error.message}`
 }
 
-const editor = new CodeMirror.EditorView({
-  doc: JSON.stringify({
-    id: 'http://example.com/schema',
-    $schema: 'http://json-schema.org/draft-04/schema#',
-    dependencies: {
-      foo: ['bar']
+function refreshFrom (spec) {
+  setSpecificationOptions(from, Object.keys(builtin.jsonschema), spec)
+  from.dispatchEvent(new Event('change'))
+}
+
+const DEFAULT_SCHEMA = {
+  id: 'http://example.com/schema',
+  $schema: 'http://json-schema.org/draft-04/schema#',
+  dependencies: {
+    foo: ['bar']
+  },
+  properties: {
+    foo: {
+      enum: ['single-value']
     },
-    properties: {
-      foo: {
-        enum: ['single-value']
-      },
-      bar: {
-        type: 'number',
-        minimum: 5,
-        exclusiveMinimum: true
-      }
+    bar: {
+      type: 'number',
+      minimum: 5,
+      exclusiveMinimum: true
     }
-  }, null, 2),
+  }
+}
+
+const editor = new CodeMirror.EditorView({
+  doc: JSON.stringify(DEFAULT_SCHEMA, null, 2),
   extensions: [
     CodeMirror.basicSetup,
     codemirrorJSON.json(),
@@ -107,8 +115,7 @@ const editor = new CodeMirror.EditorView({
         return
       }
 
-      setSpecificationOptions(from, Object.keys(builtin.jsonschema), spec)
-      from.dispatchEvent(new Event('change'))
+      refreshFrom(spec)
     })
   ],
   parent: input
@@ -142,7 +149,6 @@ from.addEventListener('change', (event) => {
 })
 
 document.getElementById('version').innerText = `v${packageJSON.version}`
-setSpecificationOptions(from, Object.keys(builtin.jsonschema))
-from.dispatchEvent(new Event('change'))
+refreshFrom(METASCHEMAS[DEFAULT_SCHEMA.$schema])
 editor.focus()
 transform.dispatchEvent(new Event('click'))
