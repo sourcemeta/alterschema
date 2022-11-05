@@ -28,5 +28,18 @@
     "expected": {
       "$schema": "https://json-schema.org/draft/2019-09/schema"
     }
+  },
+  {
+    "name": "draft3 divisibleBy",
+    "schema": {
+      "$schema": "http://json-schema.org/draft-03/schema#",
+      "type": "integer",
+      "divisibleBy": 5
+    },
+    "expected": {
+      "$schema": "https://json-schema.org/draft/2019-09/schema",
+      "type": "integer",
+      "multipleOf": 5
+    }
   }
 ]
