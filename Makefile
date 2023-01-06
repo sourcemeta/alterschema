@@ -1,5 +1,3 @@
-include vendor/vendorpull/targets.mk
-
 .DEFAULT_GOAL = all
 all: lint test
 
