@@ -40,8 +40,8 @@ Platform support
 ----------------
 
 `vendorpull` runs in any POSIX system such as GNU/Linux, macOS, FreeBSD, etc.
-Its only external dependencies are `git`, `curl` and `md5sum`. `vendorpull` can
-be run in Microsoft Windows through the [Windows Subsystem for
+Its only external dependencies is `git`. `vendorpull` can be run in Microsoft
+Windows through the [Windows Subsystem for
 Linux](https://docs.microsoft.com/en-us/windows/wsl/) or
 [MinGW](https://sourceforge.net/projects/mingw/).
 
@@ -52,7 +52,7 @@ Go to the root of the repository you want to setup `vendorpull` in and run the
 following command:
 
 ```sh
-/bin/sh -c "$(curl -fsSL https://raw.githubusercontent.com/jviotti/vendorpull/master/bootstrap -H "Cache-Control: no-cache, no-store, must-revalidate")"
+/bin/sh -c "$(curl -fsSL https://raw.githubusercontent.com/sourcemeta/vendorpull/main/bootstrap -H "Cache-Control: no-cache, no-store, must-revalidate")"
 ```
 
 The bootstrap script will install `vendorpull` at `vendor/vendorpull` and set
@@ -76,9 +76,8 @@ and the Electron project.
 - The first column defines the dependency name as it will be vendored in the
   project. The dependency is vendored inside the `vendor` directory.
 - The second column defines the repository URL of the dependency
-- The third column defines either the `git` revision of the project that you
-  want to vendor or the MD5 hash of the file if the URL does not point to a
-  `git` repository
+- The third column defines the `git` revision of the project that you
+  want to vendor
 
 In order to pull all dependencies, run the following command:
 
@@ -125,8 +124,6 @@ contains an 8.1M `docs` directory. We can ignore this directory by creating a
 docs
 ```
 
-Masking is not available for non-`git` dependencies.
-
 Patches
 -------
 
@@ -136,8 +133,6 @@ placing a set of `*.patch` files produced with
 [`git-format-patch(1)`](http://schacon.github.io/git/git-format-patch.html)
 into a `patches/<name>` directory where `<name>` corresponds to a dependency
 name as defined in the `DEPENDENCIES` file.
-
-Patching is not available for non-`git` dependencies.
 
 GitHub integration
 ------------------
@@ -149,32 +144,6 @@ from automatically rendering files in `vendor` during upgrade pull requests:
 ```
 /vendor/** linguist-generated=true
 ```
-
-GNU Make integration
---------------------
-
-Add the following directive to your `Makefile`:
-
-```make
-include vendor/vendorpull/targets.mk
-```
-
-This will add two targets:
-
-- `vendor-pull`: Pull all dependencies
-- `vendor-pull-<dependency>`: Pull a particular dependency
-
-Future plans
-------------
-
-Here are some of the features worth exploring if you are planning to contribute
-to this project:
-
-- [ ] Native support for running on Microsoft Windows by compiling the script
-  source code to either Batch or PowerShell using something like
-  [Batsh](https://github.com/batsh-dev-team/Batsh)
-- [ ] Gracefully support version control systems other than `git` such as
-  Mercurial, SVN, and CVS
 
 License
 -------
