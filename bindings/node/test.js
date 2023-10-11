@@ -217,7 +217,7 @@ tap.test('(CLI) draft4 => 2020-12', (test) => {
     }
   })
 
-  test.is(result.stderr.toString(), '')
-  test.is(result.status, 0)
+  test.equal(result.stderr.toString(), '')
+  test.equal(result.status, 0)
   test.end()
 })
