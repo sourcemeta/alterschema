@@ -112,3 +112,4 @@ _site
 .tmp
 .DS_Store
 dist
+.tap
