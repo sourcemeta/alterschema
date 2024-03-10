@@ -5,7 +5,7 @@ const jsonschema = require('./jsonschema')
 const walker = require('./walker')
 const builtin = require('./builtin')
 
-async function transformer (root, path, ruleset, trails, originalSchema, from) {
+async function transformer(root, path, ruleset, trails, originalSchema, from) {
   const value = path.length === 0 ? root : _.get(root, path)
   for (const rule of ruleset) {
     // Guard against rules accidentally modifying the input document
@@ -61,13 +61,7 @@ async function transformer (root, path, ruleset, trails, originalSchema, from) {
 module.exports = async (value, from, to) => {
   let accumulator = _.cloneDeep(value)
 
-  if (!builtin.jsonschema[from]) {
-    throw new Error(`Invalid "from": ${from}`)
-  } else if (!builtin.jsonschema[from][to]) {
-    throw new Error(`Invalid "to": ${to}`)
-  }
-
-  for (const mapper of builtin.jsonschema[from][to]) {
+  for (const mapper of builtin(from, to)) {
     const trails = walker(mapper.walker, accumulator, []).sort((a, b) => {
       return b.path.length - a.path.length
     })
