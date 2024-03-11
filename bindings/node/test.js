@@ -9,7 +9,9 @@ const builtin = require('./builtin')
 const jsonschema = require('./jsonschema')
 const alterschema = require('./index')
 const packageJSON = require('../../package.json')
+const { log } = require('console')
 const METASCHEMAS = _.invert(require('../../metaschemas.json'))
+const drafts = builtin.drafts;
 
 const JSON_SCHEMA_TEST_SUITE = path.resolve(__dirname, '..', '..', 'vendor', 'json-schema-test-suite')
 const TESTS_BASE_DIRECTORY = path.resolve(JSON_SCHEMA_TEST_SUITE, 'tests')
@@ -24,8 +26,8 @@ const recursiveReadDirectory = (directory) => {
   }, [])
 }
 
-for (const from of Object.keys(builtin.jsonschema)) {
-  for (const to of Object.keys(builtin.jsonschema[from])) {
+for (const [draft_index, from] of drafts.entries()) {
+  for (const to of drafts.slice(draft_index + 1)) {
     const tests = require(`../../test/rules/jsonschema-${from}-to-${to}.json`)
     for (const testCase of tests) {
       tap.test(`${from} => ${to}: ${testCase.name}`, async (test) => {
@@ -101,7 +103,7 @@ const BLACKLIST = [
   'refRemote'
 ]
 
-for (const from of Object.keys(builtin.jsonschema)) {
+for (const [draft_index, from] of drafts.entries()) {
   // TODO: Support running draft3 tests
   if (from === 'draft3') {
     continue
@@ -141,7 +143,7 @@ for (const from of Object.keys(builtin.jsonschema)) {
         }
 
         const index = testCase.tests.indexOf(instance)
-        for (const to of Object.keys(builtin.jsonschema[from])) {
+        for (const to of drafts.slice(draft_index + 1)) {
           tap.test(`${suiteName} (${from} -> ${to}) ${testCase.description} #${index}`, async (test) => {
             // We need at least an arbitrary id to make @hyperjump/json-schema work
             const id = `https://alterschema.sourcemeta.com/${_.kebabCase(testCase.description)}/${index}`
