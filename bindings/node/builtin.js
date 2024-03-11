@@ -13,7 +13,7 @@ const mappers = drafts.flatMap((draft, index) => {
 // index_mapper maps drafts to their index in the mappers array. This is used to find the subarray of mappers to be returned.
 const index_mapper = new Map(drafts.map((draft, index) => [draft, index * 2]));
 
-module.exports = (from, to) => {
+exports.builtin = (from, to) => {
   if (!index_mapper.has(from)) {
     throw new Error(`Invalid "from": ${from}`);
   } else if (!index_mapper.has(to)) {
@@ -24,3 +24,5 @@ module.exports = (from, to) => {
   const toIndex = index_mapper.get(to);
   return mappers.slice(fromIndex, toIndex + 1);
 };
+
+exports.drafts = drafts;
