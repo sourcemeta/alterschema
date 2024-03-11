@@ -9,6 +9,7 @@ const builtin = require('./builtin')
 const jsonschema = require('./jsonschema')
 const alterschema = require('./index')
 const packageJSON = require('../../package.json')
+const { log } = require('console')
 const METASCHEMAS = _.invert(require('../../metaschemas.json'))
 const drafts = builtin.drafts
 
