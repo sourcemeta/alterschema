@@ -13,7 +13,7 @@ const SPECIFICATION_NAMES = {
   draft7: 'Draft 7'
 }
 
-function safeJSONParse (string) {
+function safeJSONParse(string) {
   try {
     return JSON.parse(string)
   } catch (error) {
@@ -21,7 +21,7 @@ function safeJSONParse (string) {
   }
 }
 
-function appendOption (selectElement, name, value, isSelected = false) {
+function appendOption(selectElement, name, value, isSelected = false) {
   const option = document.createElement('option')
   option.innerText = name
   option.setAttribute('value', value)
@@ -32,13 +32,13 @@ function appendOption (selectElement, name, value, isSelected = false) {
   selectElement.appendChild(option)
 }
 
-function getSelectValue (element) {
+function getSelectValue(element) {
   return element.selectedIndex === -1
     ? null
     : element.options[element.selectedIndex].value
 }
 
-function setSpecificationOptions (element, options, expected) {
+function setSpecificationOptions(element, options, expected) {
   const currentValue = expected || getSelectValue(element)
   element.innerHTML = ''
   for (const option of options) {
@@ -53,7 +53,7 @@ const input = document.getElementById('input')
 const output = document.getElementById('output')
 const transform = document.getElementById('upgrade')
 
-function onError (error) {
+function onError(error) {
   output.value = `ERROR: ${error.message}`
 }
 
