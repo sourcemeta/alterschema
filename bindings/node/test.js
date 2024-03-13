@@ -9,11 +9,9 @@ const builtin = require('./builtin')
 const jsonschema = require('./jsonschema')
 const alterschema = require('./index')
 const packageJSON = require('../../package.json')
-const { log } = require('console')
 const METASCHEMAS = _.invert(require('../../metaschemas.json'))
 
 const drafts = builtin.drafts
-
 
 const JSON_SCHEMA_TEST_SUITE = path.resolve(__dirname, '..', '..', 'vendor', 'json-schema-test-suite')
 const TESTS_BASE_DIRECTORY = path.resolve(JSON_SCHEMA_TEST_SUITE, 'tests')
@@ -27,7 +25,6 @@ const recursiveReadDirectory = (directory) => {
       : fullPath)
   }, [])
 }
-
 
 for (const [draftIndex, from] of drafts.entries()) {
   for (const to of drafts.slice(draftIndex + 1)) {

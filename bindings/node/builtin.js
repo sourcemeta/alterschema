@@ -7,7 +7,7 @@ const mappers = drafts.flatMap((draft, index) => {
   if (index + 1 < drafts.length) {
     rules.push(require(`../../rules/jsonschema-${draft}-to-${drafts[index + 1]}.json`))
   }
-  return rules;
+  return rules
 })
 
 // indexMapper maps drafts to their index in the mappers array. This is used to find the subarray of mappers to be returned.
