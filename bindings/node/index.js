@@ -5,7 +5,7 @@ const jsonschema = require('./jsonschema')
 const walker = require('./walker')
 const builtin = require('./builtin')
 
-async function transformer(root, path, ruleset, trails, originalSchema, from) {
+async function transformer (root, path, ruleset, trails, originalSchema, from) {
   const value = path.length === 0 ? root : _.get(root, path)
   for (const rule of ruleset) {
     // Guard against rules accidentally modifying the input document
