@@ -57,11 +57,8 @@ function onError(error) {
   output.value = `ERROR: ${error.message}`
 }
 
-<<<<<<< HEAD
+
 function refreshFrom (spec) {
-=======
-function refreshFrom(spec) {
->>>>>>> dc64ea550b0f50f4c6edd89fc258906db03f241c
   setSpecificationOptions(from, builtin.drafts, spec)
   from.dispatchEvent(new Event('change'))
 }
