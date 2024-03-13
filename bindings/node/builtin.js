@@ -23,6 +23,6 @@ exports.builtin = (from, to) => {
   const fromIndex = indexMapper.get(from)
   const toIndex = indexMapper.get(to)
   return mappers.slice(fromIndex, toIndex + 1)
-};
+}
 
 exports.drafts = drafts
