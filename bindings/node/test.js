@@ -12,8 +12,6 @@ const packageJSON = require('../../package.json')
 const METASCHEMAS = _.invert(require('../../metaschemas.json'))
 const drafts = builtin.drafts
 
-const drafts = builtin.drafts
-
 const JSON_SCHEMA_TEST_SUITE = path.resolve(__dirname, '..', '..', 'vendor', 'json-schema-test-suite')
 const TESTS_BASE_DIRECTORY = path.resolve(JSON_SCHEMA_TEST_SUITE, 'tests')
 const REMOTES_BASE_DIRECTORY = path.resolve(JSON_SCHEMA_TEST_SUITE, 'remotes')
