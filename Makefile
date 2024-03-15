@@ -75,3 +75,8 @@ www: \
 	dist/apple-touch-icon.png \
 	dist/index.html \
 	dist/manifest.webmanifest
+
+.PHONY: serve
+serve: node_modules
+	$(NODE) ./node_modules/webpack-dev-server/bin/webpack-dev-server.js \
+	--config ./www/webpack.config.dev.js --open --port 8080
