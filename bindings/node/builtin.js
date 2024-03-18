@@ -1,5 +1,3 @@
-// TODO: Find a way to specify transitiveness in a less verbose manner: DONE
-
 // mappers to store all the mappers of all drafts from draft3 to draft7
 const drafts = ['draft3', 'draft4', 'draft6', 'draft7', '2019-09', '2020-12']
 const mappers = drafts.flatMap((draft, index) => {
