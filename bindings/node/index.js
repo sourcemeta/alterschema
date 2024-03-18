@@ -36,8 +36,6 @@ async function transformer (root, path, ruleset, trails, originalSchema, from) {
 
           return false
         },
-
-        // TODO: Use standard JSON-e operators instead: DONE
       })
 
       if (await jsonschema.matches(rule.condition, output)) {
