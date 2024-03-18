@@ -35,14 +35,6 @@ async function transformer (root, path, ruleset, trails, originalSchema, from) {
           }
 
           return false
-        },
-
-        // TODO: Use standard JSON-e operators instead
-        omit: (object, keys) => {
-          return _.omit(object, _.castArray(keys))
-        },
-        replace: (value, regex, replacement) => {
-          return value.replace(new RegExp(regex, 'g'), replacement)
         }
       })
 

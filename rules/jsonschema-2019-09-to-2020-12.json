@@ -38,7 +38,17 @@
       },
       "transform": {
         "$merge": [
-          { "$eval": "omit(schema, 'items')" },
+          { "$map": {
+            "$eval": "schema"
+          },
+          "each(v,k)": {
+            "${k}": {
+              "$if": "k!='items'",
+              "then": {
+                "$eval": "v"
+              }
+            }
+          } },
           {
             "prefixItems": {
               "$eval": "schema.items"
@@ -64,10 +74,23 @@
       },
       "transform": {
         "$merge": [
-          { "$eval": "omit(schema, '$ref')" },
+          { "$map": {
+            "$eval": "schema"
+          },
+          "each(v,k)": {
+            "${k}": {
+              "$if": "k!='$ref'",
+              "then": {
+                "$eval": "v"
+              }
+            }
+          } },
           {
             "$$ref": {
-              "$eval": "replace(schema['$ref'], '/items/(\\d+)', '/prefixItems/$1')"
+              "$if": "split(schema['$ref'], 'items')[1][1] in '1234567890'",
+              "then":{
+                "$eval": "join(split(schema['$ref'], 'items'), 'prefixItems')"
+              }
             }
           }
         ]
@@ -90,10 +113,20 @@
       },
       "transform": {
         "$merge": [
-          { "$eval": "omit(schema, '$ref')" },
+          { "$map": {
+            "$eval": "schema"
+          },
+          "each(v,k)": {
+            "${k}": {
+              "$if": "k!='$ref'",
+              "then": {
+                "$eval": "v"
+              }
+            }
+          } },
           {
             "$$ref": {
-              "$eval": "replace(schema['$ref'], '/additionalItems', '/items')"
+                "$eval": "join(split(schema['$ref'], 'additionalItems'), 'items')"
             }
           }
         ]
@@ -116,7 +149,17 @@
       },
       "transform": {
         "$merge": [
-          { "$eval": "omit(schema, 'additionalItems')" },
+          { "$map": {
+            "$eval": "schema"
+          },
+          "each(v,k)": {
+            "${k}": {
+              "$if": "k!='additionalItems'",
+              "then": {
+                "$eval": "v"
+              }
+            }
+          } },
           {
             "items": {
               "$eval": "schema.additionalItems"
@@ -167,7 +210,17 @@
       },
       "transform": {
         "$merge": [
-          { "$eval": "omit(schema, 'enum')" },
+          { "$map": {
+            "$eval": "schema"
+          },
+          "each(v,k)": {
+            "${k}": {
+              "$if": "k!='enum'",
+              "then": {
+                "$eval": "v"
+              }
+            }
+          } },
           {
             "const": {
               "$eval": "schema.enum[0]"
@@ -190,7 +243,17 @@
         }
       },
       "transform": {
-        "$eval": "omit(schema, '$recursiveAnchor')"
+        "$map": {
+          "$eval": "schema"
+        },
+        "each(v,k)": {
+          "${k}": {
+            "$if": "k!='$recursiveAnchor'",
+            "then": {
+              "$eval": "v"
+            }
+          }
+        }
       }
     },
     {
@@ -208,7 +271,17 @@
       },
       "transform": {
         "$merge": [
-          { "$eval": "omit(schema, '$recursiveAnchor')" },
+          { "$map": {
+            "$eval": "schema"
+          },
+          "each(v,k)": {
+            "${k}": {
+              "$if": "k!='$recursiveAnchor'",
+              "then": {
+                "$eval": "v"
+              }
+            }
+          } },
           {
             "$$dynamicAnchor": {
               "$eval": "'anchor-' + jsonHash(original)"
@@ -232,7 +305,17 @@
       },
       "transform": {
         "$merge": [
-          { "$eval": "omit(schema, '$recursiveRef')" },
+          { "$map": {
+            "$eval": "schema"
+          },
+          "each(v,k)": {
+            "${k}": {
+              "$if": "k!='$recursiveRef'",
+              "then": {
+                "$eval": "v"
+              }
+            }
+          } },
           {
             "$$dynamicRef": {
               "$if": "hasContext('$recursiveAnchor', true)",
