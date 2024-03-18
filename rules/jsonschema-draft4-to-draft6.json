@@ -36,7 +36,17 @@
       },
       "transform": {
         "$merge": [
-          { "$eval": "omit(schema, 'id')" },
+          { "$map": {
+            "$eval": "schema"
+          },
+          "each(v,k)": {
+            "${k}": {
+              "$if": "k!='id'",
+              "then": {
+                "$eval": "v"
+              }
+            }
+          } },
           {
             "$$id": {
               "$eval": "schema.id"
@@ -63,7 +73,17 @@
       },
       "transform": {
         "$merge": [
-          { "$eval": "omit(schema, 'minimum')" },
+          { "$map": {
+            "$eval": "schema"
+          },
+          "each(v,k)": {
+            "${k}": {
+              "$if": "k!='minimum'",
+              "then": {
+                "$eval": "v"
+              }
+            }
+          } },
           {
             "exclusiveMinimum": {
               "$eval": "schema.minimum"
@@ -90,7 +110,17 @@
       },
       "transform": {
         "$merge": [
-          { "$eval": "omit(schema, 'maximum')" },
+          { "$map": {
+            "$eval": "schema"
+          },
+          "each(v,k)": {
+            "${k}": {
+              "$if": "k!='maximum'",
+              "then": {
+                "$eval": "v"
+              }
+            }
+          } },
           {
             "exclusiveMaximum": {
               "$eval": "schema.maximum"
@@ -117,7 +147,17 @@
       },
       "transform": {
         "$merge": [
-          { "$eval": "omit(schema, 'exclusiveMinimum')" }
+          { "$map": {
+            "$eval": "schema"
+          },
+          "each(v,k)": {
+            "${k}": {
+              "$if": "k!='exclusiveMinimum'",
+              "then": {
+                "$eval": "v"
+              }
+            }
+          } }
         ]
       }
     },
@@ -139,7 +179,17 @@
       },
       "transform": {
         "$merge": [
-          { "$eval": "omit(schema, 'exclusiveMaximum')" }
+          { "$map": {
+            "$eval": "schema"
+          },
+          "each(v,k)": {
+            "${k}": {
+              "$if": "k!='exclusiveMaximum'",
+              "then": {
+                "$eval": "v"
+              }
+            }
+          } }
         ]
       }
     },
@@ -182,7 +232,17 @@
       },
       "transform": {
         "$merge": [
-          { "$eval": "omit(schema, 'enum')" },
+          { "$map": {
+            "$eval": "schema"
+          },
+          "each(v,k)": {
+            "${k}": {
+              "$if": "k!='enum'",
+              "then": {
+                "$eval": "v"
+              }
+            }
+          } },
           {
             "const": {
               "$eval": "schema.enum[0]"

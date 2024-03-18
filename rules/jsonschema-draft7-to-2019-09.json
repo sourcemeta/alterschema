@@ -37,7 +37,17 @@
       },
       "transform": {
         "$merge": [
-          { "$eval": "omit(schema, '$id')" },
+          { "$map": {
+            "$eval": "schema"
+          },
+          "each(v,k)": {
+            "${k}": {
+              "$if": "k!='$id'",
+              "then": {
+                "$eval": "v"
+              }
+            }
+          } },
           {
             "$$anchor": {
               "$eval": "schema['$id'][1:]"
@@ -61,7 +71,17 @@
       },
       "transform": {
         "$merge": [
-          { "$eval": "omit(schema, 'definitions')" },
+          { "$map": {
+            "$eval": "schema"
+          },
+          "each(v,k)": {
+            "${k}": {
+              "$if": "k!='definitions'",
+              "then": {
+                "$eval": "v"
+              }
+            }
+          }},
           {
             "$$defs": {
               "$eval": "schema.definitions"
@@ -86,10 +106,20 @@
       },
       "transform": {
         "$merge": [
-          { "$eval": "omit(schema, '$ref')" },
+          { "$map": {
+            "$eval": "schema"
+          },
+          "each(v,k)": {
+            "${k}": {
+              "$if": "k!='$ref'",
+              "then": {
+                "$eval": "v"
+              }
+            }
+          } },
           {
             "$$ref": {
-              "$eval": "replace(schema['$ref'], '/definitions/', '/$defs/')"
+                "$eval": "join(split(schema['$ref'], 'definitions'), '$defs')"
             }
           }
         ]
@@ -134,7 +164,17 @@
       },
       "transform": {
         "$merge": [
-          { "$eval": "omit(schema, 'enum')" },
+          { "$map": {
+            "$eval": "schema"
+          },
+          "each(v,k)": {
+            "${k}": {
+              "$if": "k!='enum'",
+              "then": {
+                "$eval": "v"
+              }
+            }
+          } },
           {
             "const": {
               "$eval": "schema.enum[0]"
@@ -158,7 +198,17 @@
       },
       "transform": {
         "$merge": [
-          { "$eval": "omit(schema, 'dependencies')" },
+          { "$map": {
+            "$eval": "schema"
+          },
+          "each(v,k)": {
+            "${k}": {
+              "$if": "k!='dependencies'",
+              "then": {
+                "$eval": "v"
+              }
+            }
+          } },
           {
             "dependentRequired": {
               "$map": {

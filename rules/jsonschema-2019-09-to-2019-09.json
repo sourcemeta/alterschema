@@ -15,7 +15,17 @@
         }
       },
       "transform": {
-        "$eval": "omit(schema, 'dependentSchemas')"
+        "$map": {
+          "$eval": "schema"
+        },
+        "each(v,k)": {
+          "${k}": {
+            "$if": "k!='dependentSchemas'",
+            "then": {
+              "$eval": "v"
+            }
+          }
+        }
       }
     },
     {
@@ -32,7 +42,17 @@
         }
       },
       "transform": {
-        "$eval": "omit(schema, 'dependentRequired')"
+        "$map": {
+          "$eval": "schema"
+        },
+        "each(v,k)": {
+          "${k}": {
+            "$if": "k!='dependentRequired'",
+            "then": {
+              "$eval": "v"
+            }
+          }
+        }
       }
     }
   ]

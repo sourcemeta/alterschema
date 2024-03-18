@@ -60,7 +60,17 @@
       },
       "transform": {
         "$merge": [
-          { "$eval": "omit(schema, 'enum')" },
+          { "$map": {
+            "$eval": "schema"
+          },
+          "each(v,k)": {
+            "${k}": {
+              "$if": "k!='enum'",
+              "then": {
+                "$eval": "v"
+              }
+            }
+          }},
           {
             "const": {
               "$eval": "schema.enum[0]"

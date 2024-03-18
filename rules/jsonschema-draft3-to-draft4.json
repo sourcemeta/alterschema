@@ -35,7 +35,17 @@
         }
       },
       "transform": {
-        "$eval": "omit(schema, 'type')"
+        "$map": {
+          "$eval": "schema"
+        },
+        "each(v,k)": {
+          "${k}": {
+            "$if": "k!='type'",
+            "then": {
+              "$eval": "v"
+            }
+          }
+        }
       }
     },
     {
@@ -55,7 +65,17 @@
         }
       },
       "transform": {
-        "$eval": "omit(schema, 'type')"
+        "$map": {
+          "$eval": "schema"
+        },
+        "each(v,k)": {
+          "${k}": {
+            "$if": "k!='type'",
+            "then": {
+              "$eval": "v"
+            }
+          }
+        }
       }
     },
     {
@@ -73,7 +93,17 @@
       },
       "transform": {
         "$merge": [
-          { "$eval": "omit(schema, 'divisibleBy')" },
+          { "$map": {
+            "$eval": "schema"
+          },
+          "each(v,k)": {
+            "${k}": {
+              "$if": "k!='divisibleBy'",
+              "then": {
+                "$eval": "v"
+              }
+            }
+          } },
           {
             "multipleOf": {
               "$eval": "schema.divisibleBy"
