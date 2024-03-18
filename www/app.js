@@ -58,7 +58,7 @@ function onError (error) {
 }
 
 function refreshFrom (spec) {
-  setSpecificationOptions(from, Object.keys(builtin.jsonschema), spec)
+  setSpecificationOptions(from, builtin.drafts, spec)
   from.dispatchEvent(new Event('change'))
 }
 
@@ -145,7 +145,7 @@ transform.addEventListener('click', () => {
 
 from.addEventListener('change', (event) => {
   setSpecificationOptions(to,
-    Object.keys(builtin.jsonschema[event.target.value]).reverse())
+    builtin.drafts.slice(builtin.drafts.indexOf(event.target.value) + 1).reverse())
 })
 
 document.getElementById('version').innerText = `v${packageJSON.version}`
