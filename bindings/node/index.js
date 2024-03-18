@@ -35,7 +35,7 @@ async function transformer (root, path, ruleset, trails, originalSchema, from) {
           }
 
           return false
-        },
+        }
       })
 
       if (await jsonschema.matches(rule.condition, output)) {
