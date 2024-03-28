@@ -97,6 +97,7 @@
               }
             }
           },
+
           {
             "$$defs": {
               "$eval": "schema.definitions"
