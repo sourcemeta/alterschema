@@ -7,17 +7,24 @@
         "$schema": "https://json-schema.org/draft/2020-12/schema",
         "$id": "https://github.com/sourcemeta/alterschema/rules/jsonschema-draft7-to-2019-09/upgrade-official-metaschema",
         "type": "object",
-        "required": [ "$schema" ],
+        "required": [
+          "$schema"
+        ],
         "properties": {
           "$schema": {
-            "const": "http://json-schema.org/draft-07/schema#"
+            "type": "string",
+            "pattern": "http[s]?://json-schema.org/draft-07/schema[#]?"
           }
         }
       },
       "transform": {
         "$merge": [
-          { "$eval": "schema" },
-          { "$$schema": "https://json-schema.org/draft/2019-09/schema" }
+          {
+            "$eval": "schema"
+          },
+          {
+            "$$schema": "https://json-schema.org/draft/2019-09/schema"
+          }
         ]
       }
     },
@@ -27,7 +34,9 @@
         "$schema": "https://json-schema.org/draft/2020-12/schema",
         "$id": "https://github.com/sourcemeta/alterschema/rules/jsonschema-draft7-to-2019-09/id-anchor",
         "type": "object",
-        "required": [ "$id" ],
+        "required": [
+          "$id"
+        ],
         "properties": {
           "$id": {
             "type": "string",
@@ -37,17 +46,19 @@
       },
       "transform": {
         "$merge": [
-          { "$map": {
-            "$eval": "schema"
-          },
-          "each(v,k)": {
-            "${k}": {
-              "$if": "k!='$id'",
-              "then": {
-                "$eval": "v"
+          {
+            "$map": {
+              "$eval": "schema"
+            },
+            "each(v,k)": {
+              "${k}": {
+                "$if": "k!='$id'",
+                "then": {
+                  "$eval": "v"
+                }
               }
             }
-          } },
+          },
           {
             "$$anchor": {
               "$eval": "schema['$id'][1:]"
@@ -62,7 +73,9 @@
         "$schema": "https://json-schema.org/draft/2020-12/schema",
         "$id": "https://github.com/sourcemeta/alterschema/rules/jsonschema-draft7-to-2019-09/definitions",
         "type": "object",
-        "required": [ "definitions" ],
+        "required": [
+          "definitions"
+        ],
         "properties": {
           "definitions": {
             "type": "object"
@@ -71,17 +84,19 @@
       },
       "transform": {
         "$merge": [
-          { "$map": {
-            "$eval": "schema"
-          },
-          "each(v,k)": {
-            "${k}": {
-              "$if": "k!='definitions'",
-              "then": {
-                "$eval": "v"
+          {
+            "$map": {
+              "$eval": "schema"
+            },
+            "each(v,k)": {
+              "${k}": {
+                "$if": "k!='definitions'",
+                "then": {
+                  "$eval": "v"
+                }
               }
             }
-          }},
+          },
           {
             "$$defs": {
               "$eval": "schema.definitions"
@@ -96,7 +111,9 @@
         "$schema": "https://json-schema.org/draft/2020-12/schema",
         "$id": "https://github.com/sourcemeta/alterschema/rules/jsonschema-draft7-to-2019-09/definitions-in-ref",
         "type": "object",
-        "required": [ "$ref" ],
+        "required": [
+          "$ref"
+        ],
         "properties": {
           "$ref": {
             "type": "string",
@@ -106,20 +123,22 @@
       },
       "transform": {
         "$merge": [
-          { "$map": {
-            "$eval": "schema"
-          },
-          "each(v,k)": {
-            "${k}": {
-              "$if": "k!='$ref'",
-              "then": {
-                "$eval": "v"
+          {
+            "$map": {
+              "$eval": "schema"
+            },
+            "each(v,k)": {
+              "${k}": {
+                "$if": "k!='$ref'",
+                "then": {
+                  "$eval": "v"
+                }
               }
             }
-          } },
+          },
           {
             "$$ref": {
-                "$eval": "join(split(schema['$ref'], 'definitions'), '$defs')"
+              "$eval": "join(split(schema['$ref'], 'definitions'), '$defs')"
             }
           }
         ]
@@ -141,7 +160,9 @@
       "condition": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
         "$id": "https://github.com/sourcemeta/alterschema/rules/jsonschema-draft7-to-2019-09/negated-empty-object",
-        "const": { "not": true }
+        "const": {
+          "not": true
+        }
       },
       "transform": {
         "$eval": "false"
@@ -153,7 +174,9 @@
         "$schema": "https://json-schema.org/draft/2020-12/schema",
         "$id": "https://github.com/sourcemeta/alterschema/rules/jsonschema-draft7-to-2019-09/enum-to-const",
         "type": "object",
-        "required": [ "enum" ],
+        "required": [
+          "enum"
+        ],
         "properties": {
           "enum": {
             "type": "array",
@@ -164,17 +187,19 @@
       },
       "transform": {
         "$merge": [
-          { "$map": {
-            "$eval": "schema"
-          },
-          "each(v,k)": {
-            "${k}": {
-              "$if": "k!='enum'",
-              "then": {
-                "$eval": "v"
+          {
+            "$map": {
+              "$eval": "schema"
+            },
+            "each(v,k)": {
+              "${k}": {
+                "$if": "k!='enum'",
+                "then": {
+                  "$eval": "v"
+                }
               }
             }
-          } },
+          },
           {
             "const": {
               "$eval": "schema.enum[0]"
@@ -189,7 +214,9 @@
         "$schema": "https://json-schema.org/draft/2020-12/schema",
         "$id": "https://github.com/sourcemeta/alterschema/rules/jsonschema-draft7-to-2019-09/dependencies",
         "type": "object",
-        "required": [ "dependencies" ],
+        "required": [
+          "dependencies"
+        ],
         "properties": {
           "dependencies": {
             "type": "object"
@@ -198,17 +225,19 @@
       },
       "transform": {
         "$merge": [
-          { "$map": {
-            "$eval": "schema"
-          },
-          "each(v,k)": {
-            "${k}": {
-              "$if": "k!='dependencies'",
-              "then": {
-                "$eval": "v"
+          {
+            "$map": {
+              "$eval": "schema"
+            },
+            "each(v,k)": {
+              "${k}": {
+                "$if": "k!='dependencies'",
+                "then": {
+                  "$eval": "v"
+                }
               }
             }
-          } },
+          },
           {
             "dependentRequired": {
               "$map": {
