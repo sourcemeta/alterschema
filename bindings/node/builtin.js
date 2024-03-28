@@ -1,7 +1,7 @@
 // mappers to store all the mappers of required drafts in an array.
 const drafts = ['draft3', 'draft4', 'draft6', 'draft7', '2019-09', '2020-12']
 // indexMapper maps drafts to their index in the mappers array. This is used to find the subarray of mappers to be returned.
-const indexMapper = new Map(drafts.map((draft, index) => [draft, index * 2]))
+const indexMapper = new Map(drafts.map((draft, index) => [draft, index]))
 const loadRequiredRules = (fromIndex, toIndex) => {
   const mappers = []
   for (let index = fromIndex; index <= toIndex; index++) {
