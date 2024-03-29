@@ -10,8 +10,8 @@
         "required": [ "$schema" ],
         "properties": {
           "$schema": {
-            "type":"string",
-            "pattern": "http[s]?://json-schema.org/draft-06/schema[#]?"
+            "type": "string",
+            "pattern": "^http[s]?://json-schema.org/draft-06/schema[#]?$"
           }
         }
       },
