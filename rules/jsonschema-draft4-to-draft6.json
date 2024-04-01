@@ -10,7 +10,8 @@
         "required": [ "$schema" ],
         "properties": {
           "$schema": {
-            "const": "http://json-schema.org/draft-04/schema#"
+            "type": "string",
+            "pattern": "^http[s]?://json-schema.org/draft-04/schema[#]?$"
           }
         }
       },

@@ -9,6 +9,24 @@
     }
   },
   {
+    "name": "draft6 $schema with https scheme",
+    "schema": {
+      "$schema": "https://json-schema.org/draft-06/schema#"
+    },
+    "expected": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema"
+    }
+  },
+  {
+    "name": "draft6 $schema without an empty fragment",
+    "schema": {
+      "$schema": "http://json-schema.org/draft-06/schema"
+    },
+    "expected": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema"
+    }
+  },
+  {
     "name": "draft6 $id with # to $anchor",
     "schema": {
       "$schema": "http://json-schema.org/draft-06/schema#",
