@@ -127,16 +127,8 @@ transform.addEventListener('click', () => {
   const inputValue = editor.state.doc.toString()
   const jsonValue = safeJSONParse(inputValue)
   if (jsonValue === null) {
-    window.plausible('Invalid')
     return onError(new Error('Invalid input JSON'))
   }
-
-  window.plausible('Transform', {
-    props: {
-      from: fromValue,
-      to: toValue
-    }
-  })
 
   alterschema(jsonValue, fromValue, toValue).then((result) => {
     output.value = JSON.stringify(result, null, 2)
