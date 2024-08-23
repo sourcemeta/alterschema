@@ -1,5 +1,5 @@
 noa_library(NAMESPACE sourcemeta PROJECT alterschema NAME engine
-  FOLDER "Alterschema/Engine"
+  FOLDER "AlterSchema/Engine"
   PRIVATE_HEADERS bundle.h rule.h transformer.h
   SOURCES bundle.cc rule.cc transformer.cc)
 

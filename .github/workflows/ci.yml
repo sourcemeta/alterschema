@@ -1,4 +1,4 @@
-name: Alterschema
+name: AlterSchema
 
 on:
   schedule:
@@ -86,7 +86,7 @@ jobs:
           HOMEBREW_NO_ANALYTICS: 1
           HOMEBREW_NO_AUTO_UPDATE: 1
       - run: cmake --version
-      - name: Configure Alterschema (static)
+      - name: Configure AlterSchema (static)
         if: matrix.platform.type == 'static'
         run: >
           cmake -S . -B ./build
@@ -96,7 +96,7 @@ jobs:
           -DBUILD_SHARED_LIBS:BOOL=OFF
           -DCMAKE_COMPILE_WARNING_AS_ERROR:BOOL=ON
           ${{ matrix.platform.options }}
-      - name: Configure Alterschema (shared)
+      - name: Configure AlterSchema (shared)
         if: matrix.platform.type == 'shared'
         run: >
           cmake -S . -B ./build

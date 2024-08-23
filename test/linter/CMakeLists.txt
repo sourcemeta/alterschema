@@ -23,4 +23,4 @@ target_link_libraries(sourcemeta_alterschema_linter_unit
   PRIVATE sourcemeta::alterschema::linter)
 add_test(NAME linter COMMAND sourcemeta_alterschema_linter_unit --gtest_brief=1)
 set_target_properties(sourcemeta_alterschema_linter_unit
-  PROPERTIES FOLDER "Alterschema/linter")
+  PROPERTIES FOLDER "AlterSchema/Linter")

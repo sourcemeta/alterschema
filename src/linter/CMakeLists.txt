@@ -1,5 +1,5 @@
 noa_library(NAMESPACE sourcemeta PROJECT alterschema NAME linter
-  FOLDER "Alterschema/Linter"
+  FOLDER "AlterSchema/Linter"
   SOURCES linter.cc
     # Modernize
     modernize/enum_to_const.h
