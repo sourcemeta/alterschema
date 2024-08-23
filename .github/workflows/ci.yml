@@ -1,0 +1,131 @@
+name: Alterschema
+
+on:
+  schedule:
+    # Once per day, Monday to Friday
+    - cron: '0 19 * * 1-5'
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  test:
+    strategy:
+      fail-fast: false
+      matrix:
+        platform:
+          - os: macos-latest
+            cc: clang
+            cxx: clang++
+            type: static
+            shell: sh
+          - os: macos-latest
+            cc: clang
+            cxx: clang++
+            type: shared
+            shell: sh
+          - os: ubuntu-latest
+            cc: clang
+            cxx: clang++
+            type: static
+            shell: sh
+          - os: ubuntu-latest
+            cc: gcc
+            cxx: g++
+            type: static
+            shell: sh
+          - os: ubuntu-latest
+            cc: clang
+            cxx: clang++
+            type: shared
+            shell: sh
+          - os: ubuntu-latest
+            cc: gcc
+            cxx: g++
+            type: shared
+            shell: sh
+          - os: windows-latest
+            type: static
+            shell: pwsh
+          - os: windows-latest
+            type: shared
+            shell: pwsh
+
+          # Sanitizers
+          - os: ubuntu-latest
+            cc: clang
+            cxx: clang++
+            type: static
+            shell: sh
+            options: -DALTERSCHEMA_ADDRESS_SANITIZER:BOOL=ON
+          - os: ubuntu-latest
+            cc: clang
+            cxx: clang++
+            type: static
+            shell: sh
+            options: -DALTERSCHEMA_UNDEFINED_SANITIZER:BOOL=ON
+
+    defaults:
+      run:
+        shell: ${{ matrix.platform.shell }}
+
+    runs-on: ${{ matrix.platform.os }}
+    env:
+      CC: ${{ matrix.platform.cc }}
+      CXX: ${{ matrix.platform.cxx }}
+    steps:
+      - name: Install ClangFormat
+        run: pip install clang-format==18.1.5
+
+      - uses: actions/checkout@v4
+      - name: Install dependencies (macOS)
+        if: runner.os == 'macos'
+        run: brew bundle
+        env:
+          HOMEBREW_NO_ANALYTICS: 1
+          HOMEBREW_NO_AUTO_UPDATE: 1
+      - run: cmake --version
+      - name: Configure Alterschema (static)
+        if: matrix.platform.type == 'static'
+        run: >
+          cmake -S . -B ./build
+          -DCMAKE_BUILD_TYPE:STRING=Release
+          -DALTERSCHEMA_TESTS:BOOL=ON
+          -DALTERSCHEMA_DOCS:BOOL=OFF
+          -DBUILD_SHARED_LIBS:BOOL=OFF
+          -DCMAKE_COMPILE_WARNING_AS_ERROR:BOOL=ON
+          ${{ matrix.platform.options }}
+      - name: Configure Alterschema (shared)
+        if: matrix.platform.type == 'shared'
+        run: >
+          cmake -S . -B ./build
+          -DCMAKE_BUILD_TYPE:STRING=Release
+          -DALTERSCHEMA_TESTS:BOOL=ON
+          -DALTERSCHEMA_DOCS:BOOL=OFF
+          -DBUILD_SHARED_LIBS:BOOL=ON
+          -DCMAKE_COMPILE_WARNING_AS_ERROR:BOOL=ON
+          ${{ matrix.platform.options }}
+      # TODO: Enable back once we have at least one module
+      # - run: cmake --build ./build --config Release --target clang_format_test
+      - run: cmake --build ./build --config Release --parallel 4
+      - run: >
+          cmake --install ./build --prefix ./build/dist --config Release --verbose
+          --component sourcemeta_jsontoolkit
+      - run: >
+          cmake --install ./build --prefix ./build/dist --config Release --verbose
+          --component sourcemeta_jsontoolkit_dev
+      - run: >
+          cmake --install ./build --prefix ./build/dist --config Release --verbose
+          --component sourcemeta_alterschema
+      - run: >
+          cmake --install ./build --prefix ./build/dist --config Release --verbose
+          --component sourcemeta_alterschema_dev
+
+      # Not every CTest version supports the --test-dir option. If such option
+      # is not recognized, `ctest` will successfully exit finding no tests.
+      # Better to be sure and `cd` all the time here.
+      - run: cd ./build && ctest --build-config Release --output-on-failure --parallel
+        env:
+          # See https://clang.llvm.org/docs/UndefinedBehaviorSanitizer.html
+          UBSAN_OPTIONS: print_stacktrace=1
