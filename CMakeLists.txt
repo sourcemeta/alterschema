@@ -46,4 +46,8 @@ endif()
 if(ALTERSCHEMA_TESTS)
   find_package(GoogleTest REQUIRED)
   enable_testing()
+
+  if(ALTERSCHEMA_ENGINE)
+    add_subdirectory(test/engine)
+  endif()
 endif()
