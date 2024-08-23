@@ -106,8 +106,7 @@ jobs:
           -DBUILD_SHARED_LIBS:BOOL=ON
           -DCMAKE_COMPILE_WARNING_AS_ERROR:BOOL=ON
           ${{ matrix.platform.options }}
-      # TODO: Enable back once we have at least one module
-      # - run: cmake --build ./build --config Release --target clang_format_test
+      - run: cmake --build ./build --config Release --target clang_format_test
       - run: cmake --build ./build --config Release --parallel 4
       - run: >
           cmake --install ./build --prefix ./build/dist --config Release --verbose
