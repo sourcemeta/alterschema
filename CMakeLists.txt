@@ -21,6 +21,7 @@ endif()
 
 if(ALTERSCHEMA_ENGINE)
   find_package(JSONToolkit REQUIRED)
+  add_subdirectory(src/engine)
 endif()
 
 if(ALTERSCHEMA_ADDRESS_SANITIZER)
