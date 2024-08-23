@@ -1,7 +1,9 @@
-name: website
+name: legacy-website
 on:
   push:
-    branches: [ "master" ]
+    branches: [ "main" ]
+    paths:
+      - legacy/**
   workflow_dispatch:
 
 permissions:
@@ -10,11 +12,11 @@ permissions:
   id-token: write
 
 concurrency:
-  group: website-deploy-${{ github.ref }}
+  group: website-legacy-deploy-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
-  deploy:
+  legacy-deploy:
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
@@ -24,13 +26,13 @@ jobs:
         uses: actions/checkout@v3
       - run: sudo apt update
       - run: sudo apt-get install --yes sassc
-      - run: make www
+      - run: make -C legacy www
       - name: Setup Pages
         uses: actions/configure-pages@v1
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
         with:
-          path: ./dist
+          path: ./legacy/dist
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v2
