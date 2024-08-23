@@ -1,7 +1,7 @@
 alterschema
 ===========
 
-[<img src="logo.svg" align="right" width="100">](https://json-schema.org)
+[<img src="./assets/logo.svg" align="right" width="100">](https://json-schema.org)
 
 This project implements a language-independent [set of formal
 transformations](https://github.com/jviotti/alterschema/tree/master/rules) to
