@@ -6,6 +6,7 @@ list(APPEND CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake")
 include(vendor/noa/cmake/noa.cmake)
 
 # Options
+option(ALTERSCHEMA_ENGINE "Build the Alterschema Engine library" ON)
 option(ALTERSCHEMA_TESTS "Build the Alterschema tests" OFF)
 option(ALTERSCHEMA_DOCS "Build the Alterschema docs" OFF)
 option(ALTERSCHEMA_INSTALL "Install the Alterschema library" ON)
@@ -16,6 +17,10 @@ if(ALTERSCHEMA_INSTALL)
   include(GNUInstallDirs)
   include(CMakePackageConfigHelpers)
   # TODO
+endif()
+
+if(ALTERSCHEMA_ENGINE)
+  find_package(JSONToolkit REQUIRED)
 endif()
 
 if(ALTERSCHEMA_ADDRESS_SANITIZER)

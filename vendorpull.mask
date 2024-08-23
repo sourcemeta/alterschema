@@ -1,0 +1,15 @@
+legacy
+assets
+doxygen
+test
+vendor/googletest
+vendor/googletest.mask
+vendor/vendorpull
+vendor/jsontoolkit
+cmake
+.ackrc
+.editorconfig
+Brewfile
+DEPENDENCIES
+Makefile
+README.markdown
