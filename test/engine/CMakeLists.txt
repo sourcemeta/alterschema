@@ -11,4 +11,4 @@ target_link_libraries(sourcemeta_alterschema_engine_unit
   PRIVATE sourcemeta::alterschema::engine)
 add_test(NAME Engine COMMAND sourcemeta_alterschema_engine_unit --gtest_brief=1)
 set_target_properties(sourcemeta_alterschema_engine_unit
-  PROPERTIES FOLDER "Alterschema/Engine")
+  PROPERTIES FOLDER "AlterSchema/Engine")
