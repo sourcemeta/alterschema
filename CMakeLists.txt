@@ -7,6 +7,7 @@ include(vendor/noa/cmake/noa.cmake)
 
 # Options
 option(ALTERSCHEMA_ENGINE "Build the Alterschema Engine library" ON)
+option(ALTERSCHEMA_LINTER "Build the Alterschema Linter library" ON)
 option(ALTERSCHEMA_TESTS "Build the Alterschema tests" OFF)
 option(ALTERSCHEMA_DOCS "Build the Alterschema docs" OFF)
 option(ALTERSCHEMA_INSTALL "Install the Alterschema library" ON)
@@ -19,9 +20,13 @@ if(ALTERSCHEMA_INSTALL)
   # TODO
 endif()
 
-if(ALTERSCHEMA_ENGINE)
+if(ALTERSCHEMA_ENGINE OR ALTERSCHEMA_LINTER)
   find_package(JSONToolkit REQUIRED)
   add_subdirectory(src/engine)
+endif()
+
+if(ALTERSCHEMA_LINTER)
+  add_subdirectory(src/linter)
 endif()
 
 if(ALTERSCHEMA_ADDRESS_SANITIZER)
@@ -49,5 +54,9 @@ if(ALTERSCHEMA_TESTS)
 
   if(ALTERSCHEMA_ENGINE)
     add_subdirectory(test/engine)
+  endif()
+
+  if(ALTERSCHEMA_LINTER)
+    add_subdirectory(test/linter)
   endif()
 endif()
