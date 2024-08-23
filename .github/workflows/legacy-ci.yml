@@ -1,27 +1,31 @@
-name: alterschema
+name: legacy-alterschema
 on:
   push:
     branches:
-      - master
+      - main
+    paths:
+      - legacy/**
   pull_request:
+    paths:
+      - legacy/**
 
 concurrency:
-  group: ${{ github.ref }}
+  group: legacy-${{ github.ref }}
   cancel-in-progress: true
 jobs:
-  test:
+  legacy:
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
           node-version: 16
-      - run: make
+      - run: make -C legacy
 
-  website:
+  legacy-website:
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v3
       - run: sudo apt update
       - run: sudo apt-get install --yes sassc
-      - run: make www
+      - run: make -C legacy www
