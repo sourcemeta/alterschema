@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.16)
-project(alterschema LANGUAGES CXX
+project(alterschema VERSION 0.0.1 LANGUAGES CXX
   DESCRIPTION "Perform advanced transformations on JSON Schemas"
   HOMEPAGE_URL "https://alterschema.sourcemeta.com")
 list(APPEND CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake")
@@ -17,7 +17,18 @@ option(ALTERSCHEMA_UNDEFINED_SANITIZER "Build Alterschema with an undefined beha
 if(ALTERSCHEMA_INSTALL)
   include(GNUInstallDirs)
   include(CMakePackageConfigHelpers)
-  # TODO
+  configure_package_config_file(
+    config.cmake.in
+    "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}-config.cmake"
+    INSTALL_DESTINATION "${CMAKE_INSTALL_LIBDIR}/cmake/${PROJECT_NAME}")
+  write_basic_package_version_file(
+    "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}-config-version.cmake"
+    COMPATIBILITY SameMajorVersion)
+  install(FILES
+    "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}-config-version.cmake"
+    "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}-config.cmake"
+    DESTINATION "${CMAKE_INSTALL_LIBDIR}/cmake/${PROJECT_NAME}"
+    COMPONENT sourcemeta_alterschema_dev)
 endif()
 
 if(ALTERSCHEMA_ENGINE OR ALTERSCHEMA_LINTER)
