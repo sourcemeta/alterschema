@@ -220,7 +220,7 @@ TEST(Lint_draft2, minimum_real_for_integer_1) {
   EXPECT_EQ(document, expected);
 }
 
-TEST(Lint_draft2, properties_default) {
+TEST(Lint_draft2, properties_default_1) {
   sourcemeta::jsontoolkit::JSON document =
       sourcemeta::jsontoolkit::parse(R"JSON({
     "$schema": "http://json-schema.org/draft-02/schema#",

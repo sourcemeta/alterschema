@@ -39,6 +39,7 @@ auto contains_any(const T &container, const T &values) -> bool {
 #include "redundant/else_without_if.h"
 #include "redundant/empty_dependencies.h"
 #include "redundant/empty_dependent_required.h"
+#include "redundant/if_without_then_else.h"
 #include "redundant/items_array_default.h"
 #include "redundant/items_schema_default.h"
 #include "redundant/max_contains_without_contains.h"
@@ -82,6 +83,7 @@ auto add(Bundle &bundle, const LinterCategory category) -> void {
       bundle.add<ElseWithoutIf>();
       bundle.add<EmptyDependencies>();
       bundle.add<EmptyDependentRequired>();
+      bundle.add<IfWithoutThenElse>();
       bundle.add<ItemsArrayDefault>();
       bundle.add<ItemsSchemaDefault>();
       bundle.add<MaxContainsWithoutContains>();

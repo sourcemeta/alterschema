@@ -262,6 +262,23 @@ TEST(Lint_2019_09, else_without_if_2) {
   EXPECT_EQ(document, expected);
 }
 
+TEST(Lint_2019_09, if_without_then_else_1) {
+  sourcemeta::jsontoolkit::JSON document =
+      sourcemeta::jsontoolkit::parse(R"JSON({
+    "$schema": "https://json-schema.org/draft/2019-09/schema",
+    "if": true
+  })JSON");
+
+  LINT_AND_FIX(document);
+
+  const sourcemeta::jsontoolkit::JSON expected =
+      sourcemeta::jsontoolkit::parse(R"JSON({
+    "$schema": "https://json-schema.org/draft/2019-09/schema"
+  })JSON");
+
+  EXPECT_EQ(document, expected);
+}
+
 TEST(Lint_2019_09, unevaluated_properties_default_1) {
   sourcemeta::jsontoolkit::JSON document =
       sourcemeta::jsontoolkit::parse(R"JSON({
@@ -824,7 +841,7 @@ TEST(Lint_2019_09, dependent_required_tautology_2) {
   EXPECT_EQ(document, expected);
 }
 
-TEST(Lint_2019_09, properties_default) {
+TEST(Lint_2019_09, properties_default_1) {
   sourcemeta::jsontoolkit::JSON document =
       sourcemeta::jsontoolkit::parse(R"JSON({
     "$schema": "https://json-schema.org/draft/2019-09/schema",
@@ -841,7 +858,7 @@ TEST(Lint_2019_09, properties_default) {
   EXPECT_EQ(document, expected);
 }
 
-TEST(Lint_2019_09, pattern_properties_default) {
+TEST(Lint_2019_09, pattern_properties_default_1) {
   sourcemeta::jsontoolkit::JSON document =
       sourcemeta::jsontoolkit::parse(R"JSON({
     "$schema": "https://json-schema.org/draft/2019-09/schema",
