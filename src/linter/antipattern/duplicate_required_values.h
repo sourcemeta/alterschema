@@ -1,9 +1,9 @@
 class DuplicateRequiredValues final : public Rule {
 public:
   DuplicateRequiredValues()
-      : Rule("duplicate_required_values",
+      : Rule{"duplicate_required_values",
              "Setting duplicate values in `required` is considered an "
-             "anti-pattern") {};
+             "anti-pattern"} {};
 
   [[nodiscard]] auto
   condition(const sourcemeta::jsontoolkit::JSON &schema, const std::string &,

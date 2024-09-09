@@ -8,6 +8,8 @@ noa_library(NAMESPACE sourcemeta PROJECT alterschema NAME linter
     antipattern/const_with_type.h
     antipattern/duplicate_enum_values.h
     antipattern/duplicate_required_values.h
+    antipattern/exclusive_maximum_number_and_maximum.h
+    antipattern/exclusive_minimum_number_and_minimum.h
     antipattern/enum_with_type.h
 
     # Simplify

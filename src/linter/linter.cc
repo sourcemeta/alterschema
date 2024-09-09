@@ -20,6 +20,8 @@ auto contains_any(const T &container, const T &values) -> bool {
 #include "antipattern/duplicate_enum_values.h"
 #include "antipattern/duplicate_required_values.h"
 #include "antipattern/enum_with_type.h"
+#include "antipattern/exclusive_maximum_number_and_maximum.h"
+#include "antipattern/exclusive_minimum_number_and_minimum.h"
 // Simplify
 #include "simplify/single_type_array.h"
 // Redundant
@@ -49,6 +51,8 @@ auto add(Bundle &bundle, const LinterCategory category) -> void {
       bundle.add<DuplicateEnumValues>();
       bundle.add<DuplicateRequiredValues>();
       bundle.add<ConstWithType>();
+      bundle.add<ExclusiveMaximumNumberAndMaximum>();
+      bundle.add<ExclusiveMinimumNumberAndMinimum>();
       break;
     case LinterCategory::Simplify:
       bundle.add<SingleTypeArray>();
