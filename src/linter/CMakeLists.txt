@@ -13,6 +13,7 @@ noa_library(NAMESPACE sourcemeta PROJECT alterschema NAME linter
     antipattern/enum_with_type.h
 
     # Simplify
+    simplify/dependent_required_tautology.h
     simplify/maximum_real_for_integer.h
     simplify/minimum_real_for_integer.h
     simplify/single_type_array.h
@@ -25,6 +26,7 @@ noa_library(NAMESPACE sourcemeta PROJECT alterschema NAME linter
     redundant/duplicate_allof_branches.h
     redundant/duplicate_anyof_branches.h
     redundant/else_without_if.h
+    redundant/empty_dependent_required.h
     redundant/items_array_default.h
     redundant/items_schema_default.h
     redundant/max_contains_without_contains.h
