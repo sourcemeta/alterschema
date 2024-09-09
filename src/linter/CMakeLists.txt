@@ -7,6 +7,7 @@ noa_library(NAMESPACE sourcemeta PROJECT alterschema NAME linter
     # Antipattern
     antipattern/const_with_type.h
     antipattern/duplicate_enum_values.h
+    antipattern/duplicate_required_values.h
     antipattern/enum_with_type.h
 
     # Simplify
