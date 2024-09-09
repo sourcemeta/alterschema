@@ -20,6 +20,8 @@ noa_library(NAMESPACE sourcemeta PROJECT alterschema NAME linter
     redundant/content_media_type_without_encoding.h
     redundant/content_schema_default.h
     redundant/content_schema_without_media_type.h
+    redundant/duplicate_allof_branches.h
+    redundant/duplicate_anyof_branches.h
     redundant/else_without_if.h
     redundant/items_array_default.h
     redundant/items_schema_default.h

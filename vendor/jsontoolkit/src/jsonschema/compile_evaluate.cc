@@ -166,6 +166,16 @@ public:
   }
 
   template <typename T> auto push(const T &step) -> void {
+    // Guard against infinite recursion in a cheap manner, as
+    // infinite recursion will manifest itself through huge
+    // ever-growing evaluate paths
+    constexpr auto EVALUATE_PATH_LIMIT{400};
+    if (this->evaluate_path_.size() > EVALUATE_PATH_LIMIT) [[unlikely]] {
+      throw sourcemeta::jsontoolkit::SchemaEvaluationError(
+          "The evaluation path depth limit was reached "
+          "likely due to infinite recursion");
+    }
+
     assert(step.relative_instance_location.size() <= 1);
     this->frame_sizes.emplace_back(step.relative_schema_location.size(),
                                    step.relative_instance_location.size());

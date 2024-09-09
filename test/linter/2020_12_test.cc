@@ -683,3 +683,39 @@ TEST(Lint_2020_12, exclusive_minimum_number_and_minimum_3) {
 
   EXPECT_EQ(document, expected);
 }
+
+TEST(Lint_2020_12, duplicate_allof_branches_1) {
+  sourcemeta::jsontoolkit::JSON document =
+      sourcemeta::jsontoolkit::parse(R"JSON({
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "allOf": [ { "type": "string" }, { "type": "integer" }, { "type": "string" } ]
+  })JSON");
+
+  LINT_AND_FIX(document);
+
+  const sourcemeta::jsontoolkit::JSON expected =
+      sourcemeta::jsontoolkit::parse(R"JSON({
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "allOf": [ { "type": "integer" }, { "type": "string" } ]
+  })JSON");
+
+  EXPECT_EQ(document, expected);
+}
+
+TEST(Lint_2020_12, duplicate_anyof_branches_1) {
+  sourcemeta::jsontoolkit::JSON document =
+      sourcemeta::jsontoolkit::parse(R"JSON({
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "anyOf": [ { "type": "string" }, { "type": "integer" }, { "type": "string" } ]
+  })JSON");
+
+  LINT_AND_FIX(document);
+
+  const sourcemeta::jsontoolkit::JSON expected =
+      sourcemeta::jsontoolkit::parse(R"JSON({
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "anyOf": [ { "type": "integer" }, { "type": "string" } ]
+  })JSON");
+
+  EXPECT_EQ(document, expected);
+}
