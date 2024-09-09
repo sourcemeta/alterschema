@@ -3,8 +3,8 @@
 #include <cassert> // assert
 
 // For built-in rules
-#include <algorithm> // std::any_of
-#include <iterator>  // std::cbegin, std::cend
+#include <algorithm>
+#include <iterator>
 namespace sourcemeta::alterschema {
 template <typename T>
 auto contains_any(const T &container, const T &values) -> bool {
@@ -29,6 +29,8 @@ auto contains_any(const T &container, const T &values) -> bool {
 #include "redundant/content_media_type_without_encoding.h"
 #include "redundant/content_schema_default.h"
 #include "redundant/content_schema_without_media_type.h"
+#include "redundant/duplicate_allof_branches.h"
+#include "redundant/duplicate_anyof_branches.h"
 #include "redundant/else_without_if.h"
 #include "redundant/items_array_default.h"
 #include "redundant/items_schema_default.h"
@@ -62,6 +64,8 @@ auto add(Bundle &bundle, const LinterCategory category) -> void {
       bundle.add<ContentMediaTypeWithoutEncoding>();
       bundle.add<ContentSchemaDefault>();
       bundle.add<ContentSchemaWithoutMediaType>();
+      bundle.add<DuplicateAllOfBranches>();
+      bundle.add<DuplicateAnyOfBranches>();
       bundle.add<ElseWithoutIf>();
       bundle.add<ItemsArrayDefault>();
       bundle.add<ItemsSchemaDefault>();
