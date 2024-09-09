@@ -219,3 +219,20 @@ TEST(Lint_draft1, minimum_real_for_integer_1) {
 
   EXPECT_EQ(document, expected);
 }
+
+TEST(Lint_draft1, properties_default) {
+  sourcemeta::jsontoolkit::JSON document =
+      sourcemeta::jsontoolkit::parse(R"JSON({
+    "$schema": "http://json-schema.org/draft-01/schema#",
+    "properties": {}
+  })JSON");
+
+  LINT_AND_FIX(document);
+
+  const sourcemeta::jsontoolkit::JSON expected =
+      sourcemeta::jsontoolkit::parse(R"JSON({
+    "$schema": "http://json-schema.org/draft-01/schema#"
+  })JSON");
+
+  EXPECT_EQ(document, expected);
+}
