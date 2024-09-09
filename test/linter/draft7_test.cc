@@ -289,3 +289,21 @@ TEST(Lint_draft7, items_array_default_1) {
 
   EXPECT_EQ(document, expected);
 }
+
+TEST(Lint_draft7, duplicate_enum_values_7) {
+  sourcemeta::jsontoolkit::JSON document =
+      sourcemeta::jsontoolkit::parse(R"JSON({
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "enum": [ 1, {}, 2, 1, 1, 3, {} ]
+  })JSON");
+
+  LINT_AND_FIX(document);
+
+  const sourcemeta::jsontoolkit::JSON expected =
+      sourcemeta::jsontoolkit::parse(R"JSON({
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "enum": [ 1, 2, 3, {} ]
+  })JSON");
+
+  EXPECT_EQ(document, expected);
+}
