@@ -43,7 +43,7 @@ public:
                                    .at(element.to_string())};
         if (dependents.is_array()) {
           for (const auto &dependent : dependents.as_array()) {
-            if (dependent.is_string() && !requirements.contains(dependent)) {
+            if (dependent.is_string()) {
               match = true;
               requirements.push_back(dependent);
             }
