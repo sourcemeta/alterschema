@@ -70,6 +70,7 @@ endif()
 if(PROJECT_IS_TOP_LEVEL)
   noa_target_clang_format(SOURCES
     src/*.h src/*.cc
+    benchmark/*.h benchmark/*.cc
     test/*.h test/*.cc)
   noa_target_clang_tidy(SOURCES
     src/*.h src/*.cc)
@@ -88,12 +89,12 @@ if(JSONTOOLKIT_TESTS)
     add_subdirectory(test/json)
   endif()
 
-  if(JSONTOOLKIT_JSON AND JSONTOOLKIT_JSONSCHEMA)
-    add_subdirectory(test/jsonschema)
-  endif()
-
   if(JSONTOOLKIT_JSON AND JSONTOOLKIT_JSONPOINTER)
     add_subdirectory(test/jsonpointer)
+  endif()
+
+  if(JSONTOOLKIT_JSON AND JSONTOOLKIT_JSONSCHEMA)
+    add_subdirectory(test/jsonschema)
   endif()
 
   if(JSONTOOLKIT_JSON AND JSONTOOLKIT_JSONL)
@@ -112,5 +113,4 @@ if(JSONTOOLKIT_TESTS)
     find_package(GoogleBenchmark REQUIRED)
     add_subdirectory(benchmark)
   endif()
-
 endif()
