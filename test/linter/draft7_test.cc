@@ -615,3 +615,61 @@ TEST(Lint_draft7, pattern_properties_default_1) {
 
   EXPECT_EQ(document, expected);
 }
+
+TEST(Lint_draft7, min_properties_covered_by_required_1) {
+  sourcemeta::jsontoolkit::JSON document =
+      sourcemeta::jsontoolkit::parse(R"JSON({
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "required": [ "foo", "bar", "bar", "baz" ],
+    "minProperties": 3
+  })JSON");
+
+  LINT_AND_FIX(document);
+
+  const sourcemeta::jsontoolkit::JSON expected =
+      sourcemeta::jsontoolkit::parse(R"JSON({
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "required": [ "bar", "baz", "foo" ]
+  })JSON");
+
+  EXPECT_EQ(document, expected);
+}
+
+TEST(Lint_draft7, min_properties_covered_by_required_2) {
+  sourcemeta::jsontoolkit::JSON document =
+      sourcemeta::jsontoolkit::parse(R"JSON({
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "required": [ "foo", "bar", "bar", "baz" ],
+    "minProperties": 4
+  })JSON");
+
+  LINT_AND_FIX(document);
+
+  const sourcemeta::jsontoolkit::JSON expected =
+      sourcemeta::jsontoolkit::parse(R"JSON({
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "required": [ "bar", "baz", "foo" ],
+    "minProperties": 4
+  })JSON");
+
+  EXPECT_EQ(document, expected);
+}
+
+TEST(Lint_draft7, min_properties_covered_by_required_3) {
+  sourcemeta::jsontoolkit::JSON document =
+      sourcemeta::jsontoolkit::parse(R"JSON({
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "required": [ "foo", "bar", "bar", "baz" ],
+    "minProperties": 2
+  })JSON");
+
+  LINT_AND_FIX(document);
+
+  const sourcemeta::jsontoolkit::JSON expected =
+      sourcemeta::jsontoolkit::parse(R"JSON({
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "required": [ "bar", "baz", "foo" ]
+  })JSON");
+
+  EXPECT_EQ(document, expected);
+}

@@ -34,6 +34,7 @@ noa_library(NAMESPACE sourcemeta PROJECT alterschema NAME linter
     redundant/items_schema_default.h
     redundant/max_contains_without_contains.h
     redundant/min_contains_without_contains.h
+    redundant/min_properties_covered_by_required.h
     redundant/pattern_properties_default.h
     redundant/properties_default.h
     redundant/then_without_if.h
