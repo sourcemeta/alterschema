@@ -586,3 +586,117 @@ TEST(Lint_2019_09, duplicate_required_values_1) {
 
   EXPECT_EQ(document, expected);
 }
+
+TEST(Lint_2019_09, exclusive_maximum_number_and_maximum_1) {
+  sourcemeta::jsontoolkit::JSON document =
+      sourcemeta::jsontoolkit::parse(R"JSON({
+    "$schema": "https://json-schema.org/draft/2019-09/schema",
+    "exclusiveMaximum": 3,
+    "maximum": 3
+  })JSON");
+
+  LINT_AND_FIX(document);
+
+  const sourcemeta::jsontoolkit::JSON expected =
+      sourcemeta::jsontoolkit::parse(R"JSON({
+    "$schema": "https://json-schema.org/draft/2019-09/schema",
+    "exclusiveMaximum": 3
+  })JSON");
+
+  EXPECT_EQ(document, expected);
+}
+
+TEST(Lint_2019_09, exclusive_maximum_number_and_maximum_2) {
+  sourcemeta::jsontoolkit::JSON document =
+      sourcemeta::jsontoolkit::parse(R"JSON({
+    "$schema": "https://json-schema.org/draft/2019-09/schema",
+    "exclusiveMaximum": 3,
+    "maximum": 2
+  })JSON");
+
+  LINT_AND_FIX(document);
+
+  const sourcemeta::jsontoolkit::JSON expected =
+      sourcemeta::jsontoolkit::parse(R"JSON({
+    "$schema": "https://json-schema.org/draft/2019-09/schema",
+    "maximum": 2
+  })JSON");
+
+  EXPECT_EQ(document, expected);
+}
+
+TEST(Lint_2019_09, exclusive_maximum_number_and_maximum_3) {
+  sourcemeta::jsontoolkit::JSON document =
+      sourcemeta::jsontoolkit::parse(R"JSON({
+    "$schema": "https://json-schema.org/draft/2019-09/schema",
+    "exclusiveMaximum": 3,
+    "maximum": 1
+  })JSON");
+
+  LINT_AND_FIX(document);
+
+  const sourcemeta::jsontoolkit::JSON expected =
+      sourcemeta::jsontoolkit::parse(R"JSON({
+    "$schema": "https://json-schema.org/draft/2019-09/schema",
+    "maximum": 1
+  })JSON");
+
+  EXPECT_EQ(document, expected);
+}
+
+TEST(Lint_2019_09, exclusive_minimum_number_and_minimum_1) {
+  sourcemeta::jsontoolkit::JSON document =
+      sourcemeta::jsontoolkit::parse(R"JSON({
+    "$schema": "https://json-schema.org/draft/2019-09/schema",
+    "exclusiveMinimum": 3,
+    "minimum": 3
+  })JSON");
+
+  LINT_AND_FIX(document);
+
+  const sourcemeta::jsontoolkit::JSON expected =
+      sourcemeta::jsontoolkit::parse(R"JSON({
+    "$schema": "https://json-schema.org/draft/2019-09/schema",
+    "exclusiveMinimum": 3
+  })JSON");
+
+  EXPECT_EQ(document, expected);
+}
+
+TEST(Lint_2019_09, exclusive_minimum_number_and_minimum_2) {
+  sourcemeta::jsontoolkit::JSON document =
+      sourcemeta::jsontoolkit::parse(R"JSON({
+    "$schema": "https://json-schema.org/draft/2019-09/schema",
+    "exclusiveMinimum": 3,
+    "minimum": 2
+  })JSON");
+
+  LINT_AND_FIX(document);
+
+  const sourcemeta::jsontoolkit::JSON expected =
+      sourcemeta::jsontoolkit::parse(R"JSON({
+    "$schema": "https://json-schema.org/draft/2019-09/schema",
+    "exclusiveMinimum": 3
+  })JSON");
+
+  EXPECT_EQ(document, expected);
+}
+
+TEST(Lint_2019_09, exclusive_minimum_number_and_minimum_3) {
+  sourcemeta::jsontoolkit::JSON document =
+      sourcemeta::jsontoolkit::parse(R"JSON({
+    "$schema": "https://json-schema.org/draft/2019-09/schema",
+    "exclusiveMinimum": 3,
+    "minimum": 4
+  })JSON");
+
+  LINT_AND_FIX(document);
+
+  const sourcemeta::jsontoolkit::JSON expected =
+      sourcemeta::jsontoolkit::parse(R"JSON({
+    "$schema": "https://json-schema.org/draft/2019-09/schema",
+    "minimum": 4
+  })JSON");
+
+  EXPECT_EQ(document, expected);
+}
