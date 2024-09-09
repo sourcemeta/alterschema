@@ -29,6 +29,7 @@ noa_library(NAMESPACE sourcemeta PROJECT alterschema NAME linter
     redundant/else_without_if.h
     redundant/empty_dependencies.h
     redundant/empty_dependent_required.h
+    redundant/if_without_then_else.h
     redundant/items_array_default.h
     redundant/items_schema_default.h
     redundant/max_contains_without_contains.h

@@ -323,7 +323,7 @@ TEST(Lint_draft4, dependent_required_tautology_2) {
   EXPECT_EQ(document, expected);
 }
 
-TEST(Lint_draft4, properties_default) {
+TEST(Lint_draft4, properties_default_1) {
   sourcemeta::jsontoolkit::JSON document =
       sourcemeta::jsontoolkit::parse(R"JSON({
     "$schema": "http://json-schema.org/draft-04/schema#",
@@ -340,7 +340,7 @@ TEST(Lint_draft4, properties_default) {
   EXPECT_EQ(document, expected);
 }
 
-TEST(Lint_draft4, pattern_properties_default) {
+TEST(Lint_draft4, pattern_properties_default_1) {
   sourcemeta::jsontoolkit::JSON document =
       sourcemeta::jsontoolkit::parse(R"JSON({
     "$schema": "http://json-schema.org/draft-04/schema#",
