@@ -273,3 +273,52 @@ TEST(Lint_draft4, minimum_real_for_integer_1) {
 
   EXPECT_EQ(document, expected);
 }
+
+TEST(Lint_draft4, dependent_required_tautology_1) {
+  sourcemeta::jsontoolkit::JSON document =
+      sourcemeta::jsontoolkit::parse(R"JSON({
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "required": [ "foo" ],
+    "dependencies": {
+      "foo": [ "bar" ],
+      "xxx": { "type": "string" },
+      "yyy": [ "extra" ]
+    }
+  })JSON");
+
+  LINT_AND_FIX(document);
+
+  const sourcemeta::jsontoolkit::JSON expected =
+      sourcemeta::jsontoolkit::parse(R"JSON({
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "required": [ "foo", "bar" ],
+    "dependencies": {
+      "xxx": { "type": "string" },
+      "yyy": [ "extra" ]
+    }
+  })JSON");
+
+  EXPECT_EQ(document, expected);
+}
+
+TEST(Lint_draft4, dependent_required_tautology_2) {
+  sourcemeta::jsontoolkit::JSON document =
+      sourcemeta::jsontoolkit::parse(R"JSON({
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "required": [ "foo" ],
+    "dependencies": {
+      "foo": [ "bar" ],
+      "bar": [ "baz" ]
+    }
+  })JSON");
+
+  LINT_AND_FIX(document);
+
+  const sourcemeta::jsontoolkit::JSON expected =
+      sourcemeta::jsontoolkit::parse(R"JSON({
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "required": [ "foo", "bar", "baz" ]
+  })JSON");
+
+  EXPECT_EQ(document, expected);
+}

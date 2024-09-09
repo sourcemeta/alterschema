@@ -24,6 +24,7 @@ auto contains_any(const T &container, const T &values) -> bool {
 #include "antipattern/exclusive_maximum_number_and_maximum.h"
 #include "antipattern/exclusive_minimum_number_and_minimum.h"
 // Simplify
+#include "simplify/dependencies_property_tautology.h"
 #include "simplify/dependent_required_tautology.h"
 #include "simplify/maximum_real_for_integer.h"
 #include "simplify/minimum_real_for_integer.h"
@@ -36,6 +37,7 @@ auto contains_any(const T &container, const T &values) -> bool {
 #include "redundant/duplicate_allof_branches.h"
 #include "redundant/duplicate_anyof_branches.h"
 #include "redundant/else_without_if.h"
+#include "redundant/empty_dependencies.h"
 #include "redundant/empty_dependent_required.h"
 #include "redundant/items_array_default.h"
 #include "redundant/items_schema_default.h"
@@ -62,6 +64,7 @@ auto add(Bundle &bundle, const LinterCategory category) -> void {
       bundle.add<ExclusiveMinimumNumberAndMinimum>();
       break;
     case LinterCategory::Simplify:
+      bundle.add<DependenciesPropertyTautology>();
       bundle.add<DependentRequiredTautology>();
       bundle.add<MaximumRealForInteger>();
       bundle.add<MinimumRealForInteger>();
@@ -75,6 +78,7 @@ auto add(Bundle &bundle, const LinterCategory category) -> void {
       bundle.add<DuplicateAllOfBranches>();
       bundle.add<DuplicateAnyOfBranches>();
       bundle.add<ElseWithoutIf>();
+      bundle.add<EmptyDependencies>();
       bundle.add<EmptyDependentRequired>();
       bundle.add<ItemsArrayDefault>();
       bundle.add<ItemsSchemaDefault>();
