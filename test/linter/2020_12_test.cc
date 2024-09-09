@@ -759,3 +759,50 @@ TEST(Lint_2020_12, minimum_real_for_integer_1) {
 
   EXPECT_EQ(document, expected);
 }
+
+TEST(Lint_2020_12, dependent_required_tautology_1) {
+  sourcemeta::jsontoolkit::JSON document =
+      sourcemeta::jsontoolkit::parse(R"JSON({
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "required": [ "foo" ],
+    "dependentRequired": {
+      "foo": [ "bar" ],
+      "xxx": [ "yyy" ]
+    }
+  })JSON");
+
+  LINT_AND_FIX(document);
+
+  const sourcemeta::jsontoolkit::JSON expected =
+      sourcemeta::jsontoolkit::parse(R"JSON({
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "required": [ "foo", "bar" ],
+    "dependentRequired": {
+      "xxx": [ "yyy" ]
+    }
+  })JSON");
+
+  EXPECT_EQ(document, expected);
+}
+
+TEST(Lint_2020_12, dependent_required_tautology_2) {
+  sourcemeta::jsontoolkit::JSON document =
+      sourcemeta::jsontoolkit::parse(R"JSON({
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "required": [ "foo" ],
+    "dependentRequired": {
+      "foo": [ "bar" ],
+      "bar": [ "baz" ]
+    }
+  })JSON");
+
+  LINT_AND_FIX(document);
+
+  const sourcemeta::jsontoolkit::JSON expected =
+      sourcemeta::jsontoolkit::parse(R"JSON({
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "required": [ "foo", "bar", "baz" ]
+  })JSON");
+
+  EXPECT_EQ(document, expected);
+}
