@@ -4,6 +4,7 @@
 
 // For built-in rules
 #include <algorithm>
+#include <cmath>
 #include <iterator>
 namespace sourcemeta::alterschema {
 template <typename T>
@@ -23,6 +24,8 @@ auto contains_any(const T &container, const T &values) -> bool {
 #include "antipattern/exclusive_maximum_number_and_maximum.h"
 #include "antipattern/exclusive_minimum_number_and_minimum.h"
 // Simplify
+#include "simplify/maximum_real_for_integer.h"
+#include "simplify/minimum_real_for_integer.h"
 #include "simplify/single_type_array.h"
 // Redundant
 #include "redundant/additional_properties_default.h"
@@ -57,6 +60,8 @@ auto add(Bundle &bundle, const LinterCategory category) -> void {
       bundle.add<ExclusiveMinimumNumberAndMinimum>();
       break;
     case LinterCategory::Simplify:
+      bundle.add<MaximumRealForInteger>();
+      bundle.add<MinimumRealForInteger>();
       bundle.add<SingleTypeArray>();
       break;
     case LinterCategory::Redundant:
