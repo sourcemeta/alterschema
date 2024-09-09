@@ -43,6 +43,7 @@ auto contains_any(const T &container, const T &values) -> bool {
 #include "redundant/items_schema_default.h"
 #include "redundant/max_contains_without_contains.h"
 #include "redundant/min_contains_without_contains.h"
+#include "redundant/pattern_properties_default.h"
 #include "redundant/properties_default.h"
 #include "redundant/then_without_if.h"
 #include "redundant/unevaluated_items_default.h"
@@ -85,6 +86,7 @@ auto add(Bundle &bundle, const LinterCategory category) -> void {
       bundle.add<ItemsSchemaDefault>();
       bundle.add<MaxContainsWithoutContains>();
       bundle.add<MinContainsWithoutContains>();
+      bundle.add<PatternPropertiesDefault>();
       bundle.add<PropertiesDefault>();
       bundle.add<ThenWithoutIf>();
       bundle.add<UnevaluatedItemsDefault>();

@@ -285,3 +285,20 @@ TEST(Lint_draft3, properties_default) {
 
   EXPECT_EQ(document, expected);
 }
+
+TEST(Lint_draft3, pattern_properties_default) {
+  sourcemeta::jsontoolkit::JSON document =
+      sourcemeta::jsontoolkit::parse(R"JSON({
+    "$schema": "http://json-schema.org/draft-03/schema#",
+    "patternProperties": {}
+  })JSON");
+
+  LINT_AND_FIX(document);
+
+  const sourcemeta::jsontoolkit::JSON expected =
+      sourcemeta::jsontoolkit::parse(R"JSON({
+    "$schema": "http://json-schema.org/draft-03/schema#"
+  })JSON");
+
+  EXPECT_EQ(document, expected);
+}
