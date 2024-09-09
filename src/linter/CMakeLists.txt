@@ -13,6 +13,8 @@ noa_library(NAMESPACE sourcemeta PROJECT alterschema NAME linter
     antipattern/enum_with_type.h
 
     # Simplify
+    simplify/maximum_real_for_integer.h
+    simplify/minimum_real_for_integer.h
     simplify/single_type_array.h
 
     # Redundant

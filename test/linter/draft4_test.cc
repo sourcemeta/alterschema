@@ -233,3 +233,43 @@ TEST(Lint_draft4, duplicate_anyof_branches_1) {
 
   EXPECT_EQ(document, expected);
 }
+
+TEST(Lint_draft4, maximum_real_for_integer_1) {
+  sourcemeta::jsontoolkit::JSON document =
+      sourcemeta::jsontoolkit::parse(R"JSON({
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "type": "integer",
+    "maximum": 3.2
+  })JSON");
+
+  LINT_AND_FIX(document);
+
+  const sourcemeta::jsontoolkit::JSON expected =
+      sourcemeta::jsontoolkit::parse(R"JSON({
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "type": "integer",
+    "maximum": 3
+  })JSON");
+
+  EXPECT_EQ(document, expected);
+}
+
+TEST(Lint_draft4, minimum_real_for_integer_1) {
+  sourcemeta::jsontoolkit::JSON document =
+      sourcemeta::jsontoolkit::parse(R"JSON({
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "type": "integer",
+    "minimum": 3.2
+  })JSON");
+
+  LINT_AND_FIX(document);
+
+  const sourcemeta::jsontoolkit::JSON expected =
+      sourcemeta::jsontoolkit::parse(R"JSON({
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "type": "integer",
+    "minimum": 4
+  })JSON");
+
+  EXPECT_EQ(document, expected);
+}
