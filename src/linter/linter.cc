@@ -18,6 +18,7 @@ auto contains_any(const T &container, const T &values) -> bool {
 // AntiPattern
 #include "antipattern/const_with_type.h"
 #include "antipattern/duplicate_enum_values.h"
+#include "antipattern/duplicate_required_values.h"
 #include "antipattern/enum_with_type.h"
 // Simplify
 #include "simplify/single_type_array.h"
@@ -46,6 +47,7 @@ auto add(Bundle &bundle, const LinterCategory category) -> void {
     case LinterCategory::AntiPattern:
       bundle.add<EnumWithType>();
       bundle.add<DuplicateEnumValues>();
+      bundle.add<DuplicateRequiredValues>();
       bundle.add<ConstWithType>();
       break;
     case LinterCategory::Simplify:

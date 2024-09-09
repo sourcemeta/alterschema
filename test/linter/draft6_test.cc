@@ -216,3 +216,21 @@ TEST(Lint_draft6, duplicate_enum_values_6) {
 
   EXPECT_EQ(document, expected);
 }
+
+TEST(Lint_draft6, duplicate_required_values_1) {
+  sourcemeta::jsontoolkit::JSON document =
+      sourcemeta::jsontoolkit::parse(R"JSON({
+    "$schema": "http://json-schema.org/draft-06/schema#",
+    "required": [ "foo", "bar", "baz", "foo" ]
+  })JSON");
+
+  LINT_AND_FIX(document);
+
+  const sourcemeta::jsontoolkit::JSON expected =
+      sourcemeta::jsontoolkit::parse(R"JSON({
+    "$schema": "http://json-schema.org/draft-06/schema#",
+    "required": [ "bar", "baz", "foo" ]
+  })JSON");
+
+  EXPECT_EQ(document, expected);
+}
