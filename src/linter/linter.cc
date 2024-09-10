@@ -24,26 +24,6 @@ template <typename T> auto every_item_is_boolean(const T &container) -> bool {
                      [](const auto &element) { return element.is_boolean(); });
 }
 
-// We don't have to check for "type: null" as that type
-// is collapsed to an enum by other canonicalizer rules.
-auto is_null_schema(const sourcemeta::jsontoolkit::JSON &schema,
-                    const std::set<std::string> &vocabularies) -> bool {
-  return contains_any(vocabularies,
-                      {"https://json-schema.org/draft/2020-12/vocab/validation",
-                       "https://json-schema.org/draft/2019-09/vocab/validation",
-                       "http://json-schema.org/draft-07/schema#",
-                       "http://json-schema.org/draft-06/schema#",
-                       "http://json-schema.org/draft-04/schema#",
-                       "http://json-schema.org/draft-03/schema#",
-                       "http://json-schema.org/draft-02/hyper-schema#",
-                       "http://json-schema.org/draft-01/hyper-schema#"}) &&
-         schema.is_object() &&
-         ((schema.defines("type") && schema.at("type").is_string() &&
-           schema.at("type").to_string() == "null") ||
-          (schema.defines("enum") && schema.at("enum").is_array() &&
-           every_item_is_null(schema.at("enum").as_array())));
-}
-
 // Modernize
 #include "modernize/enum_to_const.h"
 // AntiPattern
@@ -68,6 +48,13 @@ auto is_null_schema(const sourcemeta::jsontoolkit::JSON &schema,
 #include "redundant/drop_non_array_keywords_applicator_2020_12.h"
 #include "redundant/drop_non_array_keywords_content_2019_09.h"
 #include "redundant/drop_non_array_keywords_content_2020_12.h"
+#include "redundant/drop_non_array_keywords_draft0.h"
+#include "redundant/drop_non_array_keywords_draft1.h"
+#include "redundant/drop_non_array_keywords_draft2.h"
+#include "redundant/drop_non_array_keywords_draft3.h"
+#include "redundant/drop_non_array_keywords_draft4.h"
+#include "redundant/drop_non_array_keywords_draft6.h"
+#include "redundant/drop_non_array_keywords_draft7.h"
 #include "redundant/drop_non_array_keywords_format_2019_09.h"
 #include "redundant/drop_non_array_keywords_format_2020_12.h"
 #include "redundant/drop_non_array_keywords_unevaluated_2020_12.h"
@@ -77,6 +64,13 @@ auto is_null_schema(const sourcemeta::jsontoolkit::JSON &schema,
 #include "redundant/drop_non_boolean_keywords_applicator_2020_12.h"
 #include "redundant/drop_non_boolean_keywords_content_2019_09.h"
 #include "redundant/drop_non_boolean_keywords_content_2020_12.h"
+#include "redundant/drop_non_boolean_keywords_draft0.h"
+#include "redundant/drop_non_boolean_keywords_draft1.h"
+#include "redundant/drop_non_boolean_keywords_draft2.h"
+#include "redundant/drop_non_boolean_keywords_draft3.h"
+#include "redundant/drop_non_boolean_keywords_draft4.h"
+#include "redundant/drop_non_boolean_keywords_draft6.h"
+#include "redundant/drop_non_boolean_keywords_draft7.h"
 #include "redundant/drop_non_boolean_keywords_format_2019_09.h"
 #include "redundant/drop_non_boolean_keywords_format_2020_12.h"
 #include "redundant/drop_non_boolean_keywords_unevaluated_2020_12.h"
@@ -86,6 +80,13 @@ auto is_null_schema(const sourcemeta::jsontoolkit::JSON &schema,
 #include "redundant/drop_non_null_keywords_applicator_2020_12.h"
 #include "redundant/drop_non_null_keywords_content_2019_09.h"
 #include "redundant/drop_non_null_keywords_content_2020_12.h"
+#include "redundant/drop_non_null_keywords_draft0.h"
+#include "redundant/drop_non_null_keywords_draft1.h"
+#include "redundant/drop_non_null_keywords_draft2.h"
+#include "redundant/drop_non_null_keywords_draft3.h"
+#include "redundant/drop_non_null_keywords_draft4.h"
+#include "redundant/drop_non_null_keywords_draft6.h"
+#include "redundant/drop_non_null_keywords_draft7.h"
 #include "redundant/drop_non_null_keywords_format_2019_09.h"
 #include "redundant/drop_non_null_keywords_format_2020_12.h"
 #include "redundant/drop_non_null_keywords_unevaluated_2020_12.h"
@@ -95,6 +96,13 @@ auto is_null_schema(const sourcemeta::jsontoolkit::JSON &schema,
 #include "redundant/drop_non_numeric_keywords_applicator_2020_12.h"
 #include "redundant/drop_non_numeric_keywords_content_2019_09.h"
 #include "redundant/drop_non_numeric_keywords_content_2020_12.h"
+#include "redundant/drop_non_numeric_keywords_draft0.h"
+#include "redundant/drop_non_numeric_keywords_draft1.h"
+#include "redundant/drop_non_numeric_keywords_draft2.h"
+#include "redundant/drop_non_numeric_keywords_draft3.h"
+#include "redundant/drop_non_numeric_keywords_draft4.h"
+#include "redundant/drop_non_numeric_keywords_draft6.h"
+#include "redundant/drop_non_numeric_keywords_draft7.h"
 #include "redundant/drop_non_numeric_keywords_format_2019_09.h"
 #include "redundant/drop_non_numeric_keywords_format_2020_12.h"
 #include "redundant/drop_non_numeric_keywords_unevaluated_2020_12.h"
@@ -104,6 +112,13 @@ auto is_null_schema(const sourcemeta::jsontoolkit::JSON &schema,
 #include "redundant/drop_non_object_keywords_applicator_2020_12.h"
 #include "redundant/drop_non_object_keywords_content_2019_09.h"
 #include "redundant/drop_non_object_keywords_content_2020_12.h"
+#include "redundant/drop_non_object_keywords_draft0.h"
+#include "redundant/drop_non_object_keywords_draft1.h"
+#include "redundant/drop_non_object_keywords_draft2.h"
+#include "redundant/drop_non_object_keywords_draft3.h"
+#include "redundant/drop_non_object_keywords_draft4.h"
+#include "redundant/drop_non_object_keywords_draft6.h"
+#include "redundant/drop_non_object_keywords_draft7.h"
 #include "redundant/drop_non_object_keywords_format_2019_09.h"
 #include "redundant/drop_non_object_keywords_format_2020_12.h"
 #include "redundant/drop_non_object_keywords_unevaluated_2020_12.h"
@@ -111,6 +126,13 @@ auto is_null_schema(const sourcemeta::jsontoolkit::JSON &schema,
 #include "redundant/drop_non_object_keywords_validation_2020_12.h"
 #include "redundant/drop_non_string_keywords_applicator_2019_09.h"
 #include "redundant/drop_non_string_keywords_applicator_2020_12.h"
+#include "redundant/drop_non_string_keywords_draft0.h"
+#include "redundant/drop_non_string_keywords_draft1.h"
+#include "redundant/drop_non_string_keywords_draft2.h"
+#include "redundant/drop_non_string_keywords_draft3.h"
+#include "redundant/drop_non_string_keywords_draft4.h"
+#include "redundant/drop_non_string_keywords_draft6.h"
+#include "redundant/drop_non_string_keywords_draft7.h"
 #include "redundant/drop_non_string_keywords_unevaluated_2020_12.h"
 #include "redundant/drop_non_string_keywords_validation_2019_09.h"
 #include "redundant/drop_non_string_keywords_validation_2020_12.h"
@@ -163,6 +185,13 @@ auto add(Bundle &bundle, const LinterCategory category) -> void {
       bundle.add<DropNonArrayKeywordsApplicator_2020_12>();
       bundle.add<DropNonArrayKeywordsContent_2019_09>();
       bundle.add<DropNonArrayKeywordsContent_2020_12>();
+      bundle.add<DropNonArrayKeywords_Draft0>();
+      bundle.add<DropNonArrayKeywords_Draft1>();
+      bundle.add<DropNonArrayKeywords_Draft2>();
+      bundle.add<DropNonArrayKeywords_Draft3>();
+      bundle.add<DropNonArrayKeywords_Draft4>();
+      bundle.add<DropNonArrayKeywords_Draft6>();
+      bundle.add<DropNonArrayKeywords_Draft7>();
       bundle.add<DropNonArrayKeywordsFormat_2019_09>();
       bundle.add<DropNonArrayKeywordsFormat_2020_12>();
       bundle.add<DropNonArrayKeywordsUnevaluated_2020_12>();
@@ -172,6 +201,13 @@ auto add(Bundle &bundle, const LinterCategory category) -> void {
       bundle.add<DropNonBooleanKeywordsApplicator_2020_12>();
       bundle.add<DropNonBooleanKeywordsContent_2019_09>();
       bundle.add<DropNonBooleanKeywordsContent_2020_12>();
+      bundle.add<DropNonBooleanKeywords_Draft0>();
+      bundle.add<DropNonBooleanKeywords_Draft1>();
+      bundle.add<DropNonBooleanKeywords_Draft2>();
+      bundle.add<DropNonBooleanKeywords_Draft3>();
+      bundle.add<DropNonBooleanKeywords_Draft4>();
+      bundle.add<DropNonBooleanKeywords_Draft6>();
+      bundle.add<DropNonBooleanKeywords_Draft7>();
       bundle.add<DropNonBooleanKeywordsFormat_2019_09>();
       bundle.add<DropNonBooleanKeywordsFormat_2020_12>();
       bundle.add<DropNonBooleanKeywordsUnevaluated_2020_12>();
@@ -181,6 +217,13 @@ auto add(Bundle &bundle, const LinterCategory category) -> void {
       bundle.add<DropNonNullKeywordsApplicator_2020_12>();
       bundle.add<DropNonNullKeywordsContent_2019_09>();
       bundle.add<DropNonNullKeywordsContent_2020_12>();
+      bundle.add<DropNonNullKeywords_Draft0>();
+      bundle.add<DropNonNullKeywords_Draft1>();
+      bundle.add<DropNonNullKeywords_Draft2>();
+      bundle.add<DropNonNullKeywords_Draft3>();
+      bundle.add<DropNonNullKeywords_Draft4>();
+      bundle.add<DropNonNullKeywords_Draft6>();
+      bundle.add<DropNonNullKeywords_Draft7>();
       bundle.add<DropNonNullKeywordsFormat_2019_09>();
       bundle.add<DropNonNullKeywordsFormat_2020_12>();
       bundle.add<DropNonNullKeywordsUnevaluated_2020_12>();
@@ -190,6 +233,13 @@ auto add(Bundle &bundle, const LinterCategory category) -> void {
       bundle.add<DropNonNumericKeywordsApplicator_2020_12>();
       bundle.add<DropNonNumericKeywordsContent_2019_09>();
       bundle.add<DropNonNumericKeywordsContent_2020_12>();
+      bundle.add<DropNonNumericKeywords_Draft0>();
+      bundle.add<DropNonNumericKeywords_Draft1>();
+      bundle.add<DropNonNumericKeywords_Draft2>();
+      bundle.add<DropNonNumericKeywords_Draft3>();
+      bundle.add<DropNonNumericKeywords_Draft4>();
+      bundle.add<DropNonNumericKeywords_Draft6>();
+      bundle.add<DropNonNumericKeywords_Draft7>();
       bundle.add<DropNonNumericKeywordsFormat_2019_09>();
       bundle.add<DropNonNumericKeywordsFormat_2020_12>();
       bundle.add<DropNonNumericKeywordsUnevaluated_2020_12>();
@@ -199,6 +249,13 @@ auto add(Bundle &bundle, const LinterCategory category) -> void {
       bundle.add<DropNonObjectKeywordsApplicator_2020_12>();
       bundle.add<DropNonObjectKeywordsContent_2019_09>();
       bundle.add<DropNonObjectKeywordsContent_2020_12>();
+      bundle.add<DropNonObjectKeywords_Draft0>();
+      bundle.add<DropNonObjectKeywords_Draft1>();
+      bundle.add<DropNonObjectKeywords_Draft2>();
+      bundle.add<DropNonObjectKeywords_Draft3>();
+      bundle.add<DropNonObjectKeywords_Draft4>();
+      bundle.add<DropNonObjectKeywords_Draft6>();
+      bundle.add<DropNonObjectKeywords_Draft7>();
       bundle.add<DropNonObjectKeywordsFormat_2019_09>();
       bundle.add<DropNonObjectKeywordsFormat_2020_12>();
       bundle.add<DropNonObjectKeywordsUnevaluated_2020_12>();
@@ -206,6 +263,13 @@ auto add(Bundle &bundle, const LinterCategory category) -> void {
       bundle.add<DropNonObjectKeywordsValidation_2020_12>();
       bundle.add<DropNonStringKeywordsApplicator_2019_09>();
       bundle.add<DropNonStringKeywordsApplicator_2020_12>();
+      bundle.add<DropNonStringKeywords_Draft0>();
+      bundle.add<DropNonStringKeywords_Draft1>();
+      bundle.add<DropNonStringKeywords_Draft2>();
+      bundle.add<DropNonStringKeywords_Draft3>();
+      bundle.add<DropNonStringKeywords_Draft4>();
+      bundle.add<DropNonStringKeywords_Draft6>();
+      bundle.add<DropNonStringKeywords_Draft7>();
       bundle.add<DropNonStringKeywordsUnevaluated_2020_12>();
       bundle.add<DropNonStringKeywordsValidation_2019_09>();
       bundle.add<DropNonStringKeywordsValidation_2020_12>();

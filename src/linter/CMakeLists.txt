@@ -28,6 +28,13 @@ noa_library(NAMESPACE sourcemeta PROJECT alterschema NAME linter
     redundant/drop_non_array_keywords_applicator_2020_12.h
     redundant/drop_non_array_keywords_content_2019_09.h
     redundant/drop_non_array_keywords_content_2020_12.h
+    redundant/drop_non_array_keywords_draft0.h
+    redundant/drop_non_array_keywords_draft1.h
+    redundant/drop_non_array_keywords_draft2.h
+    redundant/drop_non_array_keywords_draft3.h
+    redundant/drop_non_array_keywords_draft4.h
+    redundant/drop_non_array_keywords_draft6.h
+    redundant/drop_non_array_keywords_draft7.h
     redundant/drop_non_array_keywords_format_2019_09.h
     redundant/drop_non_array_keywords_format_2020_12.h
     redundant/drop_non_array_keywords_unevaluated_2020_12.h
@@ -37,6 +44,13 @@ noa_library(NAMESPACE sourcemeta PROJECT alterschema NAME linter
     redundant/drop_non_boolean_keywords_applicator_2020_12.h
     redundant/drop_non_boolean_keywords_content_2019_09.h
     redundant/drop_non_boolean_keywords_content_2020_12.h
+    redundant/drop_non_boolean_keywords_draft0.h
+    redundant/drop_non_boolean_keywords_draft1.h
+    redundant/drop_non_boolean_keywords_draft2.h
+    redundant/drop_non_boolean_keywords_draft3.h
+    redundant/drop_non_boolean_keywords_draft4.h
+    redundant/drop_non_boolean_keywords_draft6.h
+    redundant/drop_non_boolean_keywords_draft7.h
     redundant/drop_non_boolean_keywords_format_2019_09.h
     redundant/drop_non_boolean_keywords_format_2020_12.h
     redundant/drop_non_boolean_keywords_unevaluated_2020_12.h
@@ -46,6 +60,13 @@ noa_library(NAMESPACE sourcemeta PROJECT alterschema NAME linter
     redundant/drop_non_null_keywords_applicator_2020_12.h
     redundant/drop_non_null_keywords_content_2019_09.h
     redundant/drop_non_null_keywords_content_2020_12.h
+    redundant/drop_non_null_keywords_draft0.h
+    redundant/drop_non_null_keywords_draft1.h
+    redundant/drop_non_null_keywords_draft2.h
+    redundant/drop_non_null_keywords_draft3.h
+    redundant/drop_non_null_keywords_draft4.h
+    redundant/drop_non_null_keywords_draft6.h
+    redundant/drop_non_null_keywords_draft7.h
     redundant/drop_non_null_keywords_format_2019_09.h
     redundant/drop_non_null_keywords_format_2020_12.h
     redundant/drop_non_null_keywords_unevaluated_2020_12.h
@@ -55,6 +76,13 @@ noa_library(NAMESPACE sourcemeta PROJECT alterschema NAME linter
     redundant/drop_non_numeric_keywords_applicator_2020_12.h
     redundant/drop_non_numeric_keywords_content_2019_09.h
     redundant/drop_non_numeric_keywords_content_2020_12.h
+    redundant/drop_non_numeric_keywords_draft0.h
+    redundant/drop_non_numeric_keywords_draft1.h
+    redundant/drop_non_numeric_keywords_draft2.h
+    redundant/drop_non_numeric_keywords_draft3.h
+    redundant/drop_non_numeric_keywords_draft4.h
+    redundant/drop_non_numeric_keywords_draft6.h
+    redundant/drop_non_numeric_keywords_draft7.h
     redundant/drop_non_numeric_keywords_format_2019_09.h
     redundant/drop_non_numeric_keywords_format_2020_12.h
     redundant/drop_non_numeric_keywords_unevaluated_2020_12.h
@@ -64,6 +92,13 @@ noa_library(NAMESPACE sourcemeta PROJECT alterschema NAME linter
     redundant/drop_non_object_keywords_applicator_2020_12.h
     redundant/drop_non_object_keywords_content_2019_09.h
     redundant/drop_non_object_keywords_content_2020_12.h
+    redundant/drop_non_object_keywords_draft0.h
+    redundant/drop_non_object_keywords_draft1.h
+    redundant/drop_non_object_keywords_draft2.h
+    redundant/drop_non_object_keywords_draft3.h
+    redundant/drop_non_object_keywords_draft4.h
+    redundant/drop_non_object_keywords_draft6.h
+    redundant/drop_non_object_keywords_draft7.h
     redundant/drop_non_object_keywords_format_2019_09.h
     redundant/drop_non_object_keywords_format_2020_12.h
     redundant/drop_non_object_keywords_unevaluated_2020_12.h
@@ -71,6 +106,13 @@ noa_library(NAMESPACE sourcemeta PROJECT alterschema NAME linter
     redundant/drop_non_object_keywords_validation_2020_12.h
     redundant/drop_non_string_keywords_applicator_2019_09.h
     redundant/drop_non_string_keywords_applicator_2020_12.h
+    redundant/drop_non_string_keywords_draft0.h
+    redundant/drop_non_string_keywords_draft1.h
+    redundant/drop_non_string_keywords_draft2.h
+    redundant/drop_non_string_keywords_draft3.h
+    redundant/drop_non_string_keywords_draft4.h
+    redundant/drop_non_string_keywords_draft6.h
+    redundant/drop_non_string_keywords_draft7.h
     redundant/drop_non_string_keywords_unevaluated_2020_12.h
     redundant/drop_non_string_keywords_validation_2019_09.h
     redundant/drop_non_string_keywords_validation_2020_12.h
