@@ -4,7 +4,7 @@ alterschema
 [<img src="./assets/logo.svg" align="right" width="100">](https://json-schema.org)
 
 This project implements a language-independent [set of formal
-transformations](https://github.com/jviotti/alterschema/tree/master/rules) to
+transformations](https://github.com/jviotti/alterschema/tree/main/legacy/rules) to
 automatically transform [JSON Schema](https://json-schema.org) documents across
 versions of the specification.
 
