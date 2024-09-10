@@ -302,3 +302,167 @@ TEST(Lint_draft3, pattern_properties_default_1) {
 
   EXPECT_EQ(document, expected);
 }
+
+TEST(Lint_draft3, drop_non_array_keywords_1) {
+  sourcemeta::jsontoolkit::JSON document =
+      sourcemeta::jsontoolkit::parse(R"JSON({
+    "$schema": "http://json-schema.org/draft-03/schema#",
+    "title": "Test",
+    "type": "array",
+    "additionalProperties": false,
+    "minLength": 2,
+    "minItems": 1
+  })JSON");
+
+  LINT_AND_FIX(document);
+
+  const sourcemeta::jsontoolkit::JSON expected =
+      sourcemeta::jsontoolkit::parse(R"JSON({
+    "$schema": "http://json-schema.org/draft-03/schema#",
+    "title": "Test",
+    "type": "array",
+    "minItems": 1
+  })JSON");
+
+  EXPECT_EQ(document, expected);
+}
+
+TEST(Lint_draft3, drop_non_boolean_keywords_1) {
+  sourcemeta::jsontoolkit::JSON document =
+      sourcemeta::jsontoolkit::parse(R"JSON({
+    "$schema": "http://json-schema.org/draft-03/schema#",
+    "title": "Test",
+    "type": "boolean",
+    "additionalProperties": false,
+    "minLength": 2,
+    "minItems": 1
+  })JSON");
+
+  LINT_AND_FIX(document);
+
+  const sourcemeta::jsontoolkit::JSON expected =
+      sourcemeta::jsontoolkit::parse(R"JSON({
+    "$schema": "http://json-schema.org/draft-03/schema#",
+    "title": "Test",
+    "type": "boolean"
+  })JSON");
+
+  EXPECT_EQ(document, expected);
+}
+
+TEST(Lint_draft3, drop_non_null_keywords_1) {
+  sourcemeta::jsontoolkit::JSON document =
+      sourcemeta::jsontoolkit::parse(R"JSON({
+    "$schema": "http://json-schema.org/draft-03/schema#",
+    "title": "Test",
+    "type": "null",
+    "additionalProperties": false,
+    "minLength": 2,
+    "minItems": 1
+  })JSON");
+
+  LINT_AND_FIX(document);
+
+  const sourcemeta::jsontoolkit::JSON expected =
+      sourcemeta::jsontoolkit::parse(R"JSON({
+    "$schema": "http://json-schema.org/draft-03/schema#",
+    "title": "Test",
+    "type": "null"
+  })JSON");
+
+  EXPECT_EQ(document, expected);
+}
+
+TEST(Lint_draft3, drop_non_numeric_keywords_1) {
+  sourcemeta::jsontoolkit::JSON document =
+      sourcemeta::jsontoolkit::parse(R"JSON({
+    "$schema": "http://json-schema.org/draft-03/schema#",
+    "title": "Test",
+    "type": "number",
+    "additionalProperties": false,
+    "minLength": 2,
+    "minItems": 1
+  })JSON");
+
+  LINT_AND_FIX(document);
+
+  const sourcemeta::jsontoolkit::JSON expected =
+      sourcemeta::jsontoolkit::parse(R"JSON({
+    "$schema": "http://json-schema.org/draft-03/schema#",
+    "title": "Test",
+    "type": "number"
+  })JSON");
+
+  EXPECT_EQ(document, expected);
+}
+
+TEST(Lint_draft3, drop_non_numeric_keywords_2) {
+  sourcemeta::jsontoolkit::JSON document =
+      sourcemeta::jsontoolkit::parse(R"JSON({
+    "$schema": "http://json-schema.org/draft-03/schema#",
+    "title": "Test",
+    "type": "integer",
+    "additionalProperties": false,
+    "minLength": 2,
+    "minItems": 1
+  })JSON");
+
+  LINT_AND_FIX(document);
+
+  const sourcemeta::jsontoolkit::JSON expected =
+      sourcemeta::jsontoolkit::parse(R"JSON({
+    "$schema": "http://json-schema.org/draft-03/schema#",
+    "title": "Test",
+    "type": "integer"
+  })JSON");
+
+  EXPECT_EQ(document, expected);
+}
+
+TEST(Lint_draft3, drop_non_object_keywords_1) {
+  sourcemeta::jsontoolkit::JSON document =
+      sourcemeta::jsontoolkit::parse(R"JSON({
+    "$schema": "http://json-schema.org/draft-03/schema#",
+    "title": "Test",
+    "type": "object",
+    "additionalProperties": false,
+    "minLength": 2,
+    "minItems": 1
+  })JSON");
+
+  LINT_AND_FIX(document);
+
+  const sourcemeta::jsontoolkit::JSON expected =
+      sourcemeta::jsontoolkit::parse(R"JSON({
+    "$schema": "http://json-schema.org/draft-03/schema#",
+    "title": "Test",
+    "type": "object",
+    "additionalProperties": false
+  })JSON");
+
+  EXPECT_EQ(document, expected);
+}
+
+TEST(Lint_draft3, drop_non_string_keywords_1) {
+  sourcemeta::jsontoolkit::JSON document =
+      sourcemeta::jsontoolkit::parse(R"JSON({
+    "$schema": "http://json-schema.org/draft-03/schema#",
+    "title": "Test",
+    "type": "string",
+    "additionalProperties": false,
+    "minLength": 2,
+    "minItems": 1
+  })JSON");
+
+  LINT_AND_FIX(document);
+
+  const sourcemeta::jsontoolkit::JSON expected =
+      sourcemeta::jsontoolkit::parse(R"JSON({
+    "$schema": "http://json-schema.org/draft-03/schema#",
+    "title": "Test",
+    "type": "string",
+    "minLength": 2
+  })JSON");
+
+  EXPECT_EQ(document, expected);
+}

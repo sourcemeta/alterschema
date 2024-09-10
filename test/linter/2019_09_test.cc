@@ -932,3 +932,189 @@ TEST(Lint_2019_09, min_properties_covered_by_required_3) {
 
   EXPECT_EQ(document, expected);
 }
+
+TEST(Lint_2019_09, drop_non_array_keywords_1) {
+  sourcemeta::jsontoolkit::JSON document =
+      sourcemeta::jsontoolkit::parse(R"JSON({
+    "$schema": "https://json-schema.org/draft/2019-09/schema",
+    "title": "Test",
+    "type": "array",
+    "unevaluatedProperties": false,
+    "contentEncoding": "base64",
+    "maxProperties": 3,
+    "format": "uri",
+    "minItems": 1
+  })JSON");
+
+  LINT_AND_FIX(document);
+
+  const sourcemeta::jsontoolkit::JSON expected =
+      sourcemeta::jsontoolkit::parse(R"JSON({
+    "$schema": "https://json-schema.org/draft/2019-09/schema",
+    "title": "Test",
+    "type": "array",
+    "minItems": 1
+  })JSON");
+
+  EXPECT_EQ(document, expected);
+}
+
+TEST(Lint_2019_09, drop_non_boolean_keywords_1) {
+  sourcemeta::jsontoolkit::JSON document =
+      sourcemeta::jsontoolkit::parse(R"JSON({
+    "$schema": "https://json-schema.org/draft/2019-09/schema",
+    "title": "Test",
+    "type": "boolean",
+    "unevaluatedProperties": false,
+    "contentEncoding": "base64",
+    "maxProperties": 3,
+    "format": "uri",
+    "minItems": 1
+  })JSON");
+
+  LINT_AND_FIX(document);
+
+  const sourcemeta::jsontoolkit::JSON expected =
+      sourcemeta::jsontoolkit::parse(R"JSON({
+    "$schema": "https://json-schema.org/draft/2019-09/schema",
+    "title": "Test",
+    "type": "boolean"
+  })JSON");
+
+  EXPECT_EQ(document, expected);
+}
+
+TEST(Lint_2019_09, drop_non_null_keywords_1) {
+  sourcemeta::jsontoolkit::JSON document =
+      sourcemeta::jsontoolkit::parse(R"JSON({
+    "$schema": "https://json-schema.org/draft/2019-09/schema",
+    "title": "Test",
+    "type": "null",
+    "unevaluatedProperties": false,
+    "contentEncoding": "base64",
+    "maxProperties": 3,
+    "format": "uri",
+    "minItems": 1
+  })JSON");
+
+  LINT_AND_FIX(document);
+
+  const sourcemeta::jsontoolkit::JSON expected =
+      sourcemeta::jsontoolkit::parse(R"JSON({
+    "$schema": "https://json-schema.org/draft/2019-09/schema",
+    "title": "Test",
+    "type": "null"
+  })JSON");
+
+  EXPECT_EQ(document, expected);
+}
+
+TEST(Lint_2019_09, drop_non_numeric_keywords_1) {
+  sourcemeta::jsontoolkit::JSON document =
+      sourcemeta::jsontoolkit::parse(R"JSON({
+    "$schema": "https://json-schema.org/draft/2019-09/schema",
+    "title": "Test",
+    "type": "number",
+    "multipleOf": 2,
+    "unevaluatedProperties": false,
+    "contentEncoding": "base64",
+    "maxProperties": 3,
+    "format": "uri",
+    "minItems": 1
+  })JSON");
+
+  LINT_AND_FIX(document);
+
+  const sourcemeta::jsontoolkit::JSON expected =
+      sourcemeta::jsontoolkit::parse(R"JSON({
+    "$schema": "https://json-schema.org/draft/2019-09/schema",
+    "title": "Test",
+    "type": "number",
+    "multipleOf": 2
+  })JSON");
+
+  EXPECT_EQ(document, expected);
+}
+
+TEST(Lint_2019_09, drop_non_numeric_keywords_2) {
+  sourcemeta::jsontoolkit::JSON document =
+      sourcemeta::jsontoolkit::parse(R"JSON({
+    "$schema": "https://json-schema.org/draft/2019-09/schema",
+    "title": "Test",
+    "type": "integer",
+    "multipleOf": 2,
+    "unevaluatedProperties": false,
+    "contentEncoding": "base64",
+    "maxProperties": 3,
+    "format": "uri",
+    "minItems": 1
+  })JSON");
+
+  LINT_AND_FIX(document);
+
+  const sourcemeta::jsontoolkit::JSON expected =
+      sourcemeta::jsontoolkit::parse(R"JSON({
+    "$schema": "https://json-schema.org/draft/2019-09/schema",
+    "title": "Test",
+    "type": "integer",
+    "multipleOf": 2
+  })JSON");
+
+  EXPECT_EQ(document, expected);
+}
+
+TEST(Lint_2019_09, drop_non_object_keywords_1) {
+  sourcemeta::jsontoolkit::JSON document =
+      sourcemeta::jsontoolkit::parse(R"JSON({
+    "$schema": "https://json-schema.org/draft/2019-09/schema",
+    "title": "Test",
+    "type": "object",
+    "multipleOf": 2,
+    "unevaluatedProperties": false,
+    "contentEncoding": "base64",
+    "maxProperties": 3,
+    "format": "uri",
+    "minItems": 1
+  })JSON");
+
+  LINT_AND_FIX(document);
+
+  const sourcemeta::jsontoolkit::JSON expected =
+      sourcemeta::jsontoolkit::parse(R"JSON({
+    "$schema": "https://json-schema.org/draft/2019-09/schema",
+    "title": "Test",
+    "type": "object",
+    "unevaluatedProperties": false,
+    "maxProperties": 3
+  })JSON");
+
+  EXPECT_EQ(document, expected);
+}
+
+TEST(Lint_2019_09, drop_non_string_keywords_1) {
+  sourcemeta::jsontoolkit::JSON document =
+      sourcemeta::jsontoolkit::parse(R"JSON({
+    "$schema": "https://json-schema.org/draft/2019-09/schema",
+    "title": "Test",
+    "type": "string",
+    "multipleOf": 2,
+    "unevaluatedProperties": false,
+    "contentEncoding": "base64",
+    "maxProperties": 3,
+    "format": "uri",
+    "minItems": 1
+  })JSON");
+
+  LINT_AND_FIX(document);
+
+  const sourcemeta::jsontoolkit::JSON expected =
+      sourcemeta::jsontoolkit::parse(R"JSON({
+    "$schema": "https://json-schema.org/draft/2019-09/schema",
+    "title": "Test",
+    "type": "string",
+    "contentEncoding": "base64",
+    "format": "uri"
+  })JSON");
+
+  EXPECT_EQ(document, expected);
+}
