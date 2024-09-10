@@ -39,6 +39,8 @@ template <typename T> auto every_item_is_boolean(const T &container) -> bool {
 #include "simplify/maximum_real_for_integer.h"
 #include "simplify/minimum_real_for_integer.h"
 #include "simplify/single_type_array.h"
+// Desugar
+#include "desugar/type_boolean_as_enum.h"
 // Redundant
 #include "redundant/additional_properties_default.h"
 #include "redundant/content_media_type_without_encoding.h"
@@ -175,6 +177,9 @@ auto add(Bundle &bundle, const LinterCategory category) -> void {
       bundle.add<MaximumRealForInteger>();
       bundle.add<MinimumRealForInteger>();
       bundle.add<SingleTypeArray>();
+      break;
+    case LinterCategory::Desugar:
+      bundle.add<TypeBooleanAsEnum>();
       break;
     case LinterCategory::Redundant:
       bundle.add<AdditionalPropertiesDefault>();

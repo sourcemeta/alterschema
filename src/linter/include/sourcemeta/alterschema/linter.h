@@ -22,13 +22,19 @@ enum class LinterCategory {
   /// Rules that make use of newer features within the same dialect
   Modernize,
 
-  /// Rules that detect common anti-patterns
+  /// Rules that detect clear anti-patterns that should not be happening on the
+  /// first place
   AntiPattern,
 
-  /// Rules that simplify the given schema
+  /// Rules that simplify the given schema for both human readability and
+  /// performance
   Simplify,
 
-  /// Rules that remove schema redundancies
+  /// Rules that simplify keywords that are syntax sugar to other keywords,
+  /// potentially decreasing human readability in favor of explicitness
+  Desugar,
+
+  /// Rules that remove schema redundancies that do not contribute to the schema
   Redundant
 };
 

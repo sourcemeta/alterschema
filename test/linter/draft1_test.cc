@@ -12,7 +12,7 @@ TEST(Lint_draft1, enum_with_type_1) {
     "enum": [ "foo", "bar" ]
   })JSON");
 
-  LINT_AND_FIX(document);
+  LINT_AND_FIX_FOR_READABILITY(document);
 
   const sourcemeta::jsontoolkit::JSON expected =
       sourcemeta::jsontoolkit::parse(R"JSON({
@@ -30,7 +30,7 @@ TEST(Lint_draft1, single_type_array_1) {
     "type": [ "string" ]
   })JSON");
 
-  LINT_AND_FIX(document);
+  LINT_AND_FIX_FOR_READABILITY(document);
 
   const sourcemeta::jsontoolkit::JSON expected =
       sourcemeta::jsontoolkit::parse(R"JSON({
@@ -48,7 +48,7 @@ TEST(Lint_draft1, additional_properties_default_1) {
     "additionalProperties": true
   })JSON");
 
-  LINT_AND_FIX(document);
+  LINT_AND_FIX_FOR_READABILITY(document);
 
   const sourcemeta::jsontoolkit::JSON expected =
       sourcemeta::jsontoolkit::parse(R"JSON({
@@ -65,7 +65,7 @@ TEST(Lint_draft1, additional_properties_default_2) {
     "additionalProperties": {}
   })JSON");
 
-  LINT_AND_FIX(document);
+  LINT_AND_FIX_FOR_READABILITY(document);
 
   const sourcemeta::jsontoolkit::JSON expected =
       sourcemeta::jsontoolkit::parse(R"JSON({
@@ -82,7 +82,7 @@ TEST(Lint_draft1, additional_properties_default_3) {
     "additionalProperties": false
   })JSON");
 
-  LINT_AND_FIX(document);
+  LINT_AND_FIX_FOR_READABILITY(document);
 
   const sourcemeta::jsontoolkit::JSON expected =
       sourcemeta::jsontoolkit::parse(R"JSON({
@@ -100,7 +100,7 @@ TEST(Lint_draft1, items_schema_default_1) {
     "items": {}
   })JSON");
 
-  LINT_AND_FIX(document);
+  LINT_AND_FIX_FOR_READABILITY(document);
 
   const sourcemeta::jsontoolkit::JSON expected =
       sourcemeta::jsontoolkit::parse(R"JSON({
@@ -117,7 +117,7 @@ TEST(Lint_draft1, items_schema_default_2) {
     "items": {}
   })JSON");
 
-  LINT_AND_FIX(document);
+  LINT_AND_FIX_FOR_READABILITY(document);
 
   const sourcemeta::jsontoolkit::JSON expected =
       sourcemeta::jsontoolkit::parse(R"JSON({
@@ -134,7 +134,7 @@ TEST(Lint_draft1, items_schema_default_3) {
     "items": { "type": "string" }
   })JSON");
 
-  LINT_AND_FIX(document);
+  LINT_AND_FIX_FOR_READABILITY(document);
 
   const sourcemeta::jsontoolkit::JSON expected =
       sourcemeta::jsontoolkit::parse(R"JSON({
@@ -152,7 +152,7 @@ TEST(Lint_draft1, items_array_default_1) {
     "items": []
   })JSON");
 
-  LINT_AND_FIX(document);
+  LINT_AND_FIX_FOR_READABILITY(document);
 
   const sourcemeta::jsontoolkit::JSON expected =
       sourcemeta::jsontoolkit::parse(R"JSON({
@@ -169,7 +169,7 @@ TEST(Lint_draft1, duplicate_enum_values_1) {
     "enum": [ 1, {}, 2, 1, 1, 3, {} ]
   })JSON");
 
-  LINT_AND_FIX(document);
+  LINT_AND_FIX_FOR_READABILITY(document);
 
   const sourcemeta::jsontoolkit::JSON expected =
       sourcemeta::jsontoolkit::parse(R"JSON({
@@ -188,7 +188,7 @@ TEST(Lint_draft1, maximum_real_for_integer_1) {
     "maximum": 3.2
   })JSON");
 
-  LINT_AND_FIX(document);
+  LINT_AND_FIX_FOR_READABILITY(document);
 
   const sourcemeta::jsontoolkit::JSON expected =
       sourcemeta::jsontoolkit::parse(R"JSON({
@@ -208,7 +208,7 @@ TEST(Lint_draft1, minimum_real_for_integer_1) {
     "minimum": 3.2
   })JSON");
 
-  LINT_AND_FIX(document);
+  LINT_AND_FIX_FOR_READABILITY(document);
 
   const sourcemeta::jsontoolkit::JSON expected =
       sourcemeta::jsontoolkit::parse(R"JSON({
@@ -227,7 +227,7 @@ TEST(Lint_draft1, properties_default_1) {
     "properties": {}
   })JSON");
 
-  LINT_AND_FIX(document);
+  LINT_AND_FIX_FOR_READABILITY(document);
 
   const sourcemeta::jsontoolkit::JSON expected =
       sourcemeta::jsontoolkit::parse(R"JSON({
@@ -248,7 +248,7 @@ TEST(Lint_draft1, drop_non_array_keywords_1) {
     "minItems": 1
   })JSON");
 
-  LINT_AND_FIX(document);
+  LINT_AND_FIX_FOR_READABILITY(document);
 
   const sourcemeta::jsontoolkit::JSON expected =
       sourcemeta::jsontoolkit::parse(R"JSON({
@@ -272,7 +272,7 @@ TEST(Lint_draft1, drop_non_boolean_keywords_1) {
     "minItems": 1
   })JSON");
 
-  LINT_AND_FIX(document);
+  LINT_AND_FIX_FOR_READABILITY(document);
 
   const sourcemeta::jsontoolkit::JSON expected =
       sourcemeta::jsontoolkit::parse(R"JSON({
@@ -295,7 +295,7 @@ TEST(Lint_draft1, drop_non_null_keywords_1) {
     "minItems": 1
   })JSON");
 
-  LINT_AND_FIX(document);
+  LINT_AND_FIX_FOR_READABILITY(document);
 
   const sourcemeta::jsontoolkit::JSON expected =
       sourcemeta::jsontoolkit::parse(R"JSON({
@@ -318,7 +318,7 @@ TEST(Lint_draft1, drop_non_numeric_keywords_1) {
     "minItems": 1
   })JSON");
 
-  LINT_AND_FIX(document);
+  LINT_AND_FIX_FOR_READABILITY(document);
 
   const sourcemeta::jsontoolkit::JSON expected =
       sourcemeta::jsontoolkit::parse(R"JSON({
@@ -341,7 +341,7 @@ TEST(Lint_draft1, drop_non_numeric_keywords_2) {
     "minItems": 1
   })JSON");
 
-  LINT_AND_FIX(document);
+  LINT_AND_FIX_FOR_READABILITY(document);
 
   const sourcemeta::jsontoolkit::JSON expected =
       sourcemeta::jsontoolkit::parse(R"JSON({
@@ -364,7 +364,7 @@ TEST(Lint_draft1, drop_non_object_keywords_1) {
     "minItems": 1
   })JSON");
 
-  LINT_AND_FIX(document);
+  LINT_AND_FIX_FOR_READABILITY(document);
 
   const sourcemeta::jsontoolkit::JSON expected =
       sourcemeta::jsontoolkit::parse(R"JSON({
@@ -388,7 +388,7 @@ TEST(Lint_draft1, drop_non_string_keywords_1) {
     "minItems": 1
   })JSON");
 
-  LINT_AND_FIX(document);
+  LINT_AND_FIX_FOR_READABILITY(document);
 
   const sourcemeta::jsontoolkit::JSON expected =
       sourcemeta::jsontoolkit::parse(R"JSON({
@@ -396,6 +396,62 @@ TEST(Lint_draft1, drop_non_string_keywords_1) {
     "title": "Test",
     "type": "string",
     "minLength": 2
+  })JSON");
+
+  EXPECT_EQ(document, expected);
+}
+
+TEST(Lint_draft1, type_boolean_as_enum_1) {
+  sourcemeta::jsontoolkit::JSON document =
+      sourcemeta::jsontoolkit::parse(R"JSON({
+    "$schema": "http://json-schema.org/draft-01/schema#",
+    "type": "boolean"
+  })JSON");
+
+  LINT_AND_FIX_FOR_ANALYSIS(document);
+
+  const sourcemeta::jsontoolkit::JSON expected =
+      sourcemeta::jsontoolkit::parse(R"JSON({
+    "$schema": "http://json-schema.org/draft-01/schema#",
+    "enum": [ false, true ]
+  })JSON");
+
+  EXPECT_EQ(document, expected);
+}
+
+TEST(Lint_draft1, type_boolean_as_enum_2) {
+  sourcemeta::jsontoolkit::JSON document =
+      sourcemeta::jsontoolkit::parse(R"JSON({
+    "$schema": "http://json-schema.org/draft-01/schema#",
+    "type": "boolean",
+    "enum": [ 1, 2, 3 ]
+  })JSON");
+
+  LINT_AND_FIX_FOR_ANALYSIS(document);
+
+  const sourcemeta::jsontoolkit::JSON expected =
+      sourcemeta::jsontoolkit::parse(R"JSON({
+    "$schema": "http://json-schema.org/draft-01/schema#",
+    "type": "boolean",
+    "enum": [ 1, 2, 3 ]
+  })JSON");
+
+  EXPECT_EQ(document, expected);
+}
+
+TEST(Lint_draft1, type_boolean_as_enum_3) {
+  sourcemeta::jsontoolkit::JSON document =
+      sourcemeta::jsontoolkit::parse(R"JSON({
+    "$schema": "http://json-schema.org/draft-01/schema#",
+    "type": "boolean"
+  })JSON");
+
+  LINT_AND_FIX_FOR_READABILITY(document);
+
+  const sourcemeta::jsontoolkit::JSON expected =
+      sourcemeta::jsontoolkit::parse(R"JSON({
+    "$schema": "http://json-schema.org/draft-01/schema#",
+    "type": "boolean"
   })JSON");
 
   EXPECT_EQ(document, expected);
