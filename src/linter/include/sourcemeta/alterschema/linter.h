@@ -19,9 +19,6 @@ namespace sourcemeta::alterschema {
 /// @ingroup linter
 /// The category of a built-in transformation rule
 enum class LinterCategory {
-  /// Rules that make use of newer features within the same dialect
-  Modernize,
-
   /// Rules that detect clear anti-patterns that should not be happening on the
   /// first place
   AntiPattern,
@@ -30,8 +27,14 @@ enum class LinterCategory {
   /// performance
   Simplify,
 
+  /// Rules that take advantage of syntax sugar to improve human readability of
+  /// a schema. As its name implies, this category is incompatible with
+  /// `Desugar`.
+  SyntaxSugar,
+
   /// Rules that simplify keywords that are syntax sugar to other keywords,
   /// potentially decreasing human readability in favor of explicitness
+  /// As its name implies, this category is incompatible with `SyntaxSugar`.
   Desugar,
 
   /// Rules that remove schema redundancies that do not contribute to the schema
@@ -48,7 +51,7 @@ enum class LinterCategory {
 /// sourcemeta::alterschema::Bundle bundle;
 ///
 /// sourcemeta::alterschema::add(bundle,
-///   sourcemeta::alterschema::LinterCategory::Modernize);
+///   sourcemeta::alterschema::LinterCategory::SyntaxSugar);
 ///
 /// auto schema = sourcemeta::jsontoolkit::parse(R"JSON({
 ///   "$schema": "https://json-schema.org/draft/2020-12/schema",

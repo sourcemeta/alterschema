@@ -9,7 +9,7 @@
 auto main() -> int {
   sourcemeta::alterschema::Bundle bundle;
   sourcemeta::alterschema::add(
-      bundle, sourcemeta::alterschema::LinterCategory::Modernize);
+      bundle, sourcemeta::alterschema::LinterCategory::Simplify);
 
   auto schema = sourcemeta::jsontoolkit::parse(R"JSON({
     "$schema": "https://json-schema.org/draft/2020-12/schema",

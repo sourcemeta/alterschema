@@ -1,9 +1,6 @@
 noa_library(NAMESPACE sourcemeta PROJECT alterschema NAME linter
   FOLDER "AlterSchema/Linter"
   SOURCES linter.cc
-    # Modernize
-    modernize/enum_to_const.h
-
     # Antipattern
     antipattern/const_with_type.h
     antipattern/duplicate_enum_values.h
@@ -18,6 +15,9 @@ noa_library(NAMESPACE sourcemeta PROJECT alterschema NAME linter
     simplify/maximum_real_for_integer.h
     simplify/minimum_real_for_integer.h
     simplify/single_type_array.h
+
+    # Syntax Sugar
+    syntax_sugar/enum_to_const.h
 
     # Desugar
     desugar/type_boolean_as_enum.h
