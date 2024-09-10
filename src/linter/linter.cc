@@ -41,6 +41,7 @@ template <typename T> auto every_item_is_boolean(const T &container) -> bool {
 #include "syntax_sugar/enum_to_const.h"
 // Desugar
 #include "desugar/type_boolean_as_enum.h"
+#include "desugar/type_null_as_enum.h"
 // Redundant
 #include "redundant/additional_properties_default.h"
 #include "redundant/content_media_type_without_encoding.h"
@@ -180,6 +181,7 @@ auto add(Bundle &bundle, const LinterCategory category) -> void {
       break;
     case LinterCategory::Desugar:
       bundle.add<TypeBooleanAsEnum>();
+      bundle.add<TypeNullAsEnum>();
       break;
     case LinterCategory::Redundant:
       bundle.add<AdditionalPropertiesDefault>();
