@@ -158,6 +158,7 @@ template <typename T> auto every_item_is_boolean(const T &container) -> bool {
 #include "redundant/then_without_if.h"
 #include "redundant/unevaluated_items_default.h"
 #include "redundant/unevaluated_properties_default.h"
+#include "redundant/unsatisfiable_max_contains.h"
 } // namespace sourcemeta::alterschema
 
 namespace sourcemeta::alterschema {
@@ -302,6 +303,7 @@ auto add(Bundle &bundle, const LinterCategory category) -> void {
       bundle.add<ThenWithoutIf>();
       bundle.add<UnevaluatedItemsDefault>();
       bundle.add<UnevaluatedPropertiesDefault>();
+      bundle.add<UnsatisfiableMaxContains>();
       break;
     default:
       // We should never get here

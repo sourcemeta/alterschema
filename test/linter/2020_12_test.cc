@@ -1465,3 +1465,73 @@ TEST(Lint_2020_12, exclusive_minimum_integer_to_minimum_5) {
 
   EXPECT_EQ(document, expected);
 }
+
+TEST(Lint_2020_12, unsatisfiable_max_contains_1) {
+  sourcemeta::jsontoolkit::JSON document =
+      sourcemeta::jsontoolkit::parse(R"JSON({
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "array",
+    "contains": { "type": "string" },
+    "maxItems": 3,
+    "maxContains": 3
+  })JSON");
+
+  LINT_AND_FIX_FOR_READABILITY(document);
+
+  const sourcemeta::jsontoolkit::JSON expected =
+      sourcemeta::jsontoolkit::parse(R"JSON({
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "array",
+    "contains": { "type": "string" },
+    "maxItems": 3
+  })JSON");
+
+  EXPECT_EQ(document, expected);
+}
+
+TEST(Lint_2020_12, unsatisfiable_max_contains_2) {
+  sourcemeta::jsontoolkit::JSON document =
+      sourcemeta::jsontoolkit::parse(R"JSON({
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "array",
+    "contains": { "type": "string" },
+    "maxItems": 3,
+    "maxContains": 1
+  })JSON");
+
+  LINT_AND_FIX_FOR_READABILITY(document);
+
+  const sourcemeta::jsontoolkit::JSON expected =
+      sourcemeta::jsontoolkit::parse(R"JSON({
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "array",
+    "contains": { "type": "string" },
+    "maxItems": 3,
+    "maxContains": 1
+  })JSON");
+
+  EXPECT_EQ(document, expected);
+}
+
+TEST(Lint_2020_12, unsatisfiable_max_contains_3) {
+  sourcemeta::jsontoolkit::JSON document =
+      sourcemeta::jsontoolkit::parse(R"JSON({
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "array",
+    "contains": { "type": "string" },
+    "maxItems": 3,
+    "maxContains": 4
+  })JSON");
+
+  LINT_AND_FIX_FOR_READABILITY(document);
+
+  const sourcemeta::jsontoolkit::JSON expected =
+      sourcemeta::jsontoolkit::parse(R"JSON({
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "array",
+    "contains": { "type": "string" },
+    "maxItems": 3
+  })JSON");
+
+  EXPECT_EQ(document, expected);
+}
