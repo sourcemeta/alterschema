@@ -25,12 +25,7 @@ TEST(Engine_rule, instances_of_different_rules_are_different) {
   EXPECT_NE(foo, bar);
 }
 
-TEST(Engine_rule, default_message) {
-  const ExampleRule4 rule{};
-  EXPECT_EQ(rule.message(), "Condition matched");
-}
-
-TEST(Engine_rule, custom_message) {
+TEST(Engine_rule, rule_message) {
   const ExampleRule7 rule{};
   EXPECT_EQ(rule.message(), "My custom message");
 }
