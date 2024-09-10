@@ -1557,3 +1557,116 @@ TEST(Lint_2020_12, boolean_true_1) {
 
   EXPECT_EQ(document, expected);
 }
+
+TEST(Lint_2020_12, type_array_to_any_of_1) {
+  sourcemeta::jsontoolkit::JSON document =
+      sourcemeta::jsontoolkit::parse(R"JSON({
+    "$id": "https://example.com",
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$anchor": "foo",
+    "type": [ "integer", "number", "string" ],
+    "minimum": 5
+  })JSON");
+
+  LINT_AND_FIX_FOR_ANALYSIS(document);
+
+  const sourcemeta::jsontoolkit::JSON expected =
+      sourcemeta::jsontoolkit::parse(R"JSON({
+    "$id": "https://example.com",
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$anchor": "foo",
+    "anyOf": [
+      {
+        "type": "integer",
+        "minimum": 5
+      },
+      {
+        "type": "number",
+        "minimum": 5
+      },
+      {
+        "type": "string"
+      }
+    ]
+  })JSON");
+
+  EXPECT_EQ(document, expected);
+}
+
+TEST(Lint_2020_12, type_array_to_any_of_2) {
+  sourcemeta::jsontoolkit::JSON document =
+      sourcemeta::jsontoolkit::parse(R"JSON({
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": [ "integer", "number", "string" ],
+    "anyOf": [ { "minimum": 4 }, { "maximum": 8 } ]
+  })JSON");
+
+  LINT_AND_FIX_FOR_ANALYSIS(document);
+
+  const sourcemeta::jsontoolkit::JSON expected =
+      sourcemeta::jsontoolkit::parse(R"JSON({
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": [ "integer", "number", "string" ],
+    "anyOf": [ { "minimum": 4 }, { "maximum": 8 } ]
+  })JSON");
+
+  EXPECT_EQ(document, expected);
+}
+
+TEST(Lint_2020_12, type_array_to_any_of_3) {
+  sourcemeta::jsontoolkit::JSON document =
+      sourcemeta::jsontoolkit::parse(R"JSON({
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": [ "object", "array", "string" ],
+    "additionalProperties": {
+      "$anchor": "foo",
+      "type": "string"
+    }
+  })JSON");
+
+  LINT_AND_FIX_FOR_ANALYSIS(document);
+
+  const sourcemeta::jsontoolkit::JSON expected =
+      sourcemeta::jsontoolkit::parse(R"JSON({
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "anyOf": [
+      {
+        "type": "object",
+        "additionalProperties": {
+          "$anchor": "foo",
+          "type": "string"
+        }
+      },
+      { "type": "array" },
+      { "type": "string" }
+    ]
+  })JSON");
+
+  EXPECT_EQ(document, expected);
+}
+
+TEST(Lint_2020_12, type_array_to_any_of_4) {
+  sourcemeta::jsontoolkit::JSON document =
+      sourcemeta::jsontoolkit::parse(R"JSON({
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": [ "object", "array" ],
+    "$ref": "#/$defs/foo",
+    "$defs": {
+      "foo": { "type": "string" }
+    }
+  })JSON");
+
+  LINT_AND_FIX_FOR_ANALYSIS(document);
+
+  const sourcemeta::jsontoolkit::JSON expected =
+      sourcemeta::jsontoolkit::parse(R"JSON({
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": [ "object", "array" ],
+    "$ref": "#/$defs/foo",
+    "$defs": {
+      "foo": { "type": "string" }
+    }
+  })JSON");
+
+  EXPECT_EQ(document, expected);
+}
