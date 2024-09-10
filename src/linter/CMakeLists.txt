@@ -20,6 +20,7 @@ noa_library(NAMESPACE sourcemeta PROJECT alterschema NAME linter
     syntax_sugar/enum_to_const.h
 
     # Desugar
+    desugar/boolean_true.h
     desugar/const_as_enum.h
     desugar/exclusive_maximum_integer_to_maximum.h
     desugar/exclusive_minimum_integer_to_minimum.h
