@@ -41,6 +41,8 @@ template <typename T> auto every_item_is_boolean(const T &container) -> bool {
 #include "syntax_sugar/enum_to_const.h"
 // Desugar
 #include "desugar/const_as_enum.h"
+#include "desugar/exclusive_maximum_integer_to_maximum.h"
+#include "desugar/exclusive_minimum_integer_to_minimum.h"
 #include "desugar/type_boolean_as_enum.h"
 #include "desugar/type_null_as_enum.h"
 // Redundant
@@ -182,6 +184,8 @@ auto add(Bundle &bundle, const LinterCategory category) -> void {
       break;
     case LinterCategory::Desugar:
       bundle.add<ConstAsEnum>();
+      bundle.add<ExclusiveMaximumIntegerToMaximum>();
+      bundle.add<ExclusiveMinimumIntegerToMinimum>();
       bundle.add<TypeBooleanAsEnum>();
       bundle.add<TypeNullAsEnum>();
       break;
