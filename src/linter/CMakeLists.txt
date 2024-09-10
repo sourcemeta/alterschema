@@ -24,6 +24,7 @@ noa_library(NAMESPACE sourcemeta PROJECT alterschema NAME linter
     desugar/const_as_enum.h
     desugar/exclusive_maximum_integer_to_maximum.h
     desugar/exclusive_minimum_integer_to_minimum.h
+    desugar/type_array_to_any_of_2020_12.h
     desugar/type_boolean_as_enum.h
     desugar/type_null_as_enum.h
 
