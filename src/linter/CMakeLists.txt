@@ -20,6 +20,7 @@ noa_library(NAMESPACE sourcemeta PROJECT alterschema NAME linter
     syntax_sugar/enum_to_const.h
 
     # Desugar
+    desugar/const_as_enum.h
     desugar/type_boolean_as_enum.h
     desugar/type_null_as_enum.h
 

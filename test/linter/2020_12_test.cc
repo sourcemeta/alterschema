@@ -1233,3 +1233,39 @@ TEST(Lint_2020_12, type_null_as_enum_3) {
 
   EXPECT_EQ(document, expected);
 }
+
+TEST(Lint_2020_12, const_as_enum_1) {
+  sourcemeta::jsontoolkit::JSON document =
+      sourcemeta::jsontoolkit::parse(R"JSON({
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "const": 1
+  })JSON");
+
+  LINT_AND_FIX_FOR_ANALYSIS(document);
+
+  const sourcemeta::jsontoolkit::JSON expected =
+      sourcemeta::jsontoolkit::parse(R"JSON({
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "enum": [ 1 ]
+  })JSON");
+
+  EXPECT_EQ(document, expected);
+}
+
+TEST(Lint_2020_12, const_as_enum_2) {
+  sourcemeta::jsontoolkit::JSON document =
+      sourcemeta::jsontoolkit::parse(R"JSON({
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "const": 1
+  })JSON");
+
+  LINT_AND_FIX_FOR_READABILITY(document);
+
+  const sourcemeta::jsontoolkit::JSON expected =
+      sourcemeta::jsontoolkit::parse(R"JSON({
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "const": 1
+  })JSON");
+
+  EXPECT_EQ(document, expected);
+}
