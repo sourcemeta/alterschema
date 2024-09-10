@@ -44,7 +44,8 @@ public:
 
 class ExampleRule3 final : public sourcemeta::alterschema::Rule {
 public:
-  ExampleRule3() : sourcemeta::alterschema::Rule("example_rule_3") {};
+  ExampleRule3()
+      : sourcemeta::alterschema::Rule("example_rule_3", "Example rule 3") {};
 
   [[nodiscard]] auto condition(
       const sourcemeta::jsontoolkit::JSON &schema, const std::string &,
@@ -61,7 +62,8 @@ public:
 
 class ExampleRule4 final : public sourcemeta::alterschema::Rule {
 public:
-  ExampleRule4() : sourcemeta::alterschema::Rule("example_rule_4") {};
+  ExampleRule4()
+      : sourcemeta::alterschema::Rule("example_rule_4", "Example rule 4") {};
 
   [[nodiscard]] auto
   condition(const sourcemeta::jsontoolkit::JSON &schema, const std::string &,
@@ -78,7 +80,8 @@ public:
 
 class ExampleRule5 final : public sourcemeta::alterschema::Rule {
 public:
-  ExampleRule5() : sourcemeta::alterschema::Rule("example_rule_5") {};
+  ExampleRule5()
+      : sourcemeta::alterschema::Rule("example_rule_5", "Example rule 5") {};
 
   [[nodiscard]] auto condition(
       const sourcemeta::jsontoolkit::JSON &schema, const std::string &,
@@ -96,7 +99,8 @@ public:
 
 class ExampleRule6 final : public sourcemeta::alterschema::Rule {
 public:
-  ExampleRule6() : sourcemeta::alterschema::Rule("example_rule_6") {};
+  ExampleRule6()
+      : sourcemeta::alterschema::Rule("example_rule_6", "Example rule 6") {};
 
   [[nodiscard]] auto
   condition(const sourcemeta::jsontoolkit::JSON &schema,
@@ -133,7 +137,9 @@ public:
 class ExampleRuleConflictsWith1 final : public sourcemeta::alterschema::Rule {
 public:
   ExampleRuleConflictsWith1()
-      : sourcemeta::alterschema::Rule("example_rule_conflicts_with_1") {};
+      : sourcemeta::alterschema::Rule(
+            "example_rule_conflicts_with_1",
+            "Example rule that conflicts with rule 1") {};
 
   [[nodiscard]] auto
   condition(const sourcemeta::jsontoolkit::JSON &schema, const std::string &,
