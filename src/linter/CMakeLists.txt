@@ -19,6 +19,9 @@ noa_library(NAMESPACE sourcemeta PROJECT alterschema NAME linter
     simplify/minimum_real_for_integer.h
     simplify/single_type_array.h
 
+    # Desugar
+    desugar/type_boolean_as_enum.h
+
     # Redundant
     redundant/additional_properties_default.h
     redundant/content_media_type_without_encoding.h
