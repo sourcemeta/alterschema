@@ -21,6 +21,7 @@ noa_library(NAMESPACE sourcemeta PROJECT alterschema NAME linter
 
     # Desugar
     desugar/type_boolean_as_enum.h
+    desugar/type_null_as_enum.h
 
     # Redundant
     redundant/additional_properties_default.h
