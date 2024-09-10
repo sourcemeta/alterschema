@@ -24,9 +24,16 @@ public:
   }
 
   auto transform(Transformer &transformer) const -> void override {
-    auto new_maximum = transformer.schema().at("exclusiveMaximum");
-    new_maximum += sourcemeta::jsontoolkit::JSON{-1};
-    transformer.assign("maximum", new_maximum);
-    transformer.erase("exclusiveMaximum");
+    if (transformer.schema().at("exclusiveMaximum").is_integer()) {
+      auto new_maximum = transformer.schema().at("exclusiveMaximum");
+      new_maximum += sourcemeta::jsontoolkit::JSON{-1};
+      transformer.assign("maximum", new_maximum);
+      transformer.erase("exclusiveMaximum");
+    } else {
+      const auto current{transformer.schema().at("exclusiveMaximum").to_real()};
+      const auto new_value{static_cast<std::int64_t>(std::floor(current))};
+      transformer.assign("maximum", sourcemeta::jsontoolkit::JSON{new_value});
+      transformer.erase("exclusiveMaximum");
+    }
   }
 };

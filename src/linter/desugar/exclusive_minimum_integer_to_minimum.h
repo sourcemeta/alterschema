@@ -24,9 +24,16 @@ public:
   }
 
   auto transform(Transformer &transformer) const -> void override {
-    auto new_minimum = transformer.schema().at("exclusiveMinimum");
-    new_minimum += sourcemeta::jsontoolkit::JSON{1};
-    transformer.assign("minimum", new_minimum);
-    transformer.erase("exclusiveMinimum");
+    if (transformer.schema().at("exclusiveMinimum").is_integer()) {
+      auto new_minimum = transformer.schema().at("exclusiveMinimum");
+      new_minimum += sourcemeta::jsontoolkit::JSON{1};
+      transformer.assign("minimum", new_minimum);
+      transformer.erase("exclusiveMinimum");
+    } else {
+      const auto current{transformer.schema().at("exclusiveMinimum").to_real()};
+      const auto new_value{static_cast<std::int64_t>(std::ceil(current))};
+      transformer.assign("minimum", sourcemeta::jsontoolkit::JSON{new_value});
+      transformer.erase("exclusiveMinimum");
+    }
   }
 };
