@@ -1664,6 +1664,7 @@ TEST(Lint_2020_12, type_array_to_any_of_3) {
     "anyOf": [
       {
         "type": "object",
+        "properties": {},
         "additionalProperties": {
           "$anchor": "foo",
           "type": "string",
@@ -1756,6 +1757,7 @@ TEST(Lint_2020_12, min_properties_covered_by_required_1) {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "type": "object",
     "minProperties": 2,
+    "properties": {},
     "required": [ "foo", "bar" ]
   })JSON");
 

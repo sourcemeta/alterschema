@@ -1226,6 +1226,7 @@ TEST(Lint_draft7, min_properties_covered_by_required_1) {
     "$schema": "http://json-schema.org/draft-07/schema#",
     "type": "object",
     "minProperties": 2,
+    "properties": {},
     "required": [ "foo", "bar" ]
   })JSON");
 

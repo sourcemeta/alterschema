@@ -47,6 +47,7 @@ noa_library(NAMESPACE sourcemeta PROJECT alterschema NAME linter
     implicit/min_length_implicit.h
     implicit/min_properties_covered_by_required.h
     implicit/multiple_of_implicit.h
+    implicit/properties_implicit.h
 
     # Superfluous
     superfluous/content_media_type_without_encoding.h
