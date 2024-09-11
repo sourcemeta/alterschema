@@ -71,6 +71,7 @@ template <typename T> auto every_item_is_boolean(const T &container) -> bool {
 #include "implicit/min_properties_implicit.h"
 #include "implicit/multiple_of_implicit.h"
 #include "implicit/properties_implicit.h"
+#include "implicit/type_union_implicit.h"
 // Superfluous
 #include "superfluous/content_media_type_without_encoding.h"
 #include "superfluous/content_schema_without_media_type.h"
@@ -230,6 +231,7 @@ auto add(Bundle &bundle, const LinterCategory category) -> void {
       bundle.add<MinPropertiesImplicit>();
       bundle.add<MultipleOfImplicit>();
       bundle.add<PropertiesImplicit>();
+      bundle.add<TypeUnionImplicit>();
       break;
     case LinterCategory::Superfluous:
       bundle.add<ContentMediaTypeWithoutEncoding>();

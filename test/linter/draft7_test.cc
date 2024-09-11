@@ -1081,6 +1081,7 @@ TEST(Lint_draft7, exclusive_maximum_integer_to_maximum_5) {
   const sourcemeta::jsontoolkit::JSON expected =
       sourcemeta::jsontoolkit::parse(R"JSON({
     "$schema": "http://json-schema.org/draft-07/schema#",
+    "type": [ "null", "boolean", "object", "array", "string", "number", "integer" ],
     "exclusiveMaximum": 1
   })JSON");
 
@@ -1182,6 +1183,7 @@ TEST(Lint_draft7, exclusive_minimum_integer_to_minimum_5) {
   const sourcemeta::jsontoolkit::JSON expected =
       sourcemeta::jsontoolkit::parse(R"JSON({
     "$schema": "http://json-schema.org/draft-07/schema#",
+    "type": [ "null", "boolean", "object", "array", "string", "number", "integer" ],
     "exclusiveMinimum": 1
   })JSON");
 
@@ -1202,8 +1204,11 @@ TEST(Lint_draft7, boolean_true_1) {
   const sourcemeta::jsontoolkit::JSON expected =
       sourcemeta::jsontoolkit::parse(R"JSON({
     "$schema": "http://json-schema.org/draft-07/schema#",
+    "type": [ "null", "boolean", "object", "array", "string", "number", "integer" ],
     "properties": {
-      "foo": {}
+      "foo": {
+        "type": [ "null", "boolean", "object", "array", "string", "number", "integer" ]
+      }
     }
   })JSON");
 

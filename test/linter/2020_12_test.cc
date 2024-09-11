@@ -848,6 +848,7 @@ TEST(Lint_2020_12, dependent_required_tautology_3) {
   sourcemeta::jsontoolkit::JSON document =
       sourcemeta::jsontoolkit::parse(R"JSON({
     "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
     "required": [ "foo" ],
     "dependentRequired": {
       "foo": [ "bar" ],
@@ -860,6 +861,9 @@ TEST(Lint_2020_12, dependent_required_tautology_3) {
   const sourcemeta::jsontoolkit::JSON expected =
       sourcemeta::jsontoolkit::parse(R"JSON({
     "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "properties": {},
+    "minProperties": 3,
     "required": [ "foo", "bar", "baz" ],
     "dependentRequired": {}
   })JSON");
@@ -1388,7 +1392,15 @@ TEST(Lint_2020_12, exclusive_maximum_integer_to_maximum_5) {
   const sourcemeta::jsontoolkit::JSON expected =
       sourcemeta::jsontoolkit::parse(R"JSON({
     "$schema": "https://json-schema.org/draft/2020-12/schema",
-    "exclusiveMaximum": 1
+    "anyOf": [
+      { "enum": [ null ] },
+      { "enum": [ false, true ] },
+      { "properties": {}, "minProperties": 0, "type": "object" },
+      { "minItems": 0, "type": "array" },
+      { "minLength": 0, "type": "string" },
+      { "type": "number", "multipleOf": 1, "exclusiveMaximum": 1 },
+      { "multipleOf": 1, "maximum": 0, "type": "integer" }
+    ]
   })JSON");
 
   EXPECT_EQ(document, expected);
@@ -1489,7 +1501,15 @@ TEST(Lint_2020_12, exclusive_minimum_integer_to_minimum_5) {
   const sourcemeta::jsontoolkit::JSON expected =
       sourcemeta::jsontoolkit::parse(R"JSON({
     "$schema": "https://json-schema.org/draft/2020-12/schema",
-    "exclusiveMinimum": 1
+    "anyOf": [
+      { "enum": [ null ] },
+      { "enum": [ false, true ] },
+      { "properties": {}, "minProperties": 0, "type": "object" },
+      { "minItems": 0, "type": "array" },
+      { "minLength": 0, "type": "string" },
+      { "multipleOf": 1, "type": "number", "exclusiveMinimum": 1 },
+      { "multipleOf": 1, "minimum": 2, "type": "integer" }
+    ]
   })JSON");
 
   EXPECT_EQ(document, expected);
@@ -1579,9 +1599,31 @@ TEST(Lint_2020_12, boolean_true_1) {
   const sourcemeta::jsontoolkit::JSON expected =
       sourcemeta::jsontoolkit::parse(R"JSON({
     "$schema": "https://json-schema.org/draft/2020-12/schema",
-    "properties": {
-      "foo": {}
-    }
+    "anyOf": [
+      { "enum": [ null ] },
+      { "enum": [ false, true ] },
+      {
+        "minProperties": 0,
+        "type": "object",
+        "properties": {
+          "foo": {
+            "anyOf": [
+              { "enum": [ null ] },
+              { "enum": [ false, true ] },
+              { "properties": {}, "minProperties": 0, "type": "object" },
+              { "minItems": 0, "type": "array" },
+              { "minLength": 0, "type": "string" },
+              { "multipleOf": 1, "type": "number" },
+              { "multipleOf": 1, "type": "integer" }
+            ]
+          }
+        }
+      },
+      { "minItems": 0, "type": "array" },
+      { "minLength": 0, "type": "string" },
+      { "multipleOf": 1, "type": "number" },
+      { "multipleOf": 1, "type": "integer" }
+    ]
   })JSON");
 
   EXPECT_EQ(document, expected);
@@ -1630,7 +1672,10 @@ TEST(Lint_2020_12, type_array_to_any_of_2) {
       sourcemeta::jsontoolkit::parse(R"JSON({
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "type": [ "integer", "number", "string" ],
-    "anyOf": [ { "minimum": 4 }, { "maximum": 8 } ]
+    "anyOf": [
+      { "minimum": 4, "type": "integer" },
+      { "maximum": 8, "type": "integer" }
+    ]
   })JSON");
 
   LINT_AND_FIX_FOR_ANALYSIS(document);
@@ -1639,7 +1684,10 @@ TEST(Lint_2020_12, type_array_to_any_of_2) {
       sourcemeta::jsontoolkit::parse(R"JSON({
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "type": [ "integer", "number", "string" ],
-    "anyOf": [ { "minimum": 4 }, { "maximum": 8 } ]
+    "anyOf": [
+      { "minimum": 4, "type": "integer", "multipleOf": 1 },
+      { "maximum": 8, "type": "integer", "multipleOf": 1 }
+    ]
   })JSON");
 
   EXPECT_EQ(document, expected);
