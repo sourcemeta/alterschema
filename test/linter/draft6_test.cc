@@ -892,6 +892,7 @@ TEST(Lint_draft6, exclusive_maximum_integer_to_maximum_1) {
       sourcemeta::jsontoolkit::parse(R"JSON({
     "$schema": "http://json-schema.org/draft-06/schema#",
     "type": "integer",
+    "multipleOf": 1,
     "maximum": 0
   })JSON");
 
@@ -912,6 +913,7 @@ TEST(Lint_draft6, exclusive_maximum_integer_to_maximum_2) {
       sourcemeta::jsontoolkit::parse(R"JSON({
     "$schema": "http://json-schema.org/draft-06/schema#",
     "type": "integer",
+    "multipleOf": 1,
     "maximum": 1
   })JSON");
 
@@ -932,6 +934,7 @@ TEST(Lint_draft6, exclusive_maximum_integer_to_maximum_3) {
       sourcemeta::jsontoolkit::parse(R"JSON({
     "$schema": "http://json-schema.org/draft-06/schema#",
     "type": "number",
+    "multipleOf": 1,
     "exclusiveMaximum": 1
   })JSON");
 
@@ -990,6 +993,7 @@ TEST(Lint_draft6, exclusive_minimum_integer_to_minimum_1) {
       sourcemeta::jsontoolkit::parse(R"JSON({
     "$schema": "http://json-schema.org/draft-06/schema#",
     "type": "integer",
+    "multipleOf": 1,
     "minimum": 2
   })JSON");
 
@@ -1010,6 +1014,7 @@ TEST(Lint_draft6, exclusive_minimum_integer_to_minimum_2) {
       sourcemeta::jsontoolkit::parse(R"JSON({
     "$schema": "http://json-schema.org/draft-06/schema#",
     "type": "integer",
+    "multipleOf": 1,
     "minimum": 2
   })JSON");
 
@@ -1029,6 +1034,7 @@ TEST(Lint_draft6, exclusive_minimum_integer_to_minimum_3) {
   const sourcemeta::jsontoolkit::JSON expected =
       sourcemeta::jsontoolkit::parse(R"JSON({
     "$schema": "http://json-schema.org/draft-06/schema#",
+    "multipleOf": 1,
     "type": "number",
     "exclusiveMinimum": 1
   })JSON");

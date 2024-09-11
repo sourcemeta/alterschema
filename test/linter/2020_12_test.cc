@@ -1307,6 +1307,7 @@ TEST(Lint_2020_12, exclusive_maximum_integer_to_maximum_1) {
       sourcemeta::jsontoolkit::parse(R"JSON({
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "type": "integer",
+    "multipleOf": 1,
     "maximum": 0
   })JSON");
 
@@ -1327,6 +1328,7 @@ TEST(Lint_2020_12, exclusive_maximum_integer_to_maximum_2) {
       sourcemeta::jsontoolkit::parse(R"JSON({
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "type": "integer",
+    "multipleOf": 1,
     "maximum": 1
   })JSON");
 
@@ -1347,6 +1349,7 @@ TEST(Lint_2020_12, exclusive_maximum_integer_to_maximum_3) {
       sourcemeta::jsontoolkit::parse(R"JSON({
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "type": "number",
+    "multipleOf": 1,
     "exclusiveMaximum": 1
   })JSON");
 
@@ -1405,6 +1408,7 @@ TEST(Lint_2020_12, exclusive_minimum_integer_to_minimum_1) {
       sourcemeta::jsontoolkit::parse(R"JSON({
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "type": "integer",
+    "multipleOf": 1,
     "minimum": 2
   })JSON");
 
@@ -1425,6 +1429,7 @@ TEST(Lint_2020_12, exclusive_minimum_integer_to_minimum_2) {
       sourcemeta::jsontoolkit::parse(R"JSON({
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "type": "integer",
+    "multipleOf": 1,
     "minimum": 2
   })JSON");
 
@@ -1445,6 +1450,7 @@ TEST(Lint_2020_12, exclusive_minimum_integer_to_minimum_3) {
       sourcemeta::jsontoolkit::parse(R"JSON({
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "type": "number",
+    "multipleOf": 1,
     "exclusiveMinimum": 1
   })JSON");
 
@@ -1601,10 +1607,12 @@ TEST(Lint_2020_12, type_array_to_any_of_1) {
     "anyOf": [
       {
         "type": "integer",
+        "multipleOf": 1,
         "minimum": 5
       },
       {
         "type": "number",
+        "multipleOf": 1,
         "minimum": 5
       },
       {
