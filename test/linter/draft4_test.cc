@@ -357,7 +357,7 @@ TEST(Lint_draft4, pattern_properties_default_1) {
   EXPECT_EQ(document, expected);
 }
 
-TEST(Lint_draft4, min_properties_covered_by_required_1) {
+TEST(Lint_draft4, unsatisfiable_min_properties_1) {
   sourcemeta::jsontoolkit::JSON document =
       sourcemeta::jsontoolkit::parse(R"JSON({
     "$schema": "http://json-schema.org/draft-04/schema#",
@@ -376,7 +376,7 @@ TEST(Lint_draft4, min_properties_covered_by_required_1) {
   EXPECT_EQ(document, expected);
 }
 
-TEST(Lint_draft4, min_properties_covered_by_required_2) {
+TEST(Lint_draft4, unsatisfiable_min_properties_2) {
   sourcemeta::jsontoolkit::JSON document =
       sourcemeta::jsontoolkit::parse(R"JSON({
     "$schema": "http://json-schema.org/draft-04/schema#",
@@ -396,7 +396,7 @@ TEST(Lint_draft4, min_properties_covered_by_required_2) {
   EXPECT_EQ(document, expected);
 }
 
-TEST(Lint_draft4, min_properties_covered_by_required_3) {
+TEST(Lint_draft4, unsatisfiable_min_properties_3) {
   sourcemeta::jsontoolkit::JSON document =
       sourcemeta::jsontoolkit::parse(R"JSON({
     "$schema": "http://json-schema.org/draft-04/schema#",
@@ -708,6 +708,28 @@ TEST(Lint_draft4, boolean_true_1) {
     "properties": {
       "foo": {}
     }
+  })JSON");
+
+  EXPECT_EQ(document, expected);
+}
+
+TEST(Lint_draft4, min_properties_covered_by_required_1) {
+  sourcemeta::jsontoolkit::JSON document =
+      sourcemeta::jsontoolkit::parse(R"JSON({
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "type": "object",
+    "minProperties": 1,
+    "required": [ "foo", "bar" ]
+  })JSON");
+
+  LINT_AND_FIX_FOR_ANALYSIS(document);
+
+  const sourcemeta::jsontoolkit::JSON expected =
+      sourcemeta::jsontoolkit::parse(R"JSON({
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "type": "object",
+    "minProperties": 2,
+    "required": [ "foo", "bar" ]
   })JSON");
 
   EXPECT_EQ(document, expected);

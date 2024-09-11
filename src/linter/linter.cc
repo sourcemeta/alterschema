@@ -47,6 +47,7 @@ template <typename T> auto every_item_is_boolean(const T &container) -> bool {
 #include "desugar/type_array_to_any_of_2020_12.h"
 #include "desugar/type_boolean_as_enum.h"
 #include "desugar/type_null_as_enum.h"
+
 // Redundant
 #include "redundant/additional_properties_default.h"
 #include "redundant/content_schema_default.h"
@@ -54,12 +55,15 @@ template <typename T> auto every_item_is_boolean(const T &container) -> bool {
 #include "redundant/dependent_required_default.h"
 #include "redundant/items_array_default.h"
 #include "redundant/items_schema_default.h"
-#include "redundant/min_properties_covered_by_required.h"
 #include "redundant/pattern_properties_default.h"
 #include "redundant/properties_default.h"
 #include "redundant/unevaluated_items_default.h"
 #include "redundant/unevaluated_properties_default.h"
 #include "redundant/unsatisfiable_max_contains.h"
+#include "redundant/unsatisfiable_min_properties.h"
+// Implicit
+#include "implicit/max_contains_covered_by_max_items.h"
+#include "implicit/min_properties_covered_by_required.h"
 // Superfluous
 #include "superfluous/content_media_type_without_encoding.h"
 #include "superfluous/content_schema_without_media_type.h"
@@ -202,12 +206,16 @@ auto add(Bundle &bundle, const LinterCategory category) -> void {
       bundle.add<DependentRequiredDefault>();
       bundle.add<ItemsArrayDefault>();
       bundle.add<ItemsSchemaDefault>();
-      bundle.add<MinPropertiesCoveredByRequired>();
       bundle.add<PatternPropertiesDefault>();
       bundle.add<PropertiesDefault>();
       bundle.add<UnevaluatedItemsDefault>();
       bundle.add<UnevaluatedPropertiesDefault>();
       bundle.add<UnsatisfiableMaxContains>();
+      bundle.add<UnsatisfiableMinProperties>();
+      break;
+    case LinterCategory::Implicit:
+      bundle.add<MaxContainsCoveredByMaxItems>();
+      bundle.add<MinPropertiesCoveredByRequired>();
       break;
     case LinterCategory::Superfluous:
       bundle.add<ContentMediaTypeWithoutEncoding>();

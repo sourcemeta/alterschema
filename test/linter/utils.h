@@ -28,6 +28,8 @@
   sourcemeta::alterschema::add(                                                \
       bundle, sourcemeta::alterschema::LinterCategory::Superfluous);           \
   sourcemeta::alterschema::add(                                                \
+      bundle, sourcemeta::alterschema::LinterCategory::Implicit);              \
+  sourcemeta::alterschema::add(                                                \
       bundle, sourcemeta::alterschema::LinterCategory::Desugar);               \
   bundle.apply(document, sourcemeta::jsontoolkit::default_schema_walker,       \
                sourcemeta::jsontoolkit::official_resolver);

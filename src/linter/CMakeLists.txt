@@ -35,12 +35,16 @@ noa_library(NAMESPACE sourcemeta PROJECT alterschema NAME linter
     redundant/dependent_required_default.h
     redundant/items_array_default.h
     redundant/items_schema_default.h
-    redundant/min_properties_covered_by_required.h
     redundant/pattern_properties_default.h
     redundant/properties_default.h
     redundant/unevaluated_items_default.h
     redundant/unevaluated_properties_default.h
     redundant/unsatisfiable_max_contains.h
+    redundant/unsatisfiable_min_properties.h
+
+    # Implicit
+    implicit/max_contains_covered_by_max_items.h
+    implicit/min_properties_covered_by_required.h
 
     # Superfluous
     superfluous/content_media_type_without_encoding.h
