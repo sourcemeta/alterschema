@@ -11,6 +11,8 @@
   sourcemeta::alterschema::add(                                                \
       bundle, sourcemeta::alterschema::LinterCategory::Simplify);              \
   sourcemeta::alterschema::add(                                                \
+      bundle, sourcemeta::alterschema::LinterCategory::Superfluous);           \
+  sourcemeta::alterschema::add(                                                \
       bundle, sourcemeta::alterschema::LinterCategory::Redundant);             \
   sourcemeta::alterschema::add(                                                \
       bundle, sourcemeta::alterschema::LinterCategory::SyntaxSugar);           \
@@ -24,7 +26,7 @@
   sourcemeta::alterschema::add(                                                \
       bundle, sourcemeta::alterschema::LinterCategory::Simplify);              \
   sourcemeta::alterschema::add(                                                \
-      bundle, sourcemeta::alterschema::LinterCategory::Redundant);             \
+      bundle, sourcemeta::alterschema::LinterCategory::Superfluous);           \
   sourcemeta::alterschema::add(                                                \
       bundle, sourcemeta::alterschema::LinterCategory::Desugar);               \
   bundle.apply(document, sourcemeta::jsontoolkit::default_schema_walker,       \

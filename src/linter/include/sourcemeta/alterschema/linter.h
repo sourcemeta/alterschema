@@ -38,7 +38,11 @@ enum class LinterCategory {
   Desugar,
 
   /// Rules that remove schema redundancies that do not contribute to the schema
-  Redundant
+  Redundant,
+
+  /// Rules that remove keywords that are superfluous and take no effect on the
+  /// given schema
+  Superfluous
 };
 
 /// @ingroup linter
