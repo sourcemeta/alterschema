@@ -64,6 +64,7 @@ template <typename T> auto every_item_is_boolean(const T &container) -> bool {
 // Implicit
 #include "implicit/max_contains_covered_by_max_items.h"
 #include "implicit/min_properties_covered_by_required.h"
+#include "implicit/multiple_of_implicit.h"
 // Superfluous
 #include "superfluous/content_media_type_without_encoding.h"
 #include "superfluous/content_schema_without_media_type.h"
@@ -216,6 +217,7 @@ auto add(Bundle &bundle, const LinterCategory category) -> void {
     case LinterCategory::Implicit:
       bundle.add<MaxContainsCoveredByMaxItems>();
       bundle.add<MinPropertiesCoveredByRequired>();
+      bundle.add<MultipleOfImplicit>();
       break;
     case LinterCategory::Superfluous:
       bundle.add<ContentMediaTypeWithoutEncoding>();
