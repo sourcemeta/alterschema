@@ -1672,7 +1672,10 @@ TEST(Lint_2020_12, type_array_to_any_of_3) {
           "minLength": 0
         }
       },
-      { "type": "array" },
+      {
+        "type": "array",
+        "minItems": 0
+      },
       {
         "type": "string",
         "minLength": 0
@@ -1736,6 +1739,7 @@ TEST(Lint_2020_12, max_contains_covered_by_max_items_1) {
       "minLength": 0
     },
     "maxContains": 1,
+    "minItems": 0,
     "maxItems": 1
   })JSON");
 
@@ -1805,6 +1809,49 @@ TEST(Lint_2020_12, min_properties_implicit_2) {
     "properties": {},
     "required": [ "foo", "bar" ],
     "minProperties": 2
+  })JSON");
+
+  EXPECT_EQ(document, expected);
+}
+
+TEST(Lint_2020_12, min_items_given_min_contains_1) {
+  sourcemeta::jsontoolkit::JSON document =
+      sourcemeta::jsontoolkit::parse(R"JSON({
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "array",
+    "contains": { "type": "boolean" },
+    "minContains": 3
+  })JSON");
+
+  LINT_AND_FIX_FOR_ANALYSIS(document);
+
+  const sourcemeta::jsontoolkit::JSON expected =
+      sourcemeta::jsontoolkit::parse(R"JSON({
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "array",
+    "contains": { "enum": [ false, true ] },
+    "minContains": 3,
+    "minItems": 3
+  })JSON");
+
+  EXPECT_EQ(document, expected);
+}
+
+TEST(Lint_2020_12, min_items_given_min_contains_2) {
+  sourcemeta::jsontoolkit::JSON document =
+      sourcemeta::jsontoolkit::parse(R"JSON({
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "array",
+    "minContains": 3
+  })JSON");
+
+  LINT_AND_FIX_FOR_ANALYSIS(document);
+
+  const sourcemeta::jsontoolkit::JSON expected =
+      sourcemeta::jsontoolkit::parse(R"JSON({
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "array",
+    "minItems": 0
   })JSON");
 
   EXPECT_EQ(document, expected);
