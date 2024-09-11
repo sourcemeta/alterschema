@@ -44,6 +44,7 @@ noa_library(NAMESPACE sourcemeta PROJECT alterschema NAME linter
 
     # Implicit
     implicit/max_contains_covered_by_max_items.h
+    implicit/min_length_implicit.h
     implicit/min_properties_covered_by_required.h
     implicit/multiple_of_implicit.h
 

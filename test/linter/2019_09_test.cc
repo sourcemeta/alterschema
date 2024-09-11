@@ -1577,7 +1577,10 @@ TEST(Lint_2019_09, max_contains_covered_by_max_items_1) {
       sourcemeta::jsontoolkit::parse(R"JSON({
     "$schema": "https://json-schema.org/draft/2019-09/schema",
     "type": "array",
-    "contains": { "type": "string" },
+    "contains": {
+      "type": "string",
+      "minLength": 0
+    },
     "maxContains": 1,
     "maxItems": 1
   })JSON");
