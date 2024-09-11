@@ -21,8 +21,13 @@ public:
                       "http://json-schema.org/draft-03/schema#",
                       "http://json-schema.org/draft-02/hyper-schema#",
                       "http://json-schema.org/draft-01/hyper-schema#",
-                      "http://json-schema.org/draft-00/hyper-schema#"}) &&
-        schema.defines("type")) {
+                      "http://json-schema.org/draft-00/hyper-schema#"})) {
+      if (schema.defines("type")) {
+        return false;
+      }
+
+      // Don't apply if we don't have the necessary vocabularies
+    } else {
       return false;
     }
 
