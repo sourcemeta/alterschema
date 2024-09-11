@@ -1604,6 +1604,7 @@ TEST(Lint_2019_09, min_properties_covered_by_required_1) {
     "$schema": "https://json-schema.org/draft/2019-09/schema",
     "type": "object",
     "minProperties": 2,
+    "properties": {},
     "required": [ "foo", "bar" ]
   })JSON");
 
