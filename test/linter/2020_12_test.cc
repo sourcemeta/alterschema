@@ -1616,7 +1616,8 @@ TEST(Lint_2020_12, type_array_to_any_of_1) {
         "minimum": 5
       },
       {
-        "type": "string"
+        "type": "string",
+        "minLength": 0
       }
     ]
   })JSON");
@@ -1665,11 +1666,15 @@ TEST(Lint_2020_12, type_array_to_any_of_3) {
         "type": "object",
         "additionalProperties": {
           "$anchor": "foo",
-          "type": "string"
+          "type": "string",
+          "minLength": 0
         }
       },
       { "type": "array" },
-      { "type": "string" }
+      {
+        "type": "string",
+        "minLength": 0
+      }
     ]
   })JSON");
 
@@ -1683,7 +1688,10 @@ TEST(Lint_2020_12, type_array_to_any_of_4) {
     "type": [ "object", "array" ],
     "$ref": "#/$defs/foo",
     "$defs": {
-      "foo": { "type": "string" }
+      "foo": {
+        "type": "string",
+        "minLength": 0
+      }
     }
   })JSON");
 
@@ -1695,7 +1703,10 @@ TEST(Lint_2020_12, type_array_to_any_of_4) {
     "type": [ "object", "array" ],
     "$ref": "#/$defs/foo",
     "$defs": {
-      "foo": { "type": "string" }
+      "foo": {
+        "type": "string",
+        "minLength": 0
+      }
     }
   })JSON");
 
@@ -1718,7 +1729,10 @@ TEST(Lint_2020_12, max_contains_covered_by_max_items_1) {
       sourcemeta::jsontoolkit::parse(R"JSON({
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "type": "array",
-    "contains": { "type": "string" },
+    "contains": {
+      "type": "string",
+      "minLength": 0
+    },
     "maxContains": 1,
     "maxItems": 1
   })JSON");
