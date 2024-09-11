@@ -705,8 +705,11 @@ TEST(Lint_draft4, boolean_true_1) {
   const sourcemeta::jsontoolkit::JSON expected =
       sourcemeta::jsontoolkit::parse(R"JSON({
     "$schema": "http://json-schema.org/draft-04/schema#",
+    "type": [ "null", "boolean", "object", "array", "string", "number", "integer" ],
     "properties": {
-      "foo": {}
+      "foo": {
+        "type": [ "null", "boolean", "object", "array", "string", "number", "integer" ]
+      }
     }
   })JSON");
 
