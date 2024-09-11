@@ -34,6 +34,7 @@ template <typename T> auto every_item_is_boolean(const T &container) -> bool {
 // Simplify
 #include "simplify/dependencies_property_tautology.h"
 #include "simplify/dependent_required_tautology.h"
+#include "simplify/equal_numeric_bounds_to_enum.h"
 #include "simplify/maximum_real_for_integer.h"
 #include "simplify/minimum_real_for_integer.h"
 #include "simplify/single_type_array.h"
@@ -189,6 +190,7 @@ auto add(Bundle &bundle, const LinterCategory category) -> void {
     case LinterCategory::Simplify:
       bundle.add<DependenciesPropertyTautology>();
       bundle.add<DependentRequiredTautology>();
+      bundle.add<EqualNumericBoundsToEnum>();
       bundle.add<MaximumRealForInteger>();
       bundle.add<MinimumRealForInteger>();
       bundle.add<SingleTypeArray>();

@@ -12,6 +12,7 @@ noa_library(NAMESPACE sourcemeta PROJECT alterschema NAME linter
     # Simplify
     simplify/dependencies_property_tautology.h
     simplify/dependent_required_tautology.h
+    simplify/equal_numeric_bounds_to_enum.h
     simplify/maximum_real_for_integer.h
     simplify/minimum_real_for_integer.h
     simplify/single_type_array.h

@@ -1699,3 +1699,43 @@ TEST(Lint_2019_09, min_items_given_min_contains_2) {
 
   EXPECT_EQ(document, expected);
 }
+
+TEST(Lint_2019_09, equal_numeric_bounds_to_enum_1) {
+  sourcemeta::jsontoolkit::JSON document =
+      sourcemeta::jsontoolkit::parse(R"JSON({
+    "$schema": "https://json-schema.org/draft/2019-09/schema",
+    "type": "integer",
+    "minimum": 3,
+    "maximum": 3
+  })JSON");
+
+  LINT_AND_FIX_FOR_READABILITY(document);
+
+  const sourcemeta::jsontoolkit::JSON expected =
+      sourcemeta::jsontoolkit::parse(R"JSON({
+    "$schema": "https://json-schema.org/draft/2019-09/schema",
+    "const": 3
+  })JSON");
+
+  EXPECT_EQ(document, expected);
+}
+
+TEST(Lint_2019_09, equal_numeric_bounds_to_enum_2) {
+  sourcemeta::jsontoolkit::JSON document =
+      sourcemeta::jsontoolkit::parse(R"JSON({
+    "$schema": "https://json-schema.org/draft/2019-09/schema",
+    "type": "integer",
+    "minimum": 3,
+    "maximum": 3
+  })JSON");
+
+  LINT_AND_FIX_FOR_ANALYSIS(document);
+
+  const sourcemeta::jsontoolkit::JSON expected =
+      sourcemeta::jsontoolkit::parse(R"JSON({
+    "$schema": "https://json-schema.org/draft/2019-09/schema",
+    "enum": [ 3 ]
+  })JSON");
+
+  EXPECT_EQ(document, expected);
+}
