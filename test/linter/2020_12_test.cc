@@ -1665,6 +1665,7 @@ TEST(Lint_2020_12, type_array_to_any_of_3) {
       {
         "type": "object",
         "properties": {},
+        "minProperties": 0,
         "additionalProperties": {
           "$anchor": "foo",
           "type": "string",
@@ -1759,6 +1760,51 @@ TEST(Lint_2020_12, min_properties_covered_by_required_1) {
     "minProperties": 2,
     "properties": {},
     "required": [ "foo", "bar" ]
+  })JSON");
+
+  EXPECT_EQ(document, expected);
+}
+
+TEST(Lint_2020_12, min_properties_implicit_1) {
+  sourcemeta::jsontoolkit::JSON document =
+      sourcemeta::jsontoolkit::parse(R"JSON({
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "required": [ "foo", "bar" ]
+  })JSON");
+
+  LINT_AND_FIX_FOR_ANALYSIS(document);
+
+  const sourcemeta::jsontoolkit::JSON expected =
+      sourcemeta::jsontoolkit::parse(R"JSON({
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "required": [ "foo", "bar" ],
+    "properties": {},
+    "minProperties": 2
+  })JSON");
+
+  EXPECT_EQ(document, expected);
+}
+
+TEST(Lint_2020_12, min_properties_implicit_2) {
+  sourcemeta::jsontoolkit::JSON document =
+      sourcemeta::jsontoolkit::parse(R"JSON({
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "minProperties": 2,
+    "required": [ "foo", "bar" ]
+  })JSON");
+
+  LINT_AND_FIX_FOR_ANALYSIS(document);
+
+  const sourcemeta::jsontoolkit::JSON expected =
+      sourcemeta::jsontoolkit::parse(R"JSON({
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "properties": {},
+    "required": [ "foo", "bar" ],
+    "minProperties": 2
   })JSON");
 
   EXPECT_EQ(document, expected);
