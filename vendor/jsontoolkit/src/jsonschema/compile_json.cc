@@ -159,6 +159,13 @@ auto value_to_json(const T &value) -> sourcemeta::jsontoolkit::JSON {
     }
 
     return result;
+  } else if constexpr (std::is_same_v<SchemaCompilerValueIndexPair, T>) {
+    result.assign("type", JSON{"index-pair"});
+    JSON data{JSON::make_array()};
+    data.push_back(JSON{value.first});
+    data.push_back(JSON{value.second});
+    result.assign("value", std::move(data));
+    return result;
   } else {
     static_assert(std::is_same_v<SchemaCompilerValueNone, T>);
     return JSON{nullptr};
@@ -217,6 +224,12 @@ struct StepVisitor {
   HANDLE_STEP("assertion", "type-strict", SchemaCompilerAssertionTypeStrict)
   HANDLE_STEP("assertion", "type-strict-any",
               SchemaCompilerAssertionTypeStrictAny)
+  HANDLE_STEP("assertion", "type-string-bounded",
+              SchemaCompilerAssertionTypeStringBounded)
+  HANDLE_STEP("assertion", "type-array-bounded",
+              SchemaCompilerAssertionTypeArrayBounded)
+  HANDLE_STEP("assertion", "type-object-bounded",
+              SchemaCompilerAssertionTypeObjectBounded)
   HANDLE_STEP("assertion", "regex", SchemaCompilerAssertionRegex)
   HANDLE_STEP("assertion", "string-size-less",
               SchemaCompilerAssertionStringSizeLess)
@@ -238,6 +251,9 @@ struct StepVisitor {
   HANDLE_STEP("assertion", "unique", SchemaCompilerAssertionUnique)
   HANDLE_STEP("assertion", "divisible", SchemaCompilerAssertionDivisible)
   HANDLE_STEP("assertion", "string-type", SchemaCompilerAssertionStringType)
+  HANDLE_STEP("assertion", "property-type", SchemaCompilerAssertionPropertyType)
+  HANDLE_STEP("assertion", "property-type-strict",
+              SchemaCompilerAssertionPropertyTypeStrict)
   HANDLE_STEP("assertion", "equals-any", SchemaCompilerAssertionEqualsAny)
   HANDLE_STEP("annotation", "emit", SchemaCompilerAnnotationEmit)
   HANDLE_STEP("annotation", "when-array-size-equal",
@@ -250,14 +266,10 @@ struct StepVisitor {
   HANDLE_STEP("logical", "or", SchemaCompilerLogicalOr)
   HANDLE_STEP("logical", "and", SchemaCompilerLogicalAnd)
   HANDLE_STEP("logical", "xor", SchemaCompilerLogicalXor)
-  HANDLE_STEP("logical", "try-mark", SchemaCompilerLogicalTryMark)
+  HANDLE_STEP("logical", "condition", SchemaCompilerLogicalCondition)
   HANDLE_STEP("logical", "not", SchemaCompilerLogicalNot)
   HANDLE_STEP("logical", "when-type", SchemaCompilerLogicalWhenType)
   HANDLE_STEP("logical", "when-defines", SchemaCompilerLogicalWhenDefines)
-  HANDLE_STEP("logical", "when-adjacent-unmarked",
-              SchemaCompilerLogicalWhenAdjacentUnmarked)
-  HANDLE_STEP("logical", "when-adjacent-marked",
-              SchemaCompilerLogicalWhenAdjacentMarked)
   HANDLE_STEP("logical", "when-array-size-greater",
               SchemaCompilerLogicalWhenArraySizeGreater)
   HANDLE_STEP("logical", "when-array-size-equal",
@@ -268,6 +280,9 @@ struct StepVisitor {
   HANDLE_STEP("loop", "properties-no-annotation",
               SchemaCompilerLoopPropertiesNoAnnotation)
   HANDLE_STEP("loop", "properties-except", SchemaCompilerLoopPropertiesExcept)
+  HANDLE_STEP("loop", "properties-type", SchemaCompilerLoopPropertiesType)
+  HANDLE_STEP("loop", "properties-type-strict",
+              SchemaCompilerLoopPropertiesTypeStrict)
   HANDLE_STEP("loop", "keys", SchemaCompilerLoopKeys)
   HANDLE_STEP("loop", "items", SchemaCompilerLoopItems)
   HANDLE_STEP("loop", "items-unmarked", SchemaCompilerLoopItemsUnmarked)
@@ -307,17 +322,14 @@ auto compiler_template_format_compare(const JSON::String &left,
                    {"absoluteKeywordLocation", 4},
                    {"relativeSchemaLocation", 5},
                    {"relativeInstanceLocation", 6},
-                   {"location", 7},
-                   {"report", 8},
-                   {"dynamic", 9},
-                   {"children", 10}};
+                   {"report", 7},
+                   {"dynamic", 8},
+                   {"children", 9}};
 
-  // We define and control all of these keywords, so if we are missing
-  // some here, then we did something wrong?
-  assert(rank.contains(left));
-  assert(rank.contains(right));
-
-  return rank.at(left) < rank.at(right);
+  constexpr std::uint64_t DEFAULT_RANK{999};
+  const auto left_rank{rank.contains(left) ? rank.at(left) : DEFAULT_RANK};
+  const auto right_rank{rank.contains(right) ? rank.at(right) : DEFAULT_RANK};
+  return left_rank < right_rank;
 }
 
 } // namespace sourcemeta::jsontoolkit

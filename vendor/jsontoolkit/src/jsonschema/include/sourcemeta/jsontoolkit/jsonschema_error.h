@@ -4,6 +4,7 @@
 #include "jsonschema_export.h"
 
 #include <sourcemeta/jsontoolkit/jsonpointer.h>
+#include <sourcemeta/jsontoolkit/uri.h>
 
 #include <exception> // std::exception
 #include <string>    // std::string
@@ -100,16 +101,29 @@ private:
 };
 
 /// @ingroup jsonschema
-/// An error that represents a schema evaluation error event
-class SOURCEMETA_JSONTOOLKIT_JSONSCHEMA_EXPORT SchemaEvaluationError
+/// An error that represents a schema compilation failure event
+class SOURCEMETA_JSONTOOLKIT_JSONSCHEMA_EXPORT SchemaCompilationError
     : public std::exception {
 public:
-  SchemaEvaluationError(std::string message) : message_{std::move(message)} {}
+  SchemaCompilationError(const URI &base, const Pointer &schema_location,
+                         std::string message)
+      : base_{base}, schema_location_{schema_location},
+        message_{std::move(message)} {}
   [[nodiscard]] auto what() const noexcept -> const char * override {
     return this->message_.c_str();
   }
 
+  [[nodiscard]] auto base() const noexcept -> const URI & {
+    return this->base_;
+  }
+
+  [[nodiscard]] auto location() const noexcept -> const Pointer & {
+    return this->schema_location_;
+  }
+
 private:
+  URI base_;
+  Pointer schema_location_;
   std::string message_;
 };
 

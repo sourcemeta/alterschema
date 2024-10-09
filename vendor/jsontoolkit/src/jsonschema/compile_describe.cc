@@ -45,8 +45,8 @@ auto escape_string(const std::string &input) -> std::string {
 }
 
 auto describe_type_check(const bool valid, const JSON::Type current,
-                         const JSON::Type expected,
-                         std::ostringstream &message) -> void {
+                         const JSON::Type expected, std::ostringstream &message)
+    -> void {
   message << "The value was expected to be of type ";
   message << to_string(expected);
   if (!valid) {
@@ -105,7 +105,7 @@ auto describe_reference(const JSON &target) -> std::string {
   return message.str();
 }
 
-auto is_within_keyword(const Pointer &evaluate_path,
+auto is_within_keyword(const WeakPointer &evaluate_path,
                        const std::string &keyword) -> bool {
   return std::any_of(evaluate_path.cbegin(), evaluate_path.cend(),
                      [&keyword](const auto &token) {
@@ -122,9 +122,9 @@ auto unknown() -> std::string {
 
 struct DescribeVisitor {
   const bool valid;
-  const Pointer &evaluate_path;
+  const WeakPointer &evaluate_path;
   const std::string &keyword;
-  const Pointer &instance_location;
+  const WeakPointer &instance_location;
   const JSON &target;
   const JSON &annotation;
 
@@ -216,12 +216,8 @@ struct DescribeVisitor {
     return message.str();
   }
 
-  auto operator()(const SchemaCompilerLogicalTryMark &) const -> std::string {
-    assert(this->keyword == "if");
-    std::ostringstream message;
-    message << "The " << to_string(this->target.type())
-            << " value was tested against the conditional subschema";
-    return message.str();
+  auto operator()(const SchemaCompilerLogicalCondition &) const -> std::string {
+    return unknown();
   }
 
   auto operator()(const SchemaCompilerLogicalNot &) const -> std::string {
@@ -524,8 +520,8 @@ struct DescribeVisitor {
     return unknown();
   }
 
-  auto
-  operator()(const SchemaCompilerAnnotationToParent &) const -> std::string {
+  auto operator()(const SchemaCompilerAnnotationToParent &) const
+      -> std::string {
     if (this->keyword == "unevaluatedItems" && this->annotation.is_boolean() &&
         this->annotation.to_boolean()) {
       assert(this->target.is_array());
@@ -583,8 +579,8 @@ struct DescribeVisitor {
     return unknown();
   }
 
-  auto
-  operator()(const SchemaCompilerLoopProperties &step) const -> std::string {
+  auto operator()(const SchemaCompilerLoopProperties &step) const
+      -> std::string {
     assert(this->keyword == "additionalProperties");
     std::ostringstream message;
     if (step.children.size() == 1 &&
@@ -637,6 +633,22 @@ struct DescribeVisitor {
     return message.str();
   }
 
+  auto operator()(const SchemaCompilerLoopPropertiesType &step) const
+      -> std::string {
+    std::ostringstream message;
+    message << "The object properties were expected to be of type "
+            << to_string(step.value);
+    return message.str();
+  }
+
+  auto operator()(const SchemaCompilerLoopPropertiesTypeStrict &step) const
+      -> std::string {
+    std::ostringstream message;
+    message << "The object properties were expected to be of type "
+            << to_string(step.value);
+    return message.str();
+  }
+
   auto operator()(const SchemaCompilerLoopKeys &) const -> std::string {
     assert(this->keyword == "propertyNames");
     assert(this->target.is_object());
@@ -682,8 +694,8 @@ struct DescribeVisitor {
     return message.str();
   }
 
-  auto
-  operator()(const SchemaCompilerLoopItemsUnmarked &) const -> std::string {
+  auto operator()(const SchemaCompilerLoopItemsUnmarked &) const
+      -> std::string {
     return unknown();
   }
 
@@ -742,8 +754,8 @@ struct DescribeVisitor {
     return message.str();
   }
 
-  auto
-  operator()(const SchemaCompilerAssertionDefines &step) const -> std::string {
+  auto operator()(const SchemaCompilerAssertionDefines &step) const
+      -> std::string {
     std::ostringstream message;
     message << "The object value was expected to define the property "
             << escape_string(step_value(step));
@@ -795,8 +807,8 @@ struct DescribeVisitor {
     return message.str();
   }
 
-  auto
-  operator()(const SchemaCompilerAssertionType &step) const -> std::string {
+  auto operator()(const SchemaCompilerAssertionType &step) const
+      -> std::string {
     std::ostringstream message;
     describe_type_check(this->valid, this->target.type(), step_value(step),
                         message);
@@ -822,8 +834,8 @@ struct DescribeVisitor {
     return message.str();
   }
 
-  auto
-  operator()(const SchemaCompilerAssertionTypeAny &step) const -> std::string {
+  auto operator()(const SchemaCompilerAssertionTypeAny &step) const
+      -> std::string {
     std::ostringstream message;
     describe_types_check(this->valid, this->target.type(), step_value(step),
                          message);
@@ -838,8 +850,73 @@ struct DescribeVisitor {
     return message.str();
   }
 
-  auto
-  operator()(const SchemaCompilerAssertionRegex &step) const -> std::string {
+  auto operator()(const SchemaCompilerAssertionTypeStringBounded &step) const
+      -> std::string {
+    std::ostringstream message;
+
+    const auto minimum{std::get<0>(step.value)};
+    const auto maximum{std::get<1>(step.value)};
+    if (minimum == 0 && maximum.has_value()) {
+      message << "The value was expected to consist of a string of at most "
+              << maximum.value()
+              << (maximum.value() == 1 ? " character" : " characters");
+    } else if (maximum.has_value()) {
+      message << "The value was expected to consist of a string of " << minimum
+              << " to " << maximum.value()
+              << (maximum.value() == 1 ? " character" : " characters");
+    } else {
+      message << "The value was expected to consist of a string of at least "
+              << minimum << (minimum == 1 ? " character" : " characters");
+    }
+
+    return message.str();
+  }
+
+  auto operator()(const SchemaCompilerAssertionTypeArrayBounded &step) const
+      -> std::string {
+    std::ostringstream message;
+
+    const auto minimum{std::get<0>(step.value)};
+    const auto maximum{std::get<1>(step.value)};
+    if (minimum == 0 && maximum.has_value()) {
+      message << "The value was expected to consist of an array of at most "
+              << maximum.value() << (maximum.value() == 1 ? " item" : " items");
+    } else if (maximum.has_value()) {
+      message << "The value was expected to consist of an array of " << minimum
+              << " to " << maximum.value()
+              << (maximum.value() == 1 ? " item" : " items");
+    } else {
+      message << "The value was expected to consist of an array of at least "
+              << minimum << (minimum == 1 ? " item" : " items");
+    }
+
+    return message.str();
+  }
+
+  auto operator()(const SchemaCompilerAssertionTypeObjectBounded &step) const
+      -> std::string {
+    std::ostringstream message;
+
+    const auto minimum{std::get<0>(step.value)};
+    const auto maximum{std::get<1>(step.value)};
+    if (minimum == 0 && maximum.has_value()) {
+      message << "The value was expected to consist of an object of at most "
+              << maximum.value()
+              << (maximum.value() == 1 ? " property" : " properties");
+    } else if (maximum.has_value()) {
+      message << "The value was expected to consist of an object of " << minimum
+              << " to " << maximum.value()
+              << (maximum.value() == 1 ? " property" : " properties");
+    } else {
+      message << "The value was expected to consist of an object of at least "
+              << minimum << (minimum == 1 ? " property" : " properties");
+    }
+
+    return message.str();
+  }
+
+  auto operator()(const SchemaCompilerAssertionRegex &step) const
+      -> std::string {
     assert(this->target.is_string());
     std::ostringstream message;
     message << "The string value " << escape_string(this->target.to_string())
@@ -1096,8 +1173,8 @@ struct DescribeVisitor {
     return unknown();
   }
 
-  auto
-  operator()(const SchemaCompilerAssertionEqual &step) const -> std::string {
+  auto operator()(const SchemaCompilerAssertionEqual &step) const
+      -> std::string {
     std::ostringstream message;
     const auto &value{step_value(step)};
     message << "The " << to_string(this->target.type()) << " value ";
@@ -1131,8 +1208,8 @@ struct DescribeVisitor {
     return message.str();
   }
 
-  auto
-  operator()(const SchemaCompilerAssertionGreater &step) const -> std::string {
+  auto operator()(const SchemaCompilerAssertionGreater &step) const
+      -> std::string {
     std::ostringstream message;
     const auto &value{step_value(step)};
     message << "The " << to_string(this->target.type()) << " value ";
@@ -1147,8 +1224,8 @@ struct DescribeVisitor {
     return message.str();
   }
 
-  auto
-  operator()(const SchemaCompilerAssertionLess &step) const -> std::string {
+  auto operator()(const SchemaCompilerAssertionLess &step) const
+      -> std::string {
     std::ostringstream message;
     const auto &value{step_value(step)};
     message << "The " << to_string(this->target.type()) << " value ";
@@ -1267,6 +1344,44 @@ struct DescribeVisitor {
     return message.str();
   }
 
+  auto operator()(const SchemaCompilerAssertionPropertyType &step) const
+      -> std::string {
+    std::ostringstream message;
+    const auto &value{step_value(step)};
+    if (!this->valid && value == JSON::Type::Real &&
+        this->target.type() == JSON::Type::Integer) {
+      message
+          << "The value was expected to be a real number but it was an integer";
+    } else if (!this->valid && value == JSON::Type::Integer &&
+               this->target.type() == JSON::Type::Real) {
+      message
+          << "The value was expected to be an integer but it was a real number";
+    } else {
+      describe_type_check(this->valid, this->target.type(), value, message);
+    }
+
+    return message.str();
+  }
+
+  auto operator()(const SchemaCompilerAssertionPropertyTypeStrict &step) const
+      -> std::string {
+    std::ostringstream message;
+    const auto &value{step_value(step)};
+    if (!this->valid && value == JSON::Type::Real &&
+        this->target.type() == JSON::Type::Integer) {
+      message
+          << "The value was expected to be a real number but it was an integer";
+    } else if (!this->valid && value == JSON::Type::Integer &&
+               this->target.type() == JSON::Type::Real) {
+      message
+          << "The value was expected to be an integer but it was a real number";
+    } else {
+      describe_type_check(this->valid, this->target.type(), value, message);
+    }
+
+    return message.str();
+  }
+
   auto operator()(const SchemaCompilerLoopPropertiesMatch &step) const
       -> std::string {
     assert(!step.children.empty());
@@ -1282,8 +1397,8 @@ struct DescribeVisitor {
     return message.str();
   }
 
-  auto
-  operator()(const SchemaCompilerLogicalWhenType &step) const -> std::string {
+  auto operator()(const SchemaCompilerLogicalWhenType &step) const
+      -> std::string {
     if (this->keyword == "patternProperties") {
       assert(!step.children.empty());
       assert(this->target.is_object());
@@ -1510,46 +1625,6 @@ struct DescribeVisitor {
     return unknown();
   }
 
-  auto operator()(const SchemaCompilerLogicalWhenAdjacentUnmarked &step) const
-      -> std::string {
-    if (this->keyword == "else") {
-      assert(!step.children.empty());
-      std::ostringstream message;
-      message << "Because of the conditional outcome, the "
-              << to_string(this->target.type())
-              << " value was expected to validate against the ";
-      if (step.children.size() > 1) {
-        message << step.children.size() << " given subschemas";
-      } else {
-        message << "given subschema";
-      }
-
-      return message.str();
-    }
-
-    return unknown();
-  }
-
-  auto operator()(const SchemaCompilerLogicalWhenAdjacentMarked &step) const
-      -> std::string {
-    if (this->keyword == "then") {
-      assert(!step.children.empty());
-      std::ostringstream message;
-      message << "Because of the conditional outcome, the "
-              << to_string(this->target.type())
-              << " value was expected to validate against the ";
-      if (step.children.size() > 1) {
-        message << step.children.size() << " given subschemas";
-      } else {
-        message << "given subschema";
-      }
-
-      return message.str();
-    }
-
-    return unknown();
-  }
-
   auto operator()(const SchemaCompilerAssertionPropertyDependencies &step) const
       -> std::string {
     if (this->keyword == "dependentRequired") {
@@ -1639,12 +1714,12 @@ struct DescribeVisitor {
       -> std::string {
     return unknown();
   }
-  auto
-  operator()(const SchemaCompilerLogicalWhenDefines &) const -> std::string {
+  auto operator()(const SchemaCompilerLogicalWhenDefines &) const
+      -> std::string {
     return unknown();
   }
-  auto
-  operator()(const SchemaCompilerLoopPropertiesRegex &) const -> std::string {
+  auto operator()(const SchemaCompilerLoopPropertiesRegex &) const
+      -> std::string {
     return unknown();
   }
 };
@@ -1656,8 +1731,9 @@ namespace sourcemeta::jsontoolkit {
 // TODO: What will unlock even better error messages is being able to
 // get the subschema being evaluated along with the keyword
 auto describe(const bool valid, const SchemaCompilerTemplate::value_type &step,
-              const Pointer &evaluate_path, const Pointer &instance_location,
-              const JSON &instance, const JSON &annotation) -> std::string {
+              const WeakPointer &evaluate_path,
+              const WeakPointer &instance_location, const JSON &instance,
+              const JSON &annotation) -> std::string {
   assert(evaluate_path.empty() || evaluate_path.back().is_property());
   return std::visit<std::string>(
       DescribeVisitor{
