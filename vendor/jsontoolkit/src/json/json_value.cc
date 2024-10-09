@@ -69,6 +69,24 @@ auto JSON::make_array() -> JSON { return JSON{Array{}}; }
 
 auto JSON::make_object() -> JSON { return JSON{Object{}}; }
 
+auto JSON::size(const String &value) noexcept -> std::size_t {
+  std::size_t result{0};
+
+  // We want to count the number of logical characters,
+  // not the number of bytes
+  for (const auto character : value) {
+    // In UTF-8, continuation bytes (i.e. not the first) are
+    // encoded as `10xxxxxx`, so this means we are at the start
+    // of a code-point
+    // See https://en.wikipedia.org/wiki/UTF-8#Encoding
+    if ((character & 0b11000000) != 0b10000000) {
+      result += 1;
+    }
+  }
+
+  return result;
+}
+
 auto JSON::operator<(const JSON &other) const noexcept -> bool {
   if ((this->type() == Type::Integer && other.type() == Type::Real) ||
       (this->type() == Type::Real && other.type() == Type::Integer)) {
@@ -284,27 +302,15 @@ auto JSON::operator-=(const JSON &substractive) -> JSON & {
   }
 }
 
-[[nodiscard]] auto
-JSON::at(const typename JSON::Array::size_type index) const -> const JSON & {
-  // In practice, this case only applies in some edge cases when
-  // using JSON Pointers
-  if (this->is_object()) [[unlikely]] {
-    return this->at(std::to_string(index));
-  }
-
+[[nodiscard]] auto JSON::at(const typename JSON::Array::size_type index) const
+    -> const JSON & {
   assert(this->is_array());
   assert(index < this->size());
   return std::get<JSON::Array>(this->data).data.at(index);
 }
 
-[[nodiscard]] auto
-JSON::at(const typename JSON::Array::size_type index) -> JSON & {
-  // In practice, this case only applies in some edge cases when
-  // using JSON Pointers
-  if (this->is_object()) [[unlikely]] {
-    return this->at(std::to_string(index));
-  }
-
+[[nodiscard]] auto JSON::at(const typename JSON::Array::size_type index)
+    -> JSON & {
   assert(this->is_array());
   assert(index < this->size());
   return std::get<JSON::Array>(this->data).data.at(index);
@@ -353,21 +359,7 @@ JSON::at(const typename JSON::Array::size_type index) -> JSON & {
     return std::get<JSON::Array>(this->data).data.size();
   } else {
     assert(this->is_string());
-    std::size_t result{0};
-
-    // We want to count the number of logical characters,
-    // not the number of bytes
-    for (const auto character : std::get<JSON::String>(this->data)) {
-      // In UTF-8, continuation bytes (i.e. not the first) are
-      // encoded as `10xxxxxx`, so this means we are at the start
-      // of a code-point
-      // See https://en.wikipedia.org/wiki/UTF-8#Encoding
-      if ((character & 0b11000000) != 0b10000000) {
-        result += 1;
-      }
-    }
-
-    return result;
+    return JSON::size(std::get<JSON::String>(this->data));
   }
 }
 
@@ -450,6 +442,19 @@ JSON::at(const typename JSON::Array::size_type index) -> JSON & {
   }
 }
 
+[[nodiscard]] auto JSON::try_at(const JSON::String &key) const
+    -> std::optional<std::reference_wrapper<const JSON>> {
+  assert(this->is_object());
+
+  const auto &object{std::get<Object>(this->data)};
+  const auto value{object.data.find(key)};
+
+  if (value == object.data.cend()) {
+    return std::nullopt;
+  }
+  return value->second;
+}
+
 [[nodiscard]] auto JSON::defines(const JSON::String &key) const -> bool {
   assert(this->is_object());
   return std::get<Object>(this->data).data.contains(key);
@@ -474,6 +479,10 @@ JSON::defines_any(std::initializer_list<JSON::String> keys) const -> bool {
 [[nodiscard]] auto JSON::unique() const -> bool {
   assert(this->is_array());
   const auto &items{std::get<JSON::Array>(this->data).data};
+  // Arrays of 0 or 1 item are unique by definition
+  if (items.size() <= 1) {
+    return true;
+  }
 
   // Otherwise std::unique would require us to create a copy of the contents
   for (auto iterator = items.cbegin(); iterator != items.cend(); ++iterator) {
@@ -534,8 +543,8 @@ auto JSON::assign(const JSON::String &key, JSON &&value) -> void {
   std::get<Object>(this->data).data.insert_or_assign(key, std::move(value));
 }
 
-auto JSON::assign_if_missing(const JSON::String &key,
-                             const JSON &value) -> void {
+auto JSON::assign_if_missing(const JSON::String &key, const JSON &value)
+    -> void {
   assert(this->is_object());
   if (!this->defines(key)) {
     this->assign(key, value);
