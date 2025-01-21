@@ -6,6 +6,7 @@ vendor/googletest
 vendor/googletest.mask
 vendor/vendorpull
 vendor/jsontoolkit
+vendor/noa
 cmake
 .ackrc
 .editorconfig
@@ -13,5 +14,3 @@ Brewfile
 DEPENDENCIES
 Makefile
 README.markdown
-vendor/noa/vendor/googletest
-vendor/noa/vendor/googlebenchmark
