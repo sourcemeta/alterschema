@@ -13,3 +13,5 @@ Brewfile
 DEPENDENCIES
 Makefile
 README.markdown
+vendor/noa/vendor/googletest
+vendor/noa/vendor/googlebenchmark
